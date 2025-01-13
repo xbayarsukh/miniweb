@@ -13,7 +13,7 @@ use App\Models\Order;
 class BillingController extends Controller
 {
     public function index() {
-        $orders = Order::join('users', 'users.id', 'orders.user_id')->join('general_settings', 'general_settings.user_id', 'users.id')->orderBy('orders.id', 'DESC')->paginate(10);
+        $orders = Order::join('users', 'users.id', 'orders.user_id')->join('general_settings', 'general_settings.user_id', 'users.id')->orderBy('orders.id', 'DESC')->select('orders.*', 'users.name')->paginate(10);
         return Inertia::render('SuperAdmin/Billing/Billing', ['orders' => $orders, 'pagination' => $orders->onEachSide(1)]);
     }
 }

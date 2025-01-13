@@ -1,5 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import MoneyFormat from '../Components/MoneyFormat';
+import { DateTime } from 'luxon';
 import React, { useRef, useEffect, useState, useLayoutEffect } from "react";
 import {
     Chart,
@@ -26,7 +28,7 @@ Chart.register(
     Filler
 );
 
-export default function Dashboard({ users }) {
+export default function Dashboard({ users, orders1,orders2,orders3,orders4,orders5,ordersToday,orders, newUser,posts}) {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null); // Ref to store the chart instance
     const canvasRef = useRef(null);
@@ -58,11 +60,7 @@ export default function Dashboard({ users }) {
                     "May",
                     "Jun",
                     "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec",
+                    "Aug"   
                 ],
                 datasets: [
                     {
@@ -73,18 +71,7 @@ export default function Dashboard({ users }) {
                         borderWidth: 3, // Ensure the value is consistent
                         backgroundColor: gradientStroke1,
                         fill: true, // This will use the 'Filler' plugin to fill the area
-                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                        maxBarThickness: 6,
-                    },
-                    {
-                        label: "Websites",
-                        tension: 0.4,
-                        pointRadius: 0,
-                        borderColor: "#cb0c9f",
-                        borderWidth: 3, // Ensure the value is consistent
-                        backgroundColor: gradientStroke1,
-                        fill: true, // This will use the 'Filler' plugin to fill the area
-                        data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+                        data: [orders1.length, orders2.length,orders3.length,orders4.length,orders5.length],
                         maxBarThickness: 6,
                     },
                 ],
@@ -187,13 +174,10 @@ export default function Dashboard({ users }) {
                                     <div className="flex-none w-2/3 max-w-full px-3">
                                         <div>
                                             <p className="mb-0 font-sans text-sm font-semibold leading-normal">
-                                                Today's Money
+                                                Today's Billing
                                             </p>
                                             <h5 className="mb-0 font-bold">
-                                                $53,000
-                                                <span className="text-sm leading-normal font-weight-bolder text-lime-500">
-                                                    +55%
-                                                </span>
+                                                {ordersToday.length}
                                             </h5>
                                         </div>
                                     </div>
@@ -217,10 +201,7 @@ export default function Dashboard({ users }) {
                                                 Today's Users
                                             </p>
                                             <h5 className="mb-0 font-bold">
-                                                2,300
-                                                <span className="text-sm leading-normal font-weight-bolder text-lime-500">
-                                                    +3%
-                                                </span>
+                                                {users.length}
                                             </h5>
                                         </div>
                                     </div>
@@ -244,10 +225,7 @@ export default function Dashboard({ users }) {
                                                 New Clients
                                             </p>
                                             <h5 className="mb-0 font-bold">
-                                                +3,462
-                                                <span className="text-sm leading-normal text-red-600 font-weight-bolder">
-                                                    -2%
-                                                </span>
+                                                {newUser.length}
                                             </h5>
                                         </div>
                                     </div>
@@ -415,10 +393,10 @@ export default function Dashboard({ users }) {
                                                     </svg>
                                                 </div>
                                                 <p className="mt-1 mb-0 text-xs font-semibold leading-tight">
-                                                    Clicks
+                                                    Мэдээ
                                                 </p>
                                             </div>
-                                            <h4 className="font-bold">2m</h4>
+                                            <h4 className="font-bold">{posts.length}</h4>
                                             <div className="text-xs h-0.75 flex w-3/4 overflow-visible rounded-lg bg-gray-200">
                                                 <div
                                                     className="duration-600 ease-soft -mt-0.38 w-9/10 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap rounded-lg bg-slate-700 text-center text-white transition-all"
@@ -472,7 +450,7 @@ export default function Dashboard({ users }) {
                                                     </svg>
                                                 </div>
                                                 <p className="mt-1 mb-0 text-xs font-semibold leading-tight">
-                                                    Sales
+                                                    Үйлчилгээ
                                                 </p>
                                             </div>
                                             <h4 className="font-bold">435$</h4>
@@ -532,7 +510,7 @@ export default function Dashboard({ users }) {
                                                     </svg>
                                                 </div>
                                                 <p className="mt-1 mb-0 text-xs font-semibold leading-tight">
-                                                    Items
+                                                    Portfolio
                                                 </p>
                                             </div>
                                             <h4 className="font-bold">43</h4>
@@ -581,390 +559,92 @@ export default function Dashboard({ users }) {
                             <div className="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
                                 <div className="flex flex-wrap mt-0 -mx-3">
                                     <div className="flex-none w-7/12 max-w-full px-3 mt-0 lg:w-1/2 lg:flex-none">
-                                        <h6>Projects</h6>
-                                        <p className="mb-0 text-sm leading-normal">
-                                            <i className="fa fa-check text-cyan-500"></i>
-                                            <span className="ml-1 font-semibold">
-                                                30 done
-                                            </span>
-                                            this month
-                                        </p>
+                                        <h6>Bill</h6>                                       
                                     </div>
-                                    <div className="flex-none w-5/12 max-w-full px-3 my-auto text-right lg:w-1/2 lg:flex-none">
-                                        <div className="relative pr-6 lg:float-right">
-                                            <a
-                                                className="cursor-pointer"
-                                                aria-expanded="false"
-                                            >
-                                                <i className="fa fa-ellipsis-v text-slate-400"></i>
-                                            </a>
-                                            <p className="hidden transform-dropdown-show"></p>
-
-                                            <ul className="z-100 text-sm transform-dropdown shadow-soft-3xl duration-250 before:duration-350 before:font-awesome before:ease-soft min-w-44 -ml-34 before:text-5.5 pointer-events-none absolute top-0 m-0 mt-2 list-none rounded-lg border-0 border-solid border-transparent bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:top-0 before:right-7 before:left-auto before:z-40 before:text-white before:transition-all before:content-['\f0d8']">
-                                                <li className="relative">
-                                                    <a
-                                                        className="py-1.2 lg:ease-soft clear-both block w-full whitespace-nowrap rounded-lg border-0 bg-transparent px-4 text-left font-normal text-slate-500 lg:transition-colors lg:duration-300"
-                                                        href="javascript:;"
-                                                    >
-                                                        Action
-                                                    </a>
-                                                </li>
-                                                <li className="relative">
-                                                    <a
-                                                        className="py-1.2 lg:ease-soft clear-both block w-full whitespace-nowrap rounded-lg border-0 bg-transparent px-4 text-left font-normal text-slate-500 lg:transition-colors lg:duration-300"
-                                                        href="javascript:;"
-                                                    >
-                                                        Another action
-                                                    </a>
-                                                </li>
-                                                <li className="relative">
-                                                    <a
-                                                        className="py-1.2 lg:ease-soft clear-both block w-full whitespace-nowrap rounded-lg border-0 bg-transparent px-4 text-left font-normal text-slate-500 lg:transition-colors lg:duration-300"
-                                                        href="javascript:;"
-                                                    >
-                                                        Something else here
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                  
                                 </div>
                             </div>
                             <div className="flex-auto p-6 px-0 pb-2">
                                 <div className="overflow-x-auto">
                                     <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                                        <thead className="align-bottom">
-                                            <tr>
-                                                <th className="px-6 py-3 font-bold tracking-normal text-left uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
-                                                    Companies
-                                                </th>
-                                                <th className="px-6 py-3 pl-2 font-bold tracking-normal text-left uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
-                                                    Members
-                                                </th>
-                                                <th className="px-6 py-3 font-bold tracking-normal text-center uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
-                                                    Budget
-                                                </th>
-                                                <th className="px-6 py-3 font-bold tracking-normal text-center uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
-                                                    Completion
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="flex px-2 py-1">
-                                                        <div>
-                                                            <img
-                                                                src="./assets/img/small-logos/logo-xd.svg"
-                                                                className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
-                                                                alt="xd"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col justify-center">
-                                                            <h6 className="mb-0 text-sm leading-normal">
-                                                                Soft UI XD
-                                                                Version
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="mt-2 avatar-group">
-                                                        
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <span className="text-xs font-semibold leading-tight">
-                                                        {" "}
-                                                        $14,000{" "}
-                                                    </span>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="w-3/4 mx-auto">
-                                                        <div>
-                                                            <div>
-                                                                <span className="text-xs font-semibold leading-tight">
-                                                                    60%
+                                    <thead className="align-bottom">
+                                        <tr>
+                                        <th className="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Захиалгын дугаар</th>
+                                            <th className="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Хэрэглэгч</th>
+                                            <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Багц</th>
+                                            <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Үнийн дүн</th>
+                                            <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status</th>
+                                            <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Үүссэн огноо</th>
+                                            <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Төлбөрийн огноо</th>
+                                            <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                          {orders.map((order) => (
+                            <tr>
+                              <td className="py-2 px-3 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                <div className="flex px-2 py-1">
+                                  <div className="flex flex-col justify-center">
+                                    <h6 className="mb-0 text-sm leading-normal">{order.order_no}</h6>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                <div className="flex px-3 py-1">
+                                  <div className="flex flex-col justify-center">
+                                    <h6 className="mb-0 text-sm leading-normal">{order.name}</h6>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="px-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                  <p className="mb-0 text-xs font-semibold leading-tight">
+                                      {order.month > 0 ? '1 сарын багц' : ('Тrial Багц ' + order.day + ' хоног')}
+                                  </p>
+                              </td>
+                              <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                            <p className="mb-0 text-xs font-semibold leading-tight">
+                                                                <MoneyFormat amount={order.total_price} />
+                                                            </p>
+                                                        </td>
+                              <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                <span class={"bg-gradient-to-tl "+(order.payment_status == "paid"?"from-green-600 to-lime-400": "from-red-600 to-rose-400")+" px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"}>
+                                                                {order.payment_status == "paid" ? "Төлсөн" : "Төлөөгүй"}
+                                                            </span>
+                              </td>
+                              
+                              <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                              {/* <p className="mb-0 text-xs leading-tight text-slate-400">{order.created_at}</p> */}
+                              <span className="text-xs font-semibold leading-tight text-slate-400">
+                                                                    {(() => {
+                                                                        const timestamp = order.created_at;  // UTC timestamp
+                                                                        // Parse the UTC timestamp and convert it to the desired time zone
+                                                                        const date = DateTime.fromISO(timestamp, { zone: 'utc' }).setZone('Asia/Ulaanbaatar');
+                              
+                                                                        // Get the formatted date in the correct time zone
+                                                                        const formattedDate = date.toFormat("yyyy/MM/dd, HH:mm");                              
+                                                                        return <div>{formattedDate}</div>;
+                                                                    })()}
                                                                 </span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                            <div
-                                                                className="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-3/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                role="progressbar"
-                                                                aria-valuenow="60"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="flex px-2 py-1">
-                                                        <div>
-                                                            <img
-                                                                src="./assets/img/small-logos/logo-atlassian.svg"
-                                                                className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
-                                                                alt="atlassian"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col justify-center">
-                                                            <h6 className="mb-0 text-sm leading-normal">
-                                                                Add Progress
-                                                                Track
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="mt-2 avatar-group">
-                                                        
-                                                        
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <span className="text-xs font-semibold leading-tight">
-                                                        {" "}
-                                                        $3,000{" "}
-                                                    </span>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="w-3/4 mx-auto">
-                                                        <div>
-                                                            <div>
-                                                                <span className="text-xs font-semibold leading-tight">
-                                                                    10%
+                              </td>
+                              <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                              {/* <p className="mb-0 text-xs leading-tight text-slate-400">{order.updated_at}</p> */}
+                              <span className="text-xs font-semibold leading-tight text-slate-400">
+                                                                    {(() => {
+                                                                        const timestamp = order.updated_at;  // UTC timestamp
+                                                                        // Parse the UTC timestamp and convert it to the desired time zone
+                                                                        const date = DateTime.fromISO(timestamp, { zone: 'utc' }).setZone('Asia/Ulaanbaatar');
+                              
+                                                                        // Get the formatted date in the correct time zone
+                                                                        const formattedDate = date.toFormat("yyyy/MM/dd, HH:mm");                              
+                                                                        return <div>{formattedDate}</div>;
+                                                                    })()}
                                                                 </span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                            <div
-                                                                className="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 w-1/10 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                role="progressbar"
-                                                                aria-valuenow="10"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="flex px-2 py-1">
-                                                        <div>
-                                                            <img
-                                                                src="./assets/img/small-logos/logo-slack.svg"
-                                                                className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
-                                                                alt="team7"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col justify-center">
-                                                            <h6 className="mb-0 text-sm leading-normal">
-                                                                Fix Platform
-                                                                Errors
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="mt-2 avatar-group">
-                                                        
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <span className="text-xs font-semibold leading-tight">
-                                                        {" "}
-                                                        Not set{" "}
-                                                    </span>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="w-3/4 mx-auto">
-                                                        <div>
-                                                            <div>
-                                                                <span className="text-xs font-semibold leading-tight">
-                                                                    100%
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                            <div
-                                                                className="duration-600 ease-soft bg-gradient-to-tl from-green-600 to-lime-400 -mt-0.38 -ml-px flex h-1.5 w-full flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                role="progressbar"
-                                                                aria-valuenow="100"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="flex px-2 py-1">
-                                                        <div>
-                                                            <img
-                                                                src="./assets/img/small-logos/logo-spotify.svg"
-                                                                className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
-                                                                alt="spotify"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col justify-center">
-                                                            <h6 className="mb-0 text-sm leading-normal">
-                                                                Launch our
-                                                                Mobile App
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="mt-2 avatar-group">
-                                                        
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <span className="text-xs font-semibold leading-tight">
-                                                        {" "}
-                                                        $20,500{" "}
-                                                    </span>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="w-3/4 mx-auto">
-                                                        <div>
-                                                            <div>
-                                                                <span className="text-xs font-semibold leading-tight">
-                                                                    100%
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                            <div
-                                                                className="duration-600 ease-soft bg-gradient-to-tl from-green-600 to-lime-400 -mt-0.38 -ml-px flex h-1.5 w-full flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                role="progressbar"
-                                                                aria-valuenow="100"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="flex px-2 py-1">
-                                                        <div>
-                                                            <img
-                                                                src="./assets/img/small-logos/logo-jira.svg"
-                                                                className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
-                                                                alt="jira"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col justify-center">
-                                                            <h6 className="mb-0 text-sm leading-normal">
-                                                                Add the New
-                                                                Pricing Page
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="mt-2 avatar-group">
-                                                        <a
-                                                            href="javascript:;"
-                                                            className="relative z-20 inline-flex items-center justify-center w-6 h-6 text-xs text-white transition-all duration-200 border-2 border-white border-solid rounded-full ease-soft-in-out hover:z-30"
-                                                            data-placement="bottom"
-                                                        >
-                                                            <canvas ref={canvasRef} className="w-full h-full rounded-full"></canvas>
-                                                        </a>
-                                                        <div className="hidden px-2 py-1 text-sm text-white bg-black rounded-lg">
-                                                            Ryan Tompson
-                                                            <div
-                                                                className="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']"
-                                                                data-popper-arrow
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <span className="text-xs font-semibold leading-tight">
-                                                        {" "}
-                                                        $500{" "}
-                                                    </span>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                                                    <div className="w-3/4 mx-auto">
-                                                        <div>
-                                                            <div>
-                                                                <span className="text-xs font-semibold leading-tight">
-                                                                    25%
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                            <div
-                                                                className="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-1/4 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                role="progressbar"
-                                                                aria-valuenow="25"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="25"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                                                    <div className="flex px-2 py-1">
-                                                        <div>
-                                                            <img
-                                                                src="./assets/img/small-logos/logo-invision.svg"
-                                                                className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
-                                                                alt="invision"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col justify-center">
-                                                            <h6 className="mb-0 text-sm leading-normal">
-                                                                Redesign New
-                                                                Online Shop
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                                                    <div className="mt-2 avatar-group">
-                                                        
-                                                    </div>
-                                                </td>
-                                                <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-0 whitespace-nowrap">
-                                                    <span className="text-xs font-semibold leading-tight">
-                                                        {" "}
-                                                        $2,000{" "}
-                                                    </span>
-                                                </td>
-                                                <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                                                    <div className="w-3/4 mx-auto">
-                                                        <div>
-                                                            <div>
-                                                                <span className="text-xs font-semibold leading-tight">
-                                                                    40%
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                            <div
-                                                                className="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-2/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                role="progressbar"
-                                                                aria-valuenow="40"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="40"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                              </td>
+                             
+                            </tr>
+                          ))} 
+                          
+                        </tbody>
                                     </table>
                                 </div>
                             </div>

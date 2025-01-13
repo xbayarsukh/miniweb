@@ -44,7 +44,7 @@ export default function Billing({orders, pagination}){
                                 <div className="flex px-3 py-1">
                                   <div className="flex flex-col justify-center">
                                     <h6 className="mb-0 text-sm leading-normal">{order.name}</h6>
-                                    <p className="mb-0 text-xs leading-tight text-slate-400">{order.email}</p>
+                                   
                                   </div>
                                 </div>
                               </td>

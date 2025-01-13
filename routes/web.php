@@ -105,6 +105,10 @@ Route::group(['prefix'=>'admin'],function () {
     Route::middleware([RoleMiddleware::class])->group(function () {
         Route::group(['prefix'=>'users'],function () {
             Route::get('/', [UsersController::class, 'index'])->name('admin.users');
+            // Route::get('/create', [UsersController::class, 'create'])->middleware(['auth', 'verified'])->name('admin.users.create');
+            // Route::post('/create', [UsersController::class, 'store'])->middleware(['auth', 'verified'])->name('admin.users.store');
+            Route::get('/edit/{id}', [UsersController::class, 'edit'])->middleware(['auth', 'verified'])->name('admin.users.edit');
+            Route::post('/edit/{id}', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('admin.users.update');
         });
        
         Route::group(['prefix'=>'billing'],function () {
@@ -113,6 +117,10 @@ Route::group(['prefix'=>'admin'],function () {
     
         Route::group(['prefix'=>'package'],function () {
             Route::get('/', [PackageController::class, 'index'])->name('admin.package');
+            Route::get('/create', [PackageController::class, 'create'])->middleware(['auth', 'verified'])->name('admin.package.create');
+            Route::post('/create', [PackageController::class, 'store'])->middleware(['auth', 'verified'])->name('admin.package.store');
+            Route::get('/edit/{id}', [PackageController::class, 'edit'])->middleware(['auth', 'verified'])->name('admin.package.edit');
+            Route::post('/edit/{id}', [PackageController::class, 'update'])->middleware(['auth', 'verified'])->name('admin.package.update');
         });
 
         Route::group(['prefix'=>'template'],function () {
