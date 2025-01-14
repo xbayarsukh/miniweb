@@ -15,6 +15,23 @@ class UsersController extends Controller
         $users = User::where('id', '!=', 1)->orderBy('id', 'DESC')->get();
         return Inertia::render('SuperAdmin/Users/Users', ['users' => $users]);
     }
+    // public function create(){
+
+    //     return Inertia::render('SuperAdmin/Users/CreateAndEdit', ['users' => null]);
+    // }
+    // public function store(Request $request){
+    //     $user = new User;
+    //     $user->name = $request->name;
+    //     $user->subdomain = $request->subdomain;
+    //     $user->template = $request->template;
+    //     $user->phone = $request->phone;
+    //     $user->expire_date = $request->expire_date;
+    //     $user->email = $request->email;
+
+        
+    //     $user->save();
+    //     return redirect()->route('admin.user')->with('success', 'portfolio created successfully!');
+    // }
     public function edit($id){
         $user = User::find($id);
         return Inertia::render('SuperAdmin/Users/CreateAndEdit', ['user' => $user]);

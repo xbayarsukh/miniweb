@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Post;
+use App\Models\Service;
+use App\Models\Portfolio;
 
 class DashboardController extends Controller
 {
@@ -23,9 +25,13 @@ class DashboardController extends Controller
         $ordersToday = Order::whereDate('created_at', Carbon::today())->get();
         $newUser = User::whereDate('created_at', Carbon::today())->get();
         $orders = Order::join('users', 'users.id', 'orders.user_id')->join('general_settings', 'general_settings.user_id', 'users.id')->orderBy('orders.id', 'DESC')->select('orders.*', 'users.name')->limit(10)->get();
-        $posts = Post::where('id')->where('user_id')->get();
+        $posts = Post::join('users', 'users.id', 'posts.user_id')->orderBy('posts.user_id', 'DESC')->get();
+        $services = Service::join('users', 'users.id', 'services.user_id')->orderBy('services.user_id', 'DESC')->get();
+        $portfolios = Portfolio::join('users', 'users.id', 'portfolios.user_id')->orderBy('portfolios.user_id', 'DESC')->get();
+        $servicesToday = Service::join('users', 'users.id', '=', 'services.user_id')->whereDate('services.created_at', Carbon::today())->orderBy('services.user_id', 'DESC')->select('services.*', 'users.*')->get();
         return Inertia::render('Dashboard',['users' => $users, 'orders1'=> $orders1,'orders2'=> $orders2,
-        'orders3'=> $orders3,'orders4'=> $orders4,'orders5'=> $orders5, 'ordersToday'=>$ordersToday, 'orders'=>$orders, 'newUser'=> $newUser, 'posts'=>$posts]);
+        'orders3'=> $orders3,'orders4'=> $orders4,'orders5'=> $orders5, 'ordersToday'=>$ordersToday, 'orders'=>$orders, 
+        'newUser'=> $newUser, 'posts'=>$posts, 'services' => $services, 'portfolios'=>$portfolios, 'servicesToday'=> $servicesToday]);
     }
 
     public function users() {

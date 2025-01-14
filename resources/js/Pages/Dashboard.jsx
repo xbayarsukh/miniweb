@@ -28,7 +28,8 @@ Chart.register(
     Filler
 );
 
-export default function Dashboard({ users, orders1,orders2,orders3,orders4,orders5,ordersToday,orders, newUser,posts}) {
+export default function Dashboard({ users, orders1,orders2,orders3,orders4,orders5,ordersToday,orders,
+     newUser,posts, services, portfolios, servicesToday}) {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null); // Ref to store the chart instance
     const canvasRef = useRef(null);
@@ -246,13 +247,10 @@ export default function Dashboard({ users, orders1,orders2,orders3,orders4,order
                                     <div className="flex-none w-2/3 max-w-full px-3">
                                         <div>
                                             <p className="mb-0 font-sans text-sm font-semibold leading-normal">
-                                                Sales
+                                               Today Service
                                             </p>
                                             <h5 className="mb-0 font-bold">
-                                                $103,430
-                                                <span className="text-sm leading-normal font-weight-bolder text-lime-500">
-                                                    +5%
-                                                </span>
+                                                {servicesToday.length}
                                             </h5>
                                         </div>
                                     </div>
@@ -453,7 +451,7 @@ export default function Dashboard({ users, orders1,orders2,orders3,orders4,order
                                                     Үйлчилгээ
                                                 </p>
                                             </div>
-                                            <h4 className="font-bold">435$</h4>
+                                            <h4 className="font-bold">{services.length}</h4>
                                             <div className="text-xs h-0.75 flex w-3/4 overflow-visible rounded-lg bg-gray-200">
                                                 <div
                                                     className="duration-600 ease-soft -mt-0.38 w-3/10 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap rounded-lg bg-slate-700 text-center text-white transition-all"
@@ -513,7 +511,7 @@ export default function Dashboard({ users, orders1,orders2,orders3,orders4,order
                                                     Portfolio
                                                 </p>
                                             </div>
-                                            <h4 className="font-bold">43</h4>
+                                            <h4 className="font-bold">{portfolios.length}</h4>
                                             <div className="text-xs h-0.75 flex w-3/4 overflow-visible rounded-lg bg-gray-200">
                                                 <div
                                                     className="duration-600 ease-soft -mt-0.38 -ml-px flex h-1.5 w-1/2 flex-col justify-center overflow-hidden whitespace-nowrap rounded-lg bg-slate-700 text-center text-white transition-all"
