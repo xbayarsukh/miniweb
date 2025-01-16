@@ -28,7 +28,15 @@ class TemplateController extends Controller
         $template->frontend = $request->frontend;
         $template->banner = $request->banner;
         $template->about_overview = $request->about_overview;
+        $template->about_background = $request->about_background;
+        $template->partners = $request->partners;
+        $template->partners_background = $request->partners_background;
+        $template->portfolios = $request->portfolios;
+        $template->portfolios_background = $request->portfolios_background;
+        $template->posts = $request->posts;
+        $template->posts_background = $request->posts_background;
         $template->services = $request->services;
+        $template->services_background = $request->services_background;
         if ($request->hasFile('banner')) {
             $image = $request->file('banner');
             $imageName = time().'.'.$image->getClientOriginalExtension();
@@ -75,7 +83,23 @@ class TemplateController extends Controller
             $template->image = 'uploads/templates/' . $imageName;
         }
         
+        if ($request->hasFile('tfile')) {
+            $image = $request->file('tfile');
+            $imageName = 'Home.'.$image->getClientOriginalExtension();
+            $image->move(resource_path('js/Pages/Templates/Template'.$request->frontend.'/'), $imageName);
+            $template->tfile = 'js/Pages/Templates/Template'.$request->frontend.'/'.$imageName;
+        }
+        
         $template->about_overview = $request->about_overview;
+        $template->about_background = $request->about_background;
+        $template->partners = $request->partners;
+        $template->partners_background = $request->partners_background;
+        $template->portfolios = $request->portfolios;
+        $template->portfolios_background = $request->portfolios_background;
+        $template->posts = $request->posts;
+        $template->posts_background = $request->posts_background;
+        $template->services = $request->services;
+        $template->services_background = $request->services_background;
         $template->services = $request->services;
         $template->save();
         return Redirect::route('admin.template')->with('success', 'Template created successfully!');

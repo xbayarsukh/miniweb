@@ -12,6 +12,12 @@ export default function Template({ templates }) {
                         <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div className="flex flex-row justify-between p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                                 <h6>Template</h6>
+                                <a
+                                    href={route("admin.template.create")}
+                                    className="inline-block px-3 py-2 my-2 font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro text-xs bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102"
+                                >
+                                    Нэмэх
+                                </a>
                             </div>
                             <div className="flex-auto px-0 pt-0 pb-2">
                                 <div className="p-0 overflow-x-auto">

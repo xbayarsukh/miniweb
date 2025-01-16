@@ -12,7 +12,9 @@ export default function CreateAndEdit({ template }) {
         template == null ? null : "/" + template.image
     );
 
-    const [tfile, setTfile] = useState();
+    const [tfile, setTfile] = useState(
+        template == null ? null : "/" + template.tfile
+    );
 
     const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm({
@@ -21,37 +23,78 @@ export default function CreateAndEdit({ template }) {
             banner: template?.banner || null,
             image: template?.image || null,
             about_overview: template?.about_overview || "",
-            sevice_overview: template?.servers || "",
-            tfile: null,
+            about_background: template?.about_background || "#fffff",
+            partners: template?.partners || "",
+            partners_background: template?.partners_background || "#fffff",
+            portfolios: template?.portfolios || "",
+            portfolios_background: template?.portfolios_background || "#fffff",
+            posts: template?.posts || "",
+            posts_background: template?.posts_background || "#fffff",
+            services: template?.services || "",
+            services_background: template?.services_background || "#fffff",
+            tfile: template?.tfile || null,
         });
     const editorRef = useRef(null);
+    const editorRef1 = useRef(null);
+    const editorRef2 = useRef(null);
+    const editorRef3 = useRef(null);
+    const editorRef4 = useRef(null);
+
+    const [fileName, setFileName] = useState(data.tfile ? data.tfile : "");
 
     useEffect(() => {
-        const editorElement = editorRef.current;
+        const editorElements = [
+            editorRef.current,
+            editorRef1.current,
+            editorRef2.current,
+            editorRef3.current,
+            editorRef4.current,
+        ];
 
-        if (editorElement) {
-            $(editorElement).summernote({
-                height: 300,
-                placeholder: "Write your content here...",
-                tooltip: false,
-                callbacks: {
-                    onChange: function (contents) {
-                        setData("about_overview", contents);
-                        setData("servers", contents);
+        editorElements.forEach((editorElement, index) => {
+            if (editorElement) {
+                $(editorElement).summernote({
+                    height: 300,
+                    placeholder: "Write your content here...",
+                    tooltip: false,
+                    callbacks: {
+                        onChange: function (contents) {
+                            switch (index) {
+                                case 0:
+                                    setData("services", contents);
+                                    break;
+                                case 1:
+                                    setData("about_overview", contents);
+                                    break;
+                                case 2:
+                                    setData("partners", contents);
+                                    break;
+                                case 3:
+                                    setData("portfolios", contents);
+                                    break;
+                                case 4:
+                                    setData("posts", contents);
+                                    break;
+                            }
+                        },
                     },
-                },
-            });
-            setTimeout(() => {
-                $(editorElement)
-                    .find(".note-editable")
-                    .css("background-color", "#000000");
-            }, 100); // Adjust timeout duration as needed
-        }
+                });
+
+                // Set background color after initialization
+                setTimeout(() => {
+                    $(editorElement)
+                        .find(".note-editable")
+                        .css("background-color", "#000000");
+                }, 100); // Adjust timeout duration as needed
+            }
+        });
 
         return () => {
-            if (editorElement) {
-                $(editorElement).summernote("destroy");
-            }
+            editorElements.forEach((editorElement) => {
+                if (editorElement) {
+                    $(editorElement).summernote("destroy");
+                }
+            });
         };
     }, []);
 
@@ -61,8 +104,9 @@ export default function CreateAndEdit({ template }) {
             reader.onload = () => {
                 if (key == "banner") {
                     setBanner(reader.result);
-                } else if(key == "tfile"){
+                } else if (key == "tfile") {
                     setTfile(reader.result);
+                    setFileName(value.name);
                 } else {
                     setImage(reader.result);
                 }
@@ -70,6 +114,10 @@ export default function CreateAndEdit({ template }) {
             reader.readAsDataURL(value);
         }
         setData((prevData) => ({ ...prevData, [key]: value }));
+    };
+
+    const handleColorChange = (e) => {
+        setData(e.target.name, e.target.value);
     };
 
     const submit = async (e) => {
@@ -174,9 +222,16 @@ export default function CreateAndEdit({ template }) {
                                                 )
                                             }
                                             className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg"
-                                            {...(isEditMode ? {} : { required: true })}
+                                            {...(isEditMode
+                                                ? {}
+                                                : { required: true })}
                                         />
                                     </div>
+                                    {fileName && (
+                                        <div className="mt-2 text-sm text-gray-900 float-right h-12">
+                                            {fileName}
+                                        </div>
+                                    )}
                                 </li>
 
                                 <li className="relative block px-0 py-2 bg-white border-0 text-inherit">
@@ -208,35 +263,7 @@ export default function CreateAndEdit({ template }) {
                                         />
                                     </div>
                                 </li>
-                                {/* <li className="relative block px-0 py-2 bg-white border-0 text-inherit">
-                                    <div className="min-h-6 mb-0.5 pl-0 flex flex-row items-center">
-                                        <label className="w-6/12 mb-0 ml-4 overflow-hidden font-normal cursor-pointer select-none text-sm text-ellipsis whitespace-nowrap text-slate-500">
-                                            Image
-                                        </label>
 
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={(e) =>
-                                                handleInputChange(
-                                                    "image",
-                                                    e.target.files[0]
-                                                )
-                                            }
-                                            className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg"
-                                            {...(isEditMode
-                                                ? {}
-                                                : { required: true })}
-                                        />
-                                    </div>
-                                    <div className="image-preview-logo">
-                                        <img
-                                            src={image}
-                                            alt=""
-                                            className="float-right h-12"
-                                        />
-                                    </div>
-                                </li> */}
                                 <li className="relative block px-0 py-2 bg-white border-0 text-inherit">
                                     <div className="min-h-6 mb-0.5 pl-0 flex flex-row items-center">
                                         <label className="w-6/12 mb-0 ml-4 overflow-hidden font-normal cursor-pointer select-none text-sm text-ellipsis whitespace-nowrap text-slate-500">
@@ -252,9 +279,25 @@ export default function CreateAndEdit({ template }) {
                                                 )
                                             }
                                             className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg"
-                                            required
+                                            {...(isEditMode
+                                                ? {}
+                                                : { required: true })}
                                         />
                                     </div>
+                                    {!image && (
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) =>
+                                                handleInputChange(
+                                                    "image",
+                                                    e.target.files[0]
+                                                )
+                                            }
+                                            className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg"
+                                            required
+                                        />
+                                    )}
                                     {image && (
                                         <div className="image-preview-logo mt-2">
                                             <img
@@ -273,7 +316,7 @@ export default function CreateAndEdit({ template }) {
                                         About Overview
                                     </h6>
                                     <textarea
-                                        ref={editorRef}
+                                        ref={editorRef1}
                                         defaultValue={data.about_overview}
                                         className="w-full p-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-300 resize-none"
                                         rows="4"
@@ -281,14 +324,107 @@ export default function CreateAndEdit({ template }) {
                                 </li>
                                 <li className="w-full md:w-6/12 p-4">
                                     <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
-                                        Service Overview
+                                        About Background
+                                    </h6>
+                                    <input
+                                        type="color"
+                                        id="about_background"
+                                        name="about_background"
+                                        value={data.about_background}
+                                        onChange={handleColorChange}
+                                    />
+                                </li>
+                                <li className="w-full md:w-6/12 p-4">
+                                    <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
+                                        Partners
                                     </h6>
                                     <textarea
-                                        ref={editorRef}
-                                        defaultValue={data.servers}
+                                        ref={editorRef2}
+                                        defaultValue={data.partners}
                                         className="w-full p-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-300 resize-none"
                                         rows="4"
                                     ></textarea>
+                                </li>
+                                <li className="w-full md:w-6/12 p-4">
+                                    <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
+                                        Partners Background
+                                    </h6>
+                                    <input
+                                        type="color"
+                                        id="partners_background"
+                                        name="partners_background"
+                                        value={data.partners_background}
+                                        onChange={handleColorChange}
+                                    />
+                                </li>
+                                <li className="w-full md:w-6/12 p-4">
+                                    <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
+                                        Portfolios
+                                    </h6>
+                                    <textarea
+                                        ref={editorRef3}
+                                        defaultValue={data.portfolios}
+                                        className="w-full p-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+                                        rows="4"
+                                    ></textarea>
+                                </li>
+                                <li className="w-full md:w-6/12 p-4">
+                                    <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
+                                        Portfolios Background
+                                    </h6>
+                                    <input
+                                        type="color"
+                                        id="portfolios_background"
+                                        name="portfolios_background"
+                                        value={data.portfolios_background}
+                                        onChange={handleColorChange}
+                                    />
+                                </li>
+                                <li className="w-full md:w-6/12 p-4">
+                                    <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
+                                        Posts
+                                    </h6>
+                                    <textarea
+                                        ref={editorRef4}
+                                        defaultValue={data.posts}
+                                        className="w-full p-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+                                        rows="4"
+                                    ></textarea>
+                                </li>
+                                <li className="w-full md:w-6/12 p-4">
+                                    <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
+                                        Posts Background
+                                    </h6>
+                                    <input
+                                        type="color"
+                                        id="posts_background"
+                                        name="posts_background"
+                                        value={data.posts_background}
+                                        onChange={handleColorChange}
+                                    />
+                                </li>
+                                <li className="w-full md:w-6/12 p-4">
+                                    <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
+                                        Service
+                                    </h6>
+                                    <textarea
+                                        ref={editorRef}
+                                        defaultValue={data.services}
+                                        className="w-full p-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+                                        rows="4"
+                                    ></textarea>
+                                </li>
+                                <li className="w-full md:w-6/12 p-4">
+                                    <h6 className="font-bold leading-tight uppercase text-xs text-slate-500 mb-2">
+                                        Service Background
+                                    </h6>
+                                    <input
+                                        type="color"
+                                        id="services_background"
+                                        name="services_background"
+                                        value={data.services_background}
+                                        onChange={handleColorChange}
+                                    />
                                 </li>
                             </ul>
 
