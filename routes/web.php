@@ -125,6 +125,10 @@ Route::group(['prefix'=>'admin'],function () {
 
         Route::group(['prefix'=>'template'],function () {
             Route::get('/', [TemplateController::class, 'index'])->name('admin.template');
+            Route::get('/create', [TemplateController::class, 'create'])->middleware(['auth', 'verified'])->name('admin.template.create');
+            Route::post('/create', [TemplateController::class, 'store'])->middleware(['auth', 'verified'])->name('admin.template.store');
+            Route::get('/edit/{id}', [TemplateController::class, 'edit'])->middleware(['auth', 'verified'])->name('admin.template.edit');
+            Route::post('/edit/{id}', [TemplateController::class, 'update'])->middleware(['auth', 'verified'])->name('admin.template.update');
         });
         
         Route::group(['prefix'=>'setting'],function () {

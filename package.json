@@ -25,6 +25,7 @@
         "jquery": "^3.7.1",
         "luxon": "^3.5.0",
         "react-helmet": "^6.1.0",
+        "react-owl-carousel": "^2.3.3",
         "summernote": "^0.9.1",
         "yarn": "^1.22.22"
     }

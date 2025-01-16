@@ -56,11 +56,11 @@ export default function About({ about, templates }) {
 
     const changeTemplate = () => {
         const newTemplate = templates.about_overview;
-    
+
         if (editorRef.current) {
             $(editorRef.current).summernote("code", newTemplate); // Set content in the editor
         }
-        
+
         setData("overview", String(newTemplate));
     };
 
@@ -70,12 +70,9 @@ export default function About({ about, templates }) {
         try {
             let response = await post(route("admin.about.update"));
             console.log(response);
-            
         } catch (error) {
             console.log(error);
         }
-
-        
     };
 
     return (
@@ -128,18 +125,18 @@ export default function About({ about, templates }) {
 
                             <ul className="flex flex-row pl-0 mb-0 rounded-lg">
                                 <li className="w-6/12 mr-1">
-                                <h6 className="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">
-                                Description
-                            </h6>
+                                    <h6 className="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">
+                                        Description
+                                    </h6>
                                     <textarea
                                         ref={editorRef}
                                         defaultValue={data.overview}
                                     ></textarea>
                                 </li>
                                 <li className="w-6/12 ml-1">
-                                <h6 className="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">
-                                Харагдах байдал
-                            </h6>
+                                    <h6 className="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">
+                                        Харагдах байдал
+                                    </h6>
                                     <div
                                         className="!min-h-[400px] !max-h-fit dark:bg-gray-500 p-3 rounded-lg"
                                         style={{

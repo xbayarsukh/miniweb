@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\Template;
+use App\Models\Package;
 
 class HomeController extends Controller
 {
@@ -48,11 +50,13 @@ class HomeController extends Controller
         $user = User::where('id', 1)->first();
         $faqs = $user->faqs;
         $general = $user->general;
-        $package = $user->package;
+        $packages = Package::orderBY('id', 'desc')->get();
         $partners = $user->partners;
         $portfolios = $user->portfolios;
         $posts = $user->posts;
         $services = $user->services;
+        $userTemp = $user->selected_template;
+        $templates = Template::orderBy('id', 'desc')->get();
        
         if (!isset($user) || !isset($user->template)) {
             abort(404, 'Template not found');
@@ -61,13 +65,16 @@ class HomeController extends Controller
         $template = $user->template;
         return Inertia::render("Templates/Template$template/Home", [
             'headTitle' => null,
+            'user' => $user,
             'faqs' => $faqs,
             'general' => $general,
-            'package' => $package,
+            'packages' => $packages,
             'partners' => $partners,
             'portfolios' => $portfolios,
             'posts' => $posts,
             'services' => $services,
+            'userTemp' => $userTemp,
+            'templates' => $templates,
         ]);
     }
 }
