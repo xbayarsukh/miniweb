@@ -176,11 +176,11 @@ export default function Home({
                     }}
                 >
                     <div className=" mr-auto place-self-center lg:col-span-7 justify-center items-center py-20 px-40">
-                        <h2 className="text-4xl text-mono text-white">
+                        <h2 className=" text-3xl md:text-5xl lg:text-5xl text-mono font-semibold text-white">
                             Өөрсдийн вебээ <br></br>хялбар үүсгэцгээе
                         </h2>
                     </div>
-                    <div className="lg:mt-0 lg:col-span-5 flex justify-center pr-40">
+                    <div className="lg:mt-0 lg:col-span-5 flex justify-center pr-0 md:pr-10 lg:pr-40 sm:w-full  ">
                         <div className="w-full max-w-2xl p-8 border border-gray-300 rounded-lg shadow-lg dark:border-gray-700 bg-white dark:bg-gray-800">
                             <form>
                                 <div className="mb-5">
@@ -260,15 +260,15 @@ export default function Home({
             </section>
             {portfolios.length > 0 && (
                 <div className="w-full bg-white dark:bg-gray-800 py-12">
-                    <div className="max-w-screen-xl px-4 mx-auto ">
-                        <div className="grid grid-cols-3 gap-8 text-md text-gray-700 dark:text-white">
+                    <div className="max-w-screen-xl px-4 mx-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 text-md text-gray-700 dark:text-white">
                             {portfolios.map((portfolio) => (
                                 <div
-                                    className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10 flex flex-col"
+                                    className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10 flex flex-col rounded-lg"
                                     key={portfolio.id}
                                 >
-                                    <div className="relative space-y-8 py-12 p-8 transition duration-300 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 rounded-lg flex-grow">
-                                        <div className="space-y-2 text-gray-900 dark:text-white">
+                                    <div className="relative bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg flex-grow p-8">
+                                        <div className="space-y-2">
                                             <h5 className="text-xl font-semibold text-center">
                                                 {portfolio.title}
                                             </h5>
@@ -287,6 +287,7 @@ export default function Home({
                 </div>
             )}
 
+            {/** About us */}
             <section className="bg-white dark:bg-gray-800 py-16" id="about">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-screen-xl px-4 mx-auto ">
                     <div className="flex justify-center">
@@ -308,7 +309,7 @@ export default function Home({
                             dangerouslySetInnerHTML={{
                                 __html: general.overview,
                             }}
-                            className="text-lg text-justify text-black dark:text-white"
+                            className="text-lg text-justify text-black dark:text-white px-5 md:px-0 lg:px-0 pr-10 md:pr-5 lg:pr-5"
                         ></p>
                     </div>
                 </div>
@@ -316,7 +317,7 @@ export default function Home({
 
             {/*Banner*/}
             <section>
-                <div className="bg-white dark:bg-gray-900 w-full  py-4 pb-4 mx-auto">
+                <div className="bg-white dark:bg-gray-900 w-full px-5 md:px-0 lg:px-0 pr-5 md:pr-0 lg:pr-0 py-4 pb-4 mx-auto">
                     <div className="flex justify-center">
                         <div className="w-full h-80 rounded-lg shadow-lg flex items-center justify-center overflow-hidden">
                             <img
@@ -345,8 +346,8 @@ export default function Home({
                             nav={true}
                             dots={true}
                             navText={[
-                                `<div class="absolute top-[50%] left-[-50px] transform -translate-y-1/2 z-20 text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
-                                `<div class="absolute top-[50%] right-[-50px] transform -translate-y-1/2 z-20 text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
+                                `<div class="absolute top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
+                                `<div class="absolute top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
                             ]}
                         >
                             {templates.map((template) => (
@@ -372,81 +373,81 @@ export default function Home({
                 </section>
             )}
             {/**Price */}
-            {/* {packages.length > 0 && ( */}
-            <section
-                className="bg-white dark:bg-gray-900 w-full place-items-center mx-auto py-8"
-                id="price"
-            >
-                <h2 className="text-3xl text-mono font-semibold justify-center text-gray-800 dark:text-white">
-                    Үнийн санал
-                </h2>
-                <div className=" max-w-screen-xl px-4 mx-auto items-center  rounded-lg py-2 flex flex-col justify-center">
-                    <h3 className="text-md font-semibold text-gray-900 dark:text-gray-50 place-items-center">
-                        200,000 / жилийн
-                    </h3>
-                    <div className="grid grid-cols-3 gap-8 text-md font-mono text-gray-700 dark:text-white py-4">
-                        {packages.map((pack) => (
-                            <div
-                                className="relative p-8 space-y-8 transition duration-300 "
-                                key={pack.id}
-                            >
-                                <div className="space-y-4">
-                                    <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-                                        {pack.title}
-                                    </h2>
-                                    <ul className="text-gray-600 dark:text-gray-300 group-hover:text-gray-800 space-y-2 dark:group-hover:text-gray-100 ">
-                                        <li className="flex items-center">
-                                            <svg
-                                                className="w-4 h-4 mr-2"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                            >
-                                                <path d="M10 15l-5.5-5.5 1.42-1.42L10 12.17l4.08-4.09L15.5 9.5z" />
-                                            </svg>
-                                            Үнэ : {pack.price}
-                                        </li>
-                                        <li className="flex items-center">
-                                            <svg
-                                                className="w-4 h-4 mr-2"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                            >
-                                                <path d="M10 15l-5.5-5.5 1.42-1.42L10 12.17l4.08-4.09L15.5 9.5z" />
-                                            </svg>
-                                            Сар : {pack.month}
-                                        </li>
-                                        <li className="flex items-center">
-                                            <svg
-                                                className="w-4 h-4 mr-2"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                            >
-                                                <path d="M10 15l-5.5-5.5 1.42-1.42L10 12.17l4.08-4.09L15.5 9.5z" />
-                                            </svg>
-                                            Өдөр : {pack.day}
-                                        </li>
-                                        <li className="flex items-center">
-                                            <svg
-                                                className="w-4 h-4 mr-2"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                            >
-                                                <path d="M10 15l-5.5-5.5 1.42-1.42L10 12.17l4.08-4.09L15.5 9.5z" />
-                                            </svg>
-                                            <span
-                                                dangerouslySetInnerHTML={{
-                                                    __html: pack.body,
-                                                }}
-                                            ></span>
-                                        </li>
-                                    </ul>
+            {packages.length > 0 && (
+                <section
+                    className="bg-white dark:bg-gray-900 w-full place-items-center mx-auto py-8"
+                    id="price"
+                >
+                    <h2 className="text-3xl text-mono font-semibold justify-center text-gray-800 dark:text-white">
+                        Үнийн санал
+                    </h2>
+                    <div className=" max-w-screen-xl px-4 mx-auto items-center  rounded-lg py-2 flex flex-col justify-center">
+                        <h3 className="text-md font-semibold text-gray-900 dark:text-gray-50 place-items-center">
+                            200,000 / жилийн
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-md font-mono text-gray-700 dark:text-white py-4">
+                            {packages.map((pack) => (
+                                <div
+                                    className="relative p-8 space-y-8 transition duration-300 "
+                                    key={pack.id}
+                                >
+                                    <div className="space-y-4">
+                                        <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+                                            {pack.title}
+                                        </h2>
+                                        <ul className="text-gray-600 dark:text-gray-300 group-hover:text-gray-800 space-y-2 dark:group-hover:text-gray-100 ">
+                                            <li className="flex items-center">
+                                                <svg
+                                                    className="w-4 h-4 mr-2"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path d="M10 15l-5.5-5.5 1.42-1.42L10 12.17l4.08-4.09L15.5 9.5z" />
+                                                </svg>
+                                                Үнэ : {pack.price}
+                                            </li>
+                                            <li className="flex items-center">
+                                                <svg
+                                                    className="w-4 h-4 mr-2"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path d="M10 15l-5.5-5.5 1.42-1.42L10 12.17l4.08-4.09L15.5 9.5z" />
+                                                </svg>
+                                                Сар : {pack.month}
+                                            </li>
+                                            <li className="flex items-center">
+                                                <svg
+                                                    className="w-4 h-4 mr-2"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path d="M10 15l-5.5-5.5 1.42-1.42L10 12.17l4.08-4.09L15.5 9.5z" />
+                                                </svg>
+                                                Өдөр : {pack.day}
+                                            </li>
+                                            <li className="flex items-center">
+                                                <svg
+                                                    className="w-4 h-4 mr-2"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path d="M10 15l-5.5-5.5 1.42-1.42L10 12.17l4.08-4.09L15.5 9.5z" />
+                                                </svg>
+                                                <span
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: pack.body,
+                                                    }}
+                                                ></span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </section>
-            {/* )} */}
+                </section>
+            )}
 
             <footer className="bg-gray-100 dark:bg-gray-800 py-4" id="contact">
                 <div className="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
