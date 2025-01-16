@@ -7,12 +7,7 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 
 export default function Home({
     general,
-    user,
-    services,
-    posts,
-    faqs,
     portfolios,
-    partners,
     userTemp,
     templates,
     packages,
@@ -116,16 +111,14 @@ export default function Home({
                             >
                                 <svg
                                     className="w-6 h-6"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
                                     <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M4 6h16M4 12h16m-7 6h7"
+                                        fillRule="evenodd"
+                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                        clipRule="evenodd"
                                     ></path>
                                 </svg>
                             </button>
