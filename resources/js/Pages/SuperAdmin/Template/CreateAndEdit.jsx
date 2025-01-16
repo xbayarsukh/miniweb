@@ -12,6 +12,8 @@ export default function CreateAndEdit({ template }) {
         template == null ? null : "/" + template.image
     );
 
+    const [tfile, setTfile] = useState();
+
     const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm({
             name: template?.name || "",
@@ -20,6 +22,7 @@ export default function CreateAndEdit({ template }) {
             image: template?.image || null,
             about_overview: template?.about_overview || "",
             sevice_overview: template?.servers || "",
+            tfile: null,
         });
     const editorRef = useRef(null);
 
@@ -58,6 +61,8 @@ export default function CreateAndEdit({ template }) {
             reader.onload = () => {
                 if (key == "banner") {
                     setBanner(reader.result);
+                } else if(key == "tfile"){
+                    setTfile(reader.result);
                 } else {
                     setImage(reader.result);
                 }
@@ -152,6 +157,28 @@ export default function CreateAndEdit({ template }) {
                                         />
                                     </div>
                                 </li>
+
+                                <li className="relative block px-0 py-2 bg-white border-0 text-inherit">
+                                    <div className="min-h-6 mb-0.5 pl-0 flex flex-row items-center">
+                                        <label className="w-6/12 mb-0 ml-4 overflow-hidden font-normal cursor-pointer select-none text-sm text-ellipsis whitespace-nowrap text-slate-500">
+                                            Template File
+                                        </label>
+
+                                        <input
+                                            type="file"
+                                            accept=""
+                                            onChange={(e) =>
+                                                handleInputChange(
+                                                    "tfile",
+                                                    e.target.files[0]
+                                                )
+                                            }
+                                            className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg"
+                                            {...(isEditMode ? {} : { required: true })}
+                                        />
+                                    </div>
+                                </li>
+
                                 <li className="relative block px-0 py-2 bg-white border-0 text-inherit">
                                     <div className="min-h-6 mb-0.5 pl-0 flex flex-row items-center">
                                         <label className="w-6/12 mb-0 ml-4 overflow-hidden font-normal cursor-pointer select-none text-sm text-ellipsis whitespace-nowrap text-slate-500">

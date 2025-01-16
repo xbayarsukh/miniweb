@@ -41,6 +41,13 @@ class TemplateController extends Controller
             $image->move(public_path('uploads/templates/'), $imageName);
             $template->banner = 'uploads/templates/' . $imageName;
         }
+
+        if ($request->hasFile('tfile')) {
+            $image = $request->file('tfile');
+            $imageName = 'Home.'.$image->getClientOriginalExtension();
+            $image->move(resource_path('js/Pages/Templates/Template'.$request->frontend.'/'), $imageName);
+        }
+
         $template->save();
         return Redirect::route('admin.template')->with('success', 'Template created successfully!');
     }
