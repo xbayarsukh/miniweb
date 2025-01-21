@@ -65,7 +65,7 @@ export default function Index(
                 /> */}
             </Helmet>
             <Head title="head" />
-            <header className={`fixed w-4/5 md:w-full z-30`}>
+            <header className={`fixed w-full md:w-full z-30`}>
                 <nav
                     className={` px-5 pr-5 ${
                         isScrolled
@@ -126,7 +126,7 @@ export default function Index(
                                 Холбоо барих
                             </a>
                         </div>
-                        <div className="className={`hidden lg:flex space-x-4   place-items-center">
+                        <div className="">
                             <button
                                 type="button"
                                 className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5 transition duration-200"
@@ -152,7 +152,7 @@ export default function Index(
                     ref={contentRef}
                     className="flex flex-row items-center justify-between pt-20 text-gray-900 dark:text-white"
                 >
-                    <div className="w-1/2">
+                    <div className="w-full md:w-1/2">
                         <h2 className="font-bold text-white text-2xl md:text-4xl lg:text-4xl mx-[20%]">
                             Seamless IT Solutions <br />
                             For Business Growth
@@ -160,7 +160,7 @@ export default function Index(
                         <div className="flex flex-row space-x-10 mx-[18%] mt-10">
                             <button
                                 type="button"
-                                className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5"
+                                className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5 transition duration-200"
                             >
                                 View All Services
                             </button>
@@ -176,7 +176,7 @@ export default function Index(
                     <img
                         src="https://wordpress.themeholy.com/webteck/wp-content/uploads/2024/06/hero_19_2.png"
                         alt="hero image"
-                        className="rounded-lg w-1/4 lg:w-1/4 mt-20 self-start lg:self-center"
+                        className="rounded-lg w-1/4 lg:w-1/4 mt-20 self-start lg:self-center pr-2 md:pr-0"
                     />
                 </div>
             </section>
@@ -271,7 +271,7 @@ export default function Index(
                 </div>
             </section>
             {/* Post Section*/}
-            <section
+            {/* <section
                 className="bg-white dark:bg-gray-800 w-full mx-auto pb-10  "
                 id="posts"
             >
@@ -282,7 +282,7 @@ export default function Index(
                 <div className="max-w-7xl mx-auto px-20 md:px-12 xl:px-6">
                     <div className="grid  w-full">
                         <div className="flex flex-row gap-x-[20px]">
-                            {/*side1*/}
+                            
                             <div className="flex flex-col mr-0 w-full mx-5">
                                 <div className="items">
                                     <div className="group rounded-lg bg-gray-50 dark:bg-gray-900 ">
@@ -393,7 +393,7 @@ export default function Index(
                                     </div>
                                 </div>
                             </div>
-                            {/*side2*/}
+                            
                             <div className="items w-full px-0">
                                 <div className="group rounded-lg bg-gray-50 dark:bg-gray-900 ">
                                     <div className="flex flex-col ">
@@ -443,6 +443,72 @@ export default function Index(
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section> */}
+            <section
+                className="bg-white dark:bg-gray-800 w-full mx-auto pb-10"
+                id="posts"
+            >
+                <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:text-white text-center mb-10">
+                    Posts
+                </h2>
+
+                <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-20">
+                    <div className="grid w-full gap-6">
+                        <div className="flex flex-col md:flex-row gap-6">
+                            {/* Post Card */}
+                            {[1, 2].map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="flex flex-col bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden shadow-md w-full"
+                                >
+                                    <div className="flex flex-row">
+                                        <img
+                                            src="https://t3.ftcdn.net/jpg/05/14/95/12/360_F_514951224_2dxMLbIw5qNRdPGD003chpbVcxWtcp7K.jpg"
+                                            alt="Infrastructure & Cloud Services"
+                                            className="w-1/2 object-cover rounded-t-lg m-3"
+                                        />
+                                        <div className="flex flex-col justify-between w-full">
+                                            <div className="p-6">
+                                                <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    Infrastructure & Cloud
+                                                    Services
+                                                </p>
+                                                <a
+                                                    href="#"
+                                                    className="mt-4 text-blue-600 dark:text-blue-400 text-sm font-semibold block"
+                                                >
+                                                    Read Details →
+                                                </a>
+                                            </div>
+                                            <div className="flex flex-row p-5 border-t border-gray-900 dark:border-white">
+                                                <div className="flex items-center gap-2 text-gray-900 dark:text-white">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 512 512"
+                                                        className="w-4 h-4 fill-current"
+                                                    >
+                                                        <path d="... (SVG Path here) ..." />
+                                                    </svg>
+                                                    <span>Web</span>
+                                                </div>
+                                                <div className="flex items-center gap-2 text-gray-900 dark:text-white ml-4">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 512 512"
+                                                        className="w-4 h-4 fill-current"
+                                                    >
+                                                        <path d="... (SVG Path here) ..." />
+                                                    </svg>
+                                                    <span>Date</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
