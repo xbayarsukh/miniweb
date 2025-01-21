@@ -54,6 +54,7 @@ export default function Home({
                 />
             </Helmet>
             <Head title={general.title} />
+
             <header className="fixed w-full z-10">
                 <nav className="bg-white dark:bg-gray-800 shadow-lg">
                     <div className="flex items-center justify-between max-w-screen-xl px-6 py-4 mx-auto">
@@ -156,11 +157,10 @@ export default function Home({
                     )}
                 </nav>
             </header>
-
-            <section className=" w-full bg-white dark:bg-gray-900">
+            {/**Hero Section */}
+            <section className="w-full bg-white dark:bg-gray-900">
                 <div
-                    className="grid max-w-screen-3xl  px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28 
-                "
+                    className="grid max-w-screen-3xl px-4 md:px-8 pt-20 pb-8 lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28"
                     style={{
                         backgroundImage:
                             "url('https://t3.ftcdn.net/jpg/05/14/95/12/360_F_514951224_2dxMLbIw5qNRdPGD003chpbVcxWtcp7K.jpg')",
@@ -168,12 +168,13 @@ export default function Home({
                         backgroundPosition: "center",
                     }}
                 >
-                    <div className=" mr-auto place-self-center lg:col-span-7 justify-center items-center py-20 px-40">
-                        <h2 className=" text-3xl md:text-5xl lg:text-5xl text-mono font-semibold text-white">
-                            Өөрсдийн вебээ <br></br>хялбар үүсгэцгээе
+                    <div className="mr-auto place-self-center lg:col-span-7 justify-center items-center py-20 px-4 md:px-12">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-mono font-semibold text-white">
+                            Өөрсдийн вебээ <br /> хялбар үүсгэцгээе
                         </h2>
                     </div>
-                    <div className="lg:mt-0 lg:col-span-5 flex justify-center pr-0 md:pr-10 lg:pr-40 sm:w-full  ">
+
+                    <div className="lg:mt-0 lg:col-span-5 flex justify-center pr-0 md:pr-10 lg:pr-40 sm:w-full">
                         <div className="w-full max-w-2xl p-8 border border-gray-300 rounded-lg shadow-lg dark:border-gray-700 bg-white dark:bg-gray-800">
                             <form>
                                 <div className="mb-5">
@@ -188,39 +189,40 @@ export default function Home({
                                 <div className="mb-5">
                                     <label
                                         htmlFor="webName"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white "
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
                                         Сайтын нэр
                                     </label>
-                                    <div class="relative">
+                                    <div className="relative">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24"
                                             fill="none"
                                             stroke="currentColor"
-                                            stroke-width="1.5"
+                                            strokeWidth="1.5"
                                             className="absolute top-2.5 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
                                         >
                                             <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
                                                 d="M12 21a9 9 0 100-18 9 9 0 000 18z"
                                             />
                                             <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
                                                 d="M2.25 12h19.5M12 2.25a15.259 15.259 0 010 19.5M12 2.25a15.259 15.259 0 000 19.5"
                                             />
                                         </svg>
                                         <input
                                             type="text"
                                             id="webName"
-                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Өөрийн сайтын нэрийг оруулна уу"
                                             required
                                         />
                                     </div>
                                 </div>
+
                                 <div className="mb-5">
                                     <label
                                         htmlFor="userName"
@@ -228,23 +230,23 @@ export default function Home({
                                     >
                                         Таны нэр
                                     </label>
-                                    <div class="relative">
+                                    <div className="relative">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24"
                                             fill="none"
                                             stroke="currentColor"
-                                            stroke-width="1.5"
+                                            strokeWidth="1.5"
                                             className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
                                         >
                                             <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
                                                 d="M15.75 8.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
                                             />
                                             <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
                                                 d="M4.5 19.5a8.999 8.999 0 0115 0"
                                             />
                                         </svg>
@@ -265,26 +267,25 @@ export default function Home({
                                     >
                                         Утасны дугаар
                                     </label>
-                                    <div class="relative">
+                                    <div className="relative">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
-                                            stroke-width="1.5"
+                                            strokeWidth="1.5"
                                             stroke="currentColor"
                                             className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
                                         >
                                             <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
                                                 d="M2.25 6.75a2.25 2.25 0 012.25-2.25h2.829a2.25 2.25 0 012.121 1.5l.682 2.046a2.251 2.251 0 01-.572 2.377l-.943.943a14.978 14.978 0 006.364 6.364l.943-.943a2.251 2.251 0 012.377-.572l2.046.682a2.25 2.25 0 011.5 2.121v2.829a2.25 2.25 0 01-2.25 2.25h-.75a17.25 17.25 0 01-17.25-17.25v-.75z"
                                             />
                                         </svg>
-
                                         <input
                                             type="tel"
                                             id="phone"
-                                            className="shadow-sm pl-12  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Утасны дугаараа оруулна уу"
                                             required
                                         />
@@ -304,35 +305,37 @@ export default function Home({
                                             viewBox="0 0 24 24"
                                             fill="none"
                                             stroke="currentColor"
-                                            stroke-width="1.5"
+                                            strokeWidth="1.5"
                                             className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
                                         >
                                             <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
                                                 d="M16.5 10.5V7.5a4.5 4.5 0 00-9 0v3M6.75 10.5h10.5a2.25 2.25 0 012.25 2.25v6a2.25 2.25 0 01-2.25 2.25H6.75a2.25 2.25 0 01-2.25-2.25v-6a2.25 2.25 0 012.25-2.25z"
                                             />
                                         </svg>
                                         <input
                                             type="password"
                                             id="password"
-                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Нууц үгээ оруулна уу"
                                             required
                                         />
                                     </div>
                                 </div>
+
                                 <button
-                                    type="button"
-                                    className="w-full  text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5  transition duration-200"
+                                    type="submit"
+                                    className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
-                                    Сайт үүсгэх
+                                    Үүсгэх
                                 </button>
                             </form>
                         </div>
                     </div>
                 </div>
             </section>
+
             {portfolios.length > 0 && (
                 <div className="w-full bg-white dark:bg-gray-800 py-12">
                     <div className="max-w-screen-xl px-4 mx-auto">
