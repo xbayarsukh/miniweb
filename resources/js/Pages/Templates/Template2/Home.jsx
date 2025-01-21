@@ -180,21 +180,46 @@ export default function Home({
                                     <h5 className="text-lg font-medium text-gray-900 dark:text-white">
                                         Яг одоо нэмэх
                                     </h5>
+                                    <p className="text-sm md:text-base lg:text-base text-mono text-gray-900 dark:text-gray-100 py-5">
+                                        Таны оруулсан мэдээллээр таны веб үүснэ.
+                                    </p>
                                 </div>
 
                                 <div className="mb-5">
                                     <label
                                         htmlFor="webName"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white "
                                     >
                                         Сайтын нэр
                                     </label>
-                                    <input
-                                        type="text"
-                                        id="webName"
-                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required
-                                    />
+                                    <div class="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            className="absolute top-2.5 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M12 21a9 9 0 100-18 9 9 0 000 18z"
+                                            />
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M2.25 12h19.5M12 2.25a15.259 15.259 0 010 19.5M12 2.25a15.259 15.259 0 000 19.5"
+                                            />
+                                        </svg>
+                                        <input
+                                            type="text"
+                                            id="webName"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Өөрийн сайтын нэрийг оруулна уу"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div className="mb-5">
                                     <label
@@ -203,12 +228,34 @@ export default function Home({
                                     >
                                         Таны нэр
                                     </label>
-                                    <input
-                                        type="text"
-                                        id="userName"
-                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required
-                                    />
+                                    <div class="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M15.75 8.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                                            />
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M4.5 19.5a8.999 8.999 0 0115 0"
+                                            />
+                                        </svg>
+                                        <input
+                                            type="text"
+                                            id="userName"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Та өөрийн нэрээ оруулна уу"
+                                            required
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="mb-5">
@@ -218,12 +265,30 @@ export default function Home({
                                     >
                                         Утасны дугаар
                                     </label>
-                                    <input
-                                        type="tel"
-                                        id="phone"
-                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required
-                                    />
+                                    <div class="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M2.25 6.75a2.25 2.25 0 012.25-2.25h2.829a2.25 2.25 0 012.121 1.5l.682 2.046a2.251 2.251 0 01-.572 2.377l-.943.943a14.978 14.978 0 006.364 6.364l.943-.943a2.251 2.251 0 012.377-.572l2.046.682a2.25 2.25 0 011.5 2.121v2.829a2.25 2.25 0 01-2.25 2.25h-.75a17.25 17.25 0 01-17.25-17.25v-.75z"
+                                            />
+                                        </svg>
+
+                                        <input
+                                            type="tel"
+                                            id="phone"
+                                            className="shadow-sm pl-12  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Утасны дугаараа оруулна уу"
+                                            required
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="mb-5">
@@ -233,16 +298,33 @@ export default function Home({
                                     >
                                         Нууц үг
                                     </label>
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required
-                                    />
+                                    <div className="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M16.5 10.5V7.5a4.5 4.5 0 00-9 0v3M6.75 10.5h10.5a2.25 2.25 0 012.25 2.25v6a2.25 2.25 0 01-2.25 2.25H6.75a2.25 2.25 0 01-2.25-2.25v-6a2.25 2.25 0 012.25-2.25z"
+                                            />
+                                        </svg>
+                                        <input
+                                            type="password"
+                                            id="password"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Нууц үгээ оруулна уу"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <button
                                     type="button"
-                                    className="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 transition duration-200"
+                                    className="w-full  text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5  transition duration-200"
                                 >
                                     Сайт үүсгэх
                                 </button>
@@ -339,8 +421,8 @@ export default function Home({
                             nav={true}
                             dots={true}
                             navText={[
-                                `<div class="absolute top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
-                                `<div class="absolute top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
+                                `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
+                                `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
                             ]}
                         >
                             {templates.map((template) => (

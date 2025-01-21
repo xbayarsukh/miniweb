@@ -190,6 +190,7 @@ Route::group(['prefix'=>'admin'],function () {
         Route::get('/', [OrderController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.orders');
         Route::get('/show/{id}', [OrderController::class, 'edit'])->middleware(['auth', 'verified'])->name('admin.orders.edit');
         Route::patch('/', [OrderController::class, 'update'])->middleware(['auth', 'verified'])->name('admin.orders.update');
+        // Route::post('/pay',[OrderController::class, 'pay'])->middleware(['auth', 'verified'])->name('admin.orders.pay');
     });
 
     Route::group(['prefix'=>'labels'],function () {

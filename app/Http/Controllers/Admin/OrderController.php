@@ -25,8 +25,9 @@ class OrderController extends Controller
             $id = $id2;
         }
         $order = Order::where('order_no', $id)->where('user_id', $user->id)->first();
+        // return json_decode($order->qpay_information);
         if ($order) {
-            return Inertia::render('Admin/Order/Show', ['singleOrder' => $order]);
+            return Inertia::render('Admin/Order/Show', ['order' => $order]);
         }else{
             return redirect()->route('admin.orders')->with('success', 'Not found this portfolio maybe deleted');
         }

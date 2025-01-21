@@ -34,7 +34,7 @@ class HomeController extends Controller
             return Inertia::render("Templates/Template$template/Home", [
                 'headTitle' => $user->subdomain,
                 'faqs' => $faqs,
-                'general' => $general,
+                'general' => $user->general,
                 'package' => $package,
                 'partners' => $partners,
                 'portfolios' => $portfolios,
