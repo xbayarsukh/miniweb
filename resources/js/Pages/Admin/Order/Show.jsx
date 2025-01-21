@@ -64,7 +64,6 @@ export default function Order({ order }) {
                                         Item
                                     </td>
                                     <td className="bg-gray-200 p-3">Price</td>
-                                    <td className="bg-gray-200 p-3">Qty</td>
                                     <td className="bg-gray-200 p-3 rounded-r-xl">
                                         Total
                                     </td>
@@ -81,7 +80,6 @@ export default function Order({ order }) {
                                     <td className="p-3">
                                         <p>{order.package_price}</p>
                                     </td>
-                                    <td className="p-3">1</td>
                                     <td className="p-3">{order.total_price}</td>
                                 </tr>
                             </tbody>
@@ -127,11 +125,11 @@ export default function Order({ order }) {
             {showPayment && ( // Only show payment section if showPayment is true
                 <div
                     id="modal-overlay"
-                    className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
+                    className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-[999]"
                     onClick={handleClickOutside}
                 >
                     <div
-                        className="bg-white rounded-lg shadow-lg max-w-2xl w-full dark:bg-gray-700"
+                        className="bg-white rounded-lg shadow-lg max-w-2xl w-full dark:bg-gray-700 mx-4"
                         onClick={(e) => e.stopPropagation()} // Prevent click on modal content from closing it
                     >
                         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
@@ -148,37 +146,36 @@ export default function Order({ order }) {
                         {/* Desktop view */}
                         <div className="flex flex-col items-center space-y-4">
                             <img
-                                className="w-48 h-auto"
+                                className="w-48 h-auto hidden lg:flex"
                                 src={
                                     "data:image/png;base64, " +
                                     qpayInformation.qr_image
                                 }
                                 alt="QR Code"
                             />
-                            <p className="text-lg font-semibold text-gray-800">
-                                {qpayInformation.name}
-                            </p>
                         </div>
 
                         {/* Mobile view */}
-                        <div className="pb-5">
-                            <div className="flex flex-col  lg:hidden xl:hidden space-y-4 mt-10 pt-10 overscroll-behavior-x-contain overflow-x-scroll  h-48 ">
+                        <div className="pb-3">
+                            <div className="flex flex-col  lg:hidden xl:hidden space-y-4 mt-4 py-2 overscroll-behavior-x-contain overflow-x-scroll  h-[300px] ">
                                 {qpayInformation.urls.map((url) => (
-                                    <div className="flex  space-x-2 mx-5">
-                                        <img
-                                            className="w-10 h-auto"
-                                            src={url.logo}
-                                            alt="Logo"
-                                        />
-                                        <a
-                                            href={url.link}
-                                            className="flex flex-col  text-center space-y-2"
-                                        >
-                                            <p className="text-sm text-gray-700 font-semibold">
-                                                {url.name}
-                                            </p>
-                                        </a>
-                                    </div>
+                                    <a
+                                        href={url.link}
+                                        className="flex flex-col  text-center space-y-2"
+                                    >
+                                        <div className="flex space-x-2 mx-5 items-center">
+                                            <img
+                                                className="w-10 h-auto"
+                                                src={url.logo}
+                                                alt="Logo"
+                                            />
+                                            
+                                                <p className="text-sm text-gray-700 font-semibold">
+                                                    {url.name}
+                                                </p>
+                                        
+                                        </div>
+                                    </a>
                                 ))}
                             </div>
                         </div>
