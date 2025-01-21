@@ -171,8 +171,8 @@ export default function Index(
             </section>
 
             {/* Service Section*/}
-            <section className="bg-white dark:bg-gray-900 pb-10 ">
-                <div className="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+            <section className="bg-white dark:bg-gray-900 pb-5 md:pb-10 px-10 ">
+                <div className="max-w-screen-xl px-4 py-8 mx-auto pr-0 space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
                     {/* {services.map((service, index) => ( */}
                     <div
                         className="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16"
@@ -187,10 +187,10 @@ export default function Index(
                         {/* )} */}
 
                         <div className="text-gray-500 mb-10 sm:text-lg dark:text-gray-400">
-                            <h2 className="text-2xl  text-gray-900 dark:text-gray-50">
+                            <h2 className="text-2xl  text-gray-900 dark:text-gray-50 text-center">
                                 Үйлчилгээ
                             </h2>
-                            <div className="grid grid-row pr-10">
+                            <div className="grid grid-row pr-0 md:pr-10">
                                 <div className="items">
                                     <div className="flex items-center space-x-3 mt-5">
                                         <svg
@@ -256,7 +256,7 @@ export default function Index(
                                     </p>
                                 </div>
                             </div>
-                            <div className="pt-5 ">
+                            <div className="pt-10 md:pt-5 px-12 py-2 ">
                                 <button
                                     type="button"
                                     className=" text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5"
@@ -497,7 +497,7 @@ export default function Index(
             </section>
 
             {/* FAQ Section */}
-            <section className="bg-white dark:bg-gray-900" id="faq">
+            <section className="bg-white dark:bg-gray-900 pb-5" id="faq">
                 <div className="lg:pb-24 lg:px-6 pt-10 max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
                     <h2 className="mb-6 text-xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-xl dark:text-gray-50">
                         Түгээмэл асуулт хариулт
@@ -645,20 +645,18 @@ export default function Index(
                     </div>
                 </div>
             </section>
-
-            {/* Partners Section */}
             {/**Footer */}
             <footer className="bg-black text-white py-10">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-10">
-                        <h2 className="text-2xl font-bold mb-4">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-4">
                             Subscribe for daily update
                         </h2>
-                        <div className="flex justify-center items-center space-x-4">
+                        <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
                             <input
                                 type="email"
                                 placeholder="Email Address"
-                                className="px-4 py-2 w-64 rounded-full text-black"
+                                className="px-4 py-2 w-full sm:w-64 rounded-full text-black focus:outline-none focus:ring focus:ring-blue-300"
                             />
                             <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition duration-300">
                                 Join Now
@@ -666,7 +664,7 @@ export default function Index(
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
                         <div>
                             <h3 className="font-semibold text-lg mb-4">
                                 About Company

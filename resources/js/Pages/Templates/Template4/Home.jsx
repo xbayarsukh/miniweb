@@ -65,7 +65,7 @@ export default function Index(
                 /> */}
             </Helmet>
             <Head title="head" />
-            <header className={`fixed w-full z-30`}>
+            <header className={`fixed w-4/5 md:w-full z-30`}>
                 <nav
                     className={` px-5 pr-5 ${
                         isScrolled
@@ -139,7 +139,7 @@ export default function Index(
             </header>
             {/* Hero Section */}
             <section
-                className="bg-white dark:bg-gray-900 w-full pt-10"
+                className="bg-white dark:bg-gray-900 w-full pt-10 "
                 id="hero"
                 style={{
                     backgroundImage:
@@ -183,7 +183,7 @@ export default function Index(
 
             {/*Service Section*/}
             <section
-                className="bg-white dark:bg-gray-800 w-full mx-auto pb-10  "
+                className="bg-white dark:bg-gray-800 w-full mx-auto pb-0 md:pb-10  "
                 id="service"
             >
                 <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:text-white text-center mb-10">
@@ -573,7 +573,7 @@ export default function Index(
             </section>
 
             {/* FAQ Section */}
-            <section className="bg-white dark:bg-gray-900" id="faq">
+            <section className="bg-white dark:bg-gray-900 pb-10" id="faq">
                 <div className="lg:pb-24 lg:px-6 pt-10 max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
                     <h2 className="mb-6 text-xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-xl dark:text-gray-50">
                         Түгээмэл асуулт хариулт
@@ -722,19 +722,18 @@ export default function Index(
                 </div>
             </section>
 
-            {/* Partners Section */}
             {/**Footer */}
-            <footer className="bg-gray-300 dark:bg-blue-950 text-black dark:text-white py-10">
+            <footer className="bg-blue-950 text-white py-10">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-10">
-                        <h2 className="text-2xl font-bold mb-4">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-4">
                             Subscribe for daily update
                         </h2>
-                        <div className="flex justify-center items-center space-x-4">
+                        <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
                             <input
                                 type="email"
                                 placeholder="Email Address"
-                                className="px-4 py-2 w-64 rounded-full text-black"
+                                className="px-4 py-2 w-full sm:w-64 rounded-full text-black focus:outline-none focus:ring focus:ring-blue-300"
                             />
                             <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition duration-300">
                                 Join Now
@@ -742,7 +741,7 @@ export default function Index(
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
                         <div>
                             <h3 className="font-semibold text-lg mb-4">
                                 About Company
@@ -849,18 +848,24 @@ export default function Index(
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 512 512"
-                                        className="w-8 h-8 text-black dark:text-white"
+                                        className="w-8 h-8"
                                     >
-                                        <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
+                                        <path
+                                            fill="#ffffff"
+                                            d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"
+                                        />
                                     </svg>
                                 </a>
                                 <a href="#">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 512 512"
-                                        className="w-8 h-8 mt-5 text-black dark:text-white"
+                                        className="w-8 h-8 mt-5"
                                     >
-                                        <path d="M255.9 120.9l9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5 9.8 5.6 13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8H113.8c-11.3 0-20.4-9.1-20.4-20.4 0-11.3 9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218l-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5-9.8-5.6-13.1-18.1-7.5-27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4 0 11.3-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zM256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z" />
+                                        <path
+                                            fill="#ffffff"
+                                            d="M255.9 120.9l9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5 9.8 5.6 13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8H113.8c-11.3 0-20.4-9.1-20.4-20.4 0-11.3 9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218l-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5-9.8-5.6-13.1-18.1-7.5-27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4 0 11.3-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zM256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z"
+                                        />
                                     </svg>
                                 </a>
                             </div>
