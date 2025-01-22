@@ -56,7 +56,7 @@ class HomeController extends Controller
         $posts = $user->posts;
         $services = $user->services;
         $userTemp = $user->selected_template;
-        $templates = Template::orderBy('id', 'desc')->get();
+        $templates = Template::where('frontend', '!=', 0)->orderBy('frontend', 'asc')->get();
        
         if (!isset($user) || !isset($user->template)) {
             abort(404, 'Template not found');

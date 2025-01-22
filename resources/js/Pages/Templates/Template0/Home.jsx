@@ -402,6 +402,7 @@ export default function Home({
                                         </svg>
                                         <input
                                             type="password"
+                                            autoComplete="current-password"
                                             value={data.password}
                                             onChange={(e) =>
                                                 setData(
@@ -525,6 +526,7 @@ export default function Home({
                                     <div className="group relative shadow-lg">
                                         <div className="relative p-8">
                                             <div className="relative">
+                                                {/* {template} */}
                                                 <img
                                                     src={"/" + template.image}
                                                     alt="template"
