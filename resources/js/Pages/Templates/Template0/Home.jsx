@@ -60,12 +60,20 @@ export default function Home({
 
         try {
             await post(route("admin.users.createUser"));
-            if (response.data.success) {
-                alert(response.data.message); // Display the success message
-                window.location.href = response.data.redirect_url; // Redirect to the given URL
-            } else {
-                console.error("Unexpected response:", response);
-            }
+            setFormat({
+                subdomain: "",
+                name: "",
+                phone: "",
+                email: "",
+                password: "",
+            });
+            // if (response.data.success) {
+            //     alert(e.data.message); // Display the success message
+
+            //     window.location.href = e.data.redirect_url; // Redirect to the given URL
+            // } else {
+            //     console.error("Unexpected response:", e);
+            // }
         } catch (error) {
             console.error("Error submitting the form:", error);
         }
@@ -409,15 +417,6 @@ export default function Home({
                                         />
                                     </div>
                                 </div>
-
-                                {/* <button
-                                    type="submit"
-                                    className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                >
-                                    <a href={route("admin.users.createUser")}>
-                                        Нэмэх
-                                    </a>
-                                </button> */}
                                 <PrimaryButton
                                     disabled={processing}
                                     className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -564,7 +563,7 @@ export default function Home({
                                     key={pack.id}
                                 >
                                     <div className="space-y-4">
-                                        <h2 className="text-lg font-semibold text-gray-800 dark:text-white border-b border-2px border-gray-400 dark:border-gray-600">
+                                        <h2 className=" px-2 text-lg font-semibold text-gray-800 dark:text-white border-b border-2px border-gray-400 dark:border-gray-600">
                                             {pack.title}
                                         </h2>
                                         <ul className=" pt-3 text-gray-600 dark:text-gray-300 group-hover:text-gray-800 space-y-2 dark:group-hover:text-gray-100  ">
