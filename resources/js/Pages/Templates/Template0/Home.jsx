@@ -25,6 +25,7 @@ export default function Home({
             subdomain: "",
             phone: "",
             password: "",
+            email: "",
         });
 
     const toggleAccordion = (index) => {
@@ -58,11 +59,13 @@ export default function Home({
         e.preventDefault();
 
         try {
-            let response;
-
-            response = await post(route("admin.users.createUser"));
-
-            console.log(response); // Check the response
+            await post(route("admin.users.createUser"));
+            if (response.data.success) {
+                alert(response.data.message); // Display the success message
+                window.location.href = response.data.redirect_url; // Redirect to the given URL
+            } else {
+                console.error("Unexpected response:", response);
+            }
         } catch (error) {
             console.error("Error submitting the form:", error);
         }
@@ -333,7 +336,41 @@ export default function Home({
                                         />
                                     </div>
                                 </div>
-
+                                <div className="mb-5">
+                                    <label
+                                        htmlFor="email"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Email
+                                    </label>
+                                    <div className="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                            stroke="currentColor"
+                                            className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M2.25 6.75a2.25 2.25 0 012.25-2.25h2.829a2.25 2.25 0 012.121 1.5l.682 2.046a2.251 2.251 0 01-.572 2.377l-.943.943a14.978 14.978 0 006.364 6.364l.943-.943a2.251 2.251 0 012.377-.572l2.046.682a2.25 2.25 0 011.5 2.121v2.829a2.25 2.25 0 01-2.25 2.25h-.75a17.25 17.25 0 01-17.25-17.25v-.75z"
+                                            />
+                                        </svg>
+                                        <input
+                                            type="email"
+                                            value={data.email}
+                                            onChange={(e) =>
+                                                setData("email", e.target.value)
+                                            }
+                                            id="email"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="E-mail оруулна уу"
+                                            required
+                                        />
+                                    </div>
+                                </div>
                                 <div className="mb-5">
                                     <label
                                         htmlFor="password"

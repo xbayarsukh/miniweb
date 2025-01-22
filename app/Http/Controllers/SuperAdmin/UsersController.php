@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\GeneralSetting;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -15,22 +17,36 @@ class UsersController extends Controller
         $users = User::where('id', '!=', 1)->orderBy('id', 'DESC')->get();
         return Inertia::render('SuperAdmin/Users/Users', ['users' => $users]);
     }
-    // public function create(){
-
-    //     return Inertia::render('SuperAdmin/Users/CreateAndEdit', ['users' => null]);
-    // }
-    // public function store(Request $request){
-    //     $user = new User;
-    //     $user->name = $request->name;
-    //     $user->subdomain = $request->subdomain;
-    //     $user->template = $request->template;
-    //     $user->phone = $request->phone;
-    //     $user->expire_date = $request->expire_date;
-    //     $user->email = $request->email;
-
+    public function createUser(Request $request) {
+        $slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '', strtolower($this->transliterateMongolianToEnglish($request->subdomain))));
+        // return $request;
+        $user = new User;
+      
+        $user->name = $request->name;
+        $user->subdomain = $slug;
+        $user->template = 1;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
         
-    //     $user->save();
-    //     return redirect()->route('admin.user')->with('success', 'portfolio created successfully!');
+        if($user->save()){
+
+        }
+        return redirect()->to("http://$user->subdomain.localhost:8000/login")->with('success', 'portfolio created successfully!');      
+    }
+    // public function store(Request $request) {
+    //     $slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '', strtolower($this->transliterateMongolianToEnglish($request->subdomain))));
+    //     return $request;
+    //     $user = new User;
+      
+    //         $user->name = $request->name;
+    //         $user->subdomain = $slug;
+    //         // $user->template = $request->template;
+    //         $user->phone = $request->phone;
+    //         $user->password = $request->password;
+            
+    //         $user->save();
+    //         return redirect()->route('admin.user')->with('success', 'portfolio created successfully!');      
     // }
     public function edit($id){
         $user = User::find($id);
@@ -57,34 +73,7 @@ class UsersController extends Controller
         }
     }
 
-    public function createUser(Request $request) {
-        $slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '', strtolower($this->transliterateMongolianToEnglish($request->subdomain))));
-        // return $request;
-        $user = new User;
-      
-            $user->name = $request->name;
-            $user->subdomain = $slug;
-            $user->template = 1;
-            $user->phone = $request->phone;
-            $user->password = Hash::make($request->password);
-            
-            $user->save();
-            return redirect()->route('admin.user')->with('success', 'portfolio created successfully!');      
-    }
-    // public function store(Request $request) {
-    //     $slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '', strtolower($this->transliterateMongolianToEnglish($request->subdomain))));
-    //     return $request;
-    //     $user = new User;
-      
-    //         $user->name = $request->name;
-    //         $user->subdomain = $slug;
-    //         // $user->template = $request->template;
-    //         $user->phone = $request->phone;
-    //         $user->password = $request->password;
-            
-    //         $user->save();
-    //         return redirect()->route('admin.user')->with('success', 'portfolio created successfully!');      
-    // }
+    
     function transliterateMongolianToEnglish($str) {
         $mongolianMap = [
             'А' => 'a', 'Б' => 'b', 'В' => 'v', 'Г' => 'g', 'Д' => 'd', 'Е' => 'e', 'Ё' => 'yo', 'Ж' => 'zh',

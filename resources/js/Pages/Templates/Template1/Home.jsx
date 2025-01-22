@@ -40,22 +40,22 @@ export default function Home({
                 <link
                     rel="icon"
                     type="image/png"
-                    href={"/" + general.favicon}
+                    href={"/" + general.favicon ?? ""}
                 />
             </Helmet>
-            <Head title={general.title} />
+            <Head title={general.title ?? ""} />
 
             <header className="fixed w-full z-10">
                 <nav className="bg-white border-gray-200 py-2.5 dark:bg-gray-900">
                     <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                         <a href="#" className="flex items-center">
                             <img
-                                src={"/" + general.logo}
+                                src={"/" + general.logo ?? ""}
                                 className="h-6 mr-3 sm:h-9"
                                 alt="Landwind Logo"
                             />
                             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                                {general.title}
+                                {general.title ?? ""}
                             </span>
                         </a>
                         <div className="flex items-center lg:order-2">
@@ -113,10 +113,8 @@ export default function Home({
                                             href="#services"
                                             className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                                         >
-                                            {
-                                                JSON.parse(general.options)
-                                                    .service_title
-                                            }
+                                            {JSON.parse(general.options)
+                                                .service_title ?? ""}
                                         </a>
                                     </li>
                                 )}
@@ -126,10 +124,8 @@ export default function Home({
                                             href="#portfolios"
                                             className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                                         >
-                                            {
-                                                JSON.parse(general.options)
-                                                    .portfolio_title
-                                            }
+                                            {JSON.parse(general.options)
+                                                .portfolio_title ?? ""}
                                         </a>
                                     </li>
                                 )}
@@ -139,10 +135,8 @@ export default function Home({
                                             href="#posts"
                                             className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                                         >
-                                            {
-                                                JSON.parse(general.options)
-                                                    .news_title
-                                            }
+                                            {JSON.parse(general.options)
+                                                .news_title ?? ""}
                                         </a>
                                     </li>
                                 )}
@@ -152,10 +146,8 @@ export default function Home({
                                             href="#faqs"
                                             className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                                         >
-                                            {
-                                                JSON.parse(general.options)
-                                                    .faq_title
-                                            }
+                                            {JSON.parse(general.options)
+                                                .faq_title ?? ""}
                                         </a>
                                     </li>
                                 )}
@@ -179,11 +171,14 @@ export default function Home({
                         ref={contentRef}
                         className="mr-auto place-self-center lg:col-span-7"
                         dangerouslySetInnerHTML={{
-                            __html: general.overview,
+                            __html: general.overview ?? "",
                         }}
                     ></div>
                     <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-                        <img src={"/" + general.banner} alt="hero image" />
+                        <img
+                            src={"/" + general.banner ?? ""}
+                            alt="hero image"
+                        />
                     </div>
                 </div>
             </section>
@@ -194,11 +189,11 @@ export default function Home({
                         <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400 ">
                             {partners.map((partner, index) => (
                                 <a
-                                    href={partner.link}
+                                    href={partner.link ?? ""}
                                     className="flex items-center lg:justify-center p-2 rounded-3xl bg-gray-800"
                                 >
                                     <img
-                                        src={"/" + partner.image}
+                                        src={"/" + partner.image ?? ""}
                                         alt="Partner Logo"
                                         className="h-9 filter grayscale hover:grayscale-0 dark:grayscale-0"
                                     />
@@ -220,28 +215,28 @@ export default function Home({
                                 {index % 2 === 0 && (
                                     <img
                                         className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                                        src={"/" + service.image}
+                                        src={"/" + service.image ?? ""}
                                         alt="dashboard feature image"
                                     />
                                 )}
                                 <div className="text-gray-500 sm:text-lg dark:text-gray-400">
                                     <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                                        {service.title}
+                                        {service.title ?? ""}
                                     </h2>
                                     <p className="mb-8 font-light lg:text-xl">
-                                        {service.subtitle}
+                                        {service.subtitle ?? ""}
                                     </p>
 
                                     <div
                                         dangerouslySetInnerHTML={{
-                                            __html: service.content,
+                                            __html: service.content ?? "",
                                         }}
                                     ></div>
                                 </div>
                                 {index % 2 === 1 && (
                                     <img
                                         className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                                        src={"/" + service.image}
+                                        src={"/" + service.image ?? ""}
                                         alt="dashboard feature image"
                                     />
                                 )}
@@ -273,16 +268,18 @@ export default function Home({
                             </svg>
 
                             <h2 class="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
-                                {JSON.parse(general.options).portfolio_title}
+                                {JSON.parse(general.options).portfolio_title ??
+                                    ""}
                             </h2>
                             <p class="text-gray-600 dark:text-gray-300">
-                                {JSON.parse(general.options).portfolio_desc}
+                                {JSON.parse(general.options).portfolio_desc ??
+                                    ""}
                             </p>
                         </div>
                         <div
                             class={
                                 "mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-" +
-                                (portfolios.length == 1 ? 1 : 2) +
+                                (portfolios.length ?? "" == 1 ? 1 : 2) +
                                 " lg:grid-cols-" +
                                 portfolios.length +
                                 " lg:divide-y-0 xl:grid-cols-" +
@@ -294,7 +291,7 @@ export default function Home({
                                 <div class="group relative bg-gray-50 dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
                                     <div class="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-900">
                                         <img
-                                            src={"/" + portfolio.image}
+                                            src={"/" + portfolio.image ?? ""}
                                             class="w-12"
                                             width="512"
                                             height="512"
@@ -303,12 +300,13 @@ export default function Home({
 
                                         <div class="space-y-2">
                                             <h5 class="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
-                                                {portfolio.title}
+                                                {portfolio.title ?? ""}
                                             </h5>
                                             <div
                                                 class="text-gray-600 dark:text-gray-300"
                                                 dangerouslySetInnerHTML={{
-                                                    __html: portfolio.content,
+                                                    __html:
+                                                        portfolio.content ?? "",
                                                 }}
                                             ></div>
                                         </div>
@@ -325,10 +323,10 @@ export default function Home({
                     <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
                         <div className="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
                             <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                                {JSON.parse(general.options).news_title}
+                                {JSON.parse(general.options).news_title ?? ""}
                             </h2>
                             <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
-                                {JSON.parse(general.options).news_desc}
+                                {JSON.parse(general.options).news_desc ?? ""}
                             </p>
                         </div>
                         <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
@@ -339,15 +337,15 @@ export default function Home({
                                     onClick={() => openModal(post)}
                                 >
                                     <img
-                                        src={"/" + post.image}
+                                        src={"/" + post.image ?? ""}
                                         className="w-full h-[240px] object-cover"
                                         alt=""
                                     />
                                     <a className="text-white focus:ring-4 mx-3 mt-2 mb-1 focus:ring-purple-200 font-medium rounded-lg text-sm text-center dark:text-white  dark:focus:ring-purple-900">
-                                        {post.title}
+                                        {post.title ?? ""}
                                     </a>
                                     <p className="text-justify mx-2 mb-2">
-                                        {post.subtitle}
+                                        {post.subtitle ?? ""}
                                     </p>
                                 </div>
                             ))}
@@ -360,7 +358,7 @@ export default function Home({
                 <section className="bg-white dark:bg-gray-900" id="faqs">
                     <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6 pt-10">
                         <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-3xl dark:text-white">
-                            {JSON.parse(general.options).faq_title}
+                            {JSON.parse(general.options).faq_title ?? ""}
                         </h2>
                         <div className="max-w-screen-md mx-auto">
                             {/** Accordion container */}
@@ -379,7 +377,7 @@ export default function Home({
                                                     toggleAccordion(index)
                                                 }
                                             >
-                                                <span>{faq.title}</span>
+                                                <span>{faq.title ?? ""}</span>
                                                 <svg
                                                     className={`w-6 h-6 transform ${
                                                         activeIndex === index
@@ -405,7 +403,7 @@ export default function Home({
                                                     : "hidden"
                                             } py-5 border-b border-gray-200 dark:border-gray-700 !text-black dark:!text-gray-300`}
                                             dangerouslySetInnerHTML={{
-                                                __html: faq.content,
+                                                __html: faq.content ?? "",
                                             }}
                                         ></div>
                                     </>
