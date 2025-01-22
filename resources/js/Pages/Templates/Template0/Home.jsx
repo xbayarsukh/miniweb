@@ -57,15 +57,8 @@ export default function Home({
 
     const submit = async (e) => {
         e.preventDefault();
-
         try {
             await post(route("admin.users.createUser"));
-            if (response.data.success) {
-                alert(response.data.message); // Display the success message
-                window.location.href = response.data.redirect_url; // Redirect to the given URL
-            } else {
-                console.error("Unexpected response:", response);
-            }
         } catch (error) {
             console.error("Error submitting the form:", error);
         }

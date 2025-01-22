@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\RoleMiddleware;
 
+Route::post('/createUser', [UsersController::class, 'createUser'])->name('admin.users.createUser');
+
 Route::domain('{subdomain}.'.env('APP_URL'))->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -105,7 +107,6 @@ Route::group(['prefix'=>'admin'],function () {
     Route::middleware([RoleMiddleware::class])->group(function () {
         Route::group(['prefix'=>'users'],function () {
             Route::get('/', [UsersController::class, 'index'])->name('admin.users');
-            Route::post('/createUser', [UsersController::class, 'createUser'])->middleware(['auth', 'verified'])->name('admin.users.createUser');
             // Route::post('/create', [UsersController::class, 'store'])->middleware(['auth', 'verified'])->name('admin.users.store');
             Route::get('/edit/{id}', [UsersController::class, 'edit'])->middleware(['auth', 'verified'])->name('admin.users.edit');
             Route::post('/edit/{id}', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('admin.users.update');
