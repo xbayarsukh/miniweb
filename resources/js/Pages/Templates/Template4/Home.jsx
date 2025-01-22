@@ -157,7 +157,7 @@ export default function Index(
                             Seamless IT Solutions <br />
                             For Business Growth
                         </h2>
-                        <div className="flex flex-row space-x-10 mx-[18%] mt-10">
+                        <div className="hidden md:flex flex-row space-x-10 mx-[18%] mt-10">
                             <button
                                 type="button"
                                 className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5 transition duration-200"
@@ -166,7 +166,7 @@ export default function Index(
                             </button>
                             <button
                                 type="button"
-                                className="ml-6 text-white bg-transparent border-2 border-white rounded-lg focus:ring-4"
+                                className="ml-6 px-5 text-white bg-transparent border-2 border-white rounded-lg focus:ring-4"
                             >
                                 View All Services
                             </button>

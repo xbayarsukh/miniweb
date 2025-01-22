@@ -1,19 +1,31 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from "@inertiajs/react";
 import { Helmet } from "react-helmet";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Home({
-     general,
-     services,
-     posts,
-     faqs,
-     portfolios,
-     partners,
-    }) {
-const contentRef = useRef(null);
+    general,
+    portfolios,
+    user,
+    userTemp,
+    templates,
+    packages,
+}) {
+    const contentRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null); // Store the selected post
     const [activeIndex, setActiveIndex] = useState(null);
+    const { data, setData, post, errors, processing, recentlySuccessful } =
+        useForm({
+            name: "",
+            subdomain: "",
+            phone: "",
+            password: "",
+        });
 
     const toggleAccordion = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -23,7 +35,9 @@ const contentRef = useRef(null);
         setSelectedPost(post); // Set the selected post for modal
         setIsOpen(true);
     };
-
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
     const closeModal = () => {
         setSelectedPost(null); // Reset selected post when modal is closed
         setIsOpen(false);
@@ -34,272 +48,367 @@ const contentRef = useRef(null);
             closeModal(); // Close modal when clicked outside
         }
     };
+    useEffect(() => {
+        if (contentRef.current) {
+            contentRef.current.style.fontSize = "40rem"; // Increase font size
+        }
+    }, []);
+
+    const submit = async (e) => {
+        e.preventDefault();
+
+        try {
+            let response;
+
+            response = await post(route("admin.users.createUser"));
+
+            console.log(response); // Check the response
+        } catch (error) {
+            console.error("Error submitting the form:", error);
+        }
+    };
 
     return (
         <>
-        <Helmet>
-        <link
-                    href="/front/css/aos.css"
-                    rel="stylesheet"
-                />
+            <Helmet>
                 <link
-                    href="/front/css/style.min.css"
-                    rel="stylesheet"
+                    rel="icon"
+                    type="image/png"
+                    href={"/" + general.favicon}
                 />
-                <link
-                    href="/front/css/swiper-bundle.min.css"
-                    rel="stylesheet"
-                />
-                <link rel="icon" type="image/png" href={"/"+general.favicon} />
-        </Helmet>
+            </Helmet>
             <Head title={general.title} />
-            <header id="navbar" class="light fixed top-0 inset-x-0 flex items-center z-40 w-full bg-white transition-all dark:bg-gray-900"
->
-  <nav class="w-full border-gray-200 px-6 bg-white pt-10 space-between text-font-sanserif text-emerald-800 text-lg dark:bg-gray-900"
-  >
-    <div class="flex items-center space-between ">
-      <a href="#" class="flex items-center">
-        <img
-          src={"/" + general.logo}
-          class="h-6 mr-3 sm:h-9"
-          alt="Logo"
-        />
-        <span
-          class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-        >
-          {general.title}
-        </span>
-      </a>
 
-      <div class="hidden lg:flex space-x-20 items-center px-40 ">
-        <a class="nav-link" href="#">Нүүр</a>
+            <header className="fixed w-full z-10">
+                <nav className="bg-white dark:bg-gray-800 shadow-lg">
+                    <div className="flex items-center justify-between max-w-screen-xl px-6 py-4 mx-auto">
+                        {/* Logo Section */}
+                        <a href="#" className="flex items-center">
+                            <img
+                                src={"/" + general.logo}
+                                className="h-8 mr-3 sm:h-10"
+                                alt="Landwind Logo"
+                            />
+                            <span className="text-2xl font-bold text-white whitespace-nowrap">
+                                {general.title}
+                            </span>
+                        </a>
 
-        {posts.length > 0 && (
-          <a href="#posts" class="nav-link">
-            {JSON.parse(general.options).news_title}
-          </a>
-        )}
-        {services.length > 0 && (
-          <a href="#services" class="nav-link">
-            {JSON.parse(general.options).service_title}
-          </a>
-        )}
-        {portfolios.length > 0 && (
-          <a href="#portfolio" class="nav-link">
-            {JSON.parse(general.options).portfolio_title}
-          </a>
-        )}
-        {faqs.length > 0 && (
-          <a href="#faqs" class="nav-link">
-            {JSON.parse(general.options).faq_title}
-          </a>
-        )}
-        <a class="nav-link" href="#contact">Холбоо барих</a>
-      </div>
-      <button
-        type="button"
-        class="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
-        data-collapse-toggle="mobile-menu"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          class="w-6 h-6"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-      </button>
-    </div>
-    <div
-      id="mobile-menu"
-      class="hidden flex-col lg:hidden mt-4 space-y-2 px-4 bg-white dark:bg-gray-900"
-    >
-      <a class="nav-link" href="#">Нүүр</a>
+                        {/* Desktop Menu */}
+                        <div
+                            className={`hidden lg:flex items-center space-x-3 text-md text-black dark:text-white ${
+                                isMenuOpen ? "hidden" : ""
+                            }`}
+                        >
+                            <a
+                                href="#about"
+                                className="px-4 py-2 rounded-md transition duration-200"
+                            >
+                                Бидний тухай
+                            </a>
+                            <a
+                                href="#price"
+                                className="px-4 py-2 rounded-md transition duration-200"
+                            >
+                                Үнийн санал
+                            </a>
+                            <a
+                                href="#"
+                                className="px-4 py-2 rounded-md transition duration-200"
+                            >
+                                Холбоо барих
+                            </a>
+                            <button
+                                type="button"
+                                className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-lg px-5 py-2.5 transition duration-200"
+                            >
+                                Нэвтрэх
+                            </button>
+                        </div>
 
-      {posts.length > 0 && (
-        <a href="#posts" class="nav-link">
-          {JSON.parse(general.options).news_title}
-        </a>
-      )}
-      {services.length > 0 && (
-        <a href="#services" class="nav-link">
-          {JSON.parse(general.options).service_title}
-        </a>
-      )}
-      {portfolios.length > 0 && (
-        <a href="#portfolio" class="nav-link">
-          {JSON.parse(general.options).portfolio_title}
-        </a>
-      )}
-      {faqs.length > 0 && (
-        <a href="#faqs" class="nav-link">
-          {JSON.parse(general.options).faq_title}
-        </a>
-      )}
-      <a class="nav-link" href="contact.html">Холбоо барих</a>
-    </div>
-  </nav>
-</header>
+                        {/* Mobile Menu Button */}
+                        <div className="lg:hidden">
+                            <button
+                                type="button"
+                                onClick={toggleMenu}
+                                className="text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-600"
+                                aria-label="Toggle navigation"
+                            >
+                                <svg
+                                    className="w-6 h-6"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
 
-    <section class="bg-white dark:bg-gray-900 py-20">
-                <div class="grid max-w-screen-xl px-4 justify-center pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28 space-x-8 text-justify">
-                    <div
-                        ref={contentRef}
-                        class="mr-auto place-self-center lg:col-span-7 text-emerald-700 text-justify"
-                        dangerouslySetInnerHTML={{
-                            __html: general.overview,
-                        }}
-                    ></div>
-                    <div class="hidden lg:mt-0 lg:col-span-5 lg:flex my-8 rounded-lg">
-                        <img src={"/" + general.banner} alt="hero image" class="rounded-lg" />
+                    {/* Mobile Menu */}
+                    {isMenuOpen && (
+                        <div className="lg:hidden px-6 py-4 space-y-4 text-gray-900 dark:text-white">
+                            <a
+                                href="#about"
+                                className="block px-4 py-2 rounded-md transition duration-200"
+                            >
+                                Бидний тухай
+                            </a>
+                            <a
+                                href="#price"
+                                className="block px-4 py-2 rounded-md transition duration-200"
+                            >
+                                Үнийн санал
+                            </a>
+                            <a
+                                href="#"
+                                className="block px-4 py-2 rounded-md transition duration-200"
+                            >
+                                Холбоо барих
+                            </a>
+                            <button
+                                type="button"
+                                className="w-full bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-200"
+                            >
+                                Нэвтрэх
+                            </button>
+                        </div>
+                    )}
+                </nav>
+            </header>
+            {/**Hero Section */}
+            <section className="w-full bg-white dark:bg-gray-900">
+                <div
+                    className="grid max-w-screen-3xl px-4 md:px-8 pt-20 pb-8 lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28"
+                    style={{
+                        backgroundImage:
+                            "url('https://t3.ftcdn.net/jpg/05/14/95/12/360_F_514951224_2dxMLbIw5qNRdPGD003chpbVcxWtcp7K.jpg')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                    }}
+                >
+                    <div className="mr-auto place-self-center lg:col-span-7 justify-center items-center py-20 px-4 md:px-12">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-mono font-semibold text-white ">
+                            Өөрсдийн вебээ <br /> хялбар үүсгэцгээе
+                        </h2>
+                    </div>
+
+                    <div className="lg:mt-0 lg:col-span-5 flex justify-center pr-0 md:pr-10 lg:pr-40 sm:w-full">
+                        <div className="w-full max-w-2xl p-8 border border-gray-300 rounded-lg shadow-lg dark:border-gray-700 bg-white dark:bg-gray-800">
+                            <form
+                                onSubmit={submit}
+                                encType="multipart/form-data"
+                            >
+                                <div className="mb-5">
+                                    <h5 className="text-lg font-medium text-gray-900 dark:text-white">
+                                        Яг одоо нэмэх
+                                    </h5>
+                                    <p className="text-sm md:text-base lg:text-base text-mono text-gray-900 dark:text-gray-100 py-5">
+                                        Таны оруулсан мэдээллээр таны веб үүснэ.
+                                    </p>
+                                </div>
+
+                                <div className="mb-5">
+                                    <label
+                                        htmlFor="subdomain"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Сайтын нэр
+                                    </label>
+                                    <div className="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            className="absolute top-2.5 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M12 21a9 9 0 100-18 9 9 0 000 18z"
+                                            />
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M2.25 12h19.5M12 2.25a15.259 15.259 0 010 19.5M12 2.25a15.259 15.259 0 000 19.5"
+                                            />
+                                        </svg>
+                                        <input
+                                            type="text"
+                                            value={data.subdomain}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "subdomain",
+                                                    e.target.value
+                                                )
+                                            }
+                                            id="subdomain"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Өөрийн сайтын нэрийг оруулна уу"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="mb-5">
+                                    <label
+                                        htmlFor="name"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Таны нэр
+                                    </label>
+                                    <div className="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M15.75 8.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                                            />
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M4.5 19.5a8.999 8.999 0 0115 0"
+                                            />
+                                        </svg>
+                                        <input
+                                            type="text"
+                                            value={data.name}
+                                            onChange={(e) =>
+                                                setData("name", e.target.value)
+                                            }
+                                            id="name"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Та өөрийн нэрээ оруулна уу"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="mb-5">
+                                    <label
+                                        htmlFor="phone"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Утасны дугаар
+                                    </label>
+                                    <div className="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                            stroke="currentColor"
+                                            className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M2.25 6.75a2.25 2.25 0 012.25-2.25h2.829a2.25 2.25 0 012.121 1.5l.682 2.046a2.251 2.251 0 01-.572 2.377l-.943.943a14.978 14.978 0 006.364 6.364l.943-.943a2.251 2.251 0 012.377-.572l2.046.682a2.25 2.25 0 011.5 2.121v2.829a2.25 2.25 0 01-2.25 2.25h-.75a17.25 17.25 0 01-17.25-17.25v-.75z"
+                                            />
+                                        </svg>
+                                        <input
+                                            type="tel"
+                                            value={data.phone}
+                                            onChange={(e) =>
+                                                setData("phone", e.target.value)
+                                            }
+                                            id="phone"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Утасны дугаараа оруулна уу"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="mb-5">
+                                    <label
+                                        htmlFor="password"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Нууц үг
+                                    </label>
+                                    <div className="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            className="absolute top-2 left-2.5 w-5 h-5 text-gray-400 dark:text-gray-300"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M16.5 10.5V7.5a4.5 4.5 0 00-9 0v3M6.75 10.5h10.5a2.25 2.25 0 012.25 2.25v6a2.25 2.25 0 01-2.25 2.25H6.75a2.25 2.25 0 01-2.25-2.25v-6a2.25 2.25 0 012.25-2.25z"
+                                            />
+                                        </svg>
+                                        <input
+                                            type="password"
+                                            value={data.password}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "password",
+                                                    e.target.value
+                                                )
+                                            }
+                                            id="password"
+                                            className="shadow-sm pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Нууц үгээ оруулна уу"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* <button
+                                    type="submit"
+                                    className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                >
+                                    <a href={route("admin.users.createUser")}>
+                                        Нэмэх
+                                    </a>
+                                </button> */}
+                                <PrimaryButton
+                                    disabled={processing}
+                                    className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                >
+                                    Нэмэх
+                                </PrimaryButton>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
-
-            {posts.length > 0 && (
-  <section class="bg-emerald-800 dark:bg-emerald-100" id="posts">
-    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
-      <div class="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
-        <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-[bold] text-gray-700 dark:text-gray-900">
-          {JSON.parse(general.options).news_title}
-        </h2>
-        <p class="mb-5 font-light  sm:text-xl text-text-gray-500 dark:text-gray-900">
-          {JSON.parse(general.options).news_desc}
-        </p>
-      </div>
-      <div class="grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
-        {posts.map((post) => (
-          <div
-            class="flex flex-col max-w-lg mx-2/3 text-gray-900 bg-white border border-gray-200 rounded-lg shadow dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-            key={post.id}
-            onClick={() => openModal(post)}
-          >
-            <img
-              src={"/" + post.image}
-              class="w-full h-[240px] object-cover rounded-t-lg"
-              alt={post.title}
-            />
-            <div class="p-4">
-              <a
-                href="#"
-                class="block mb-2 text-lg font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
-              >
-                {post.title}
-              </a>
-              <p class="text-sm text-gray-700 dark:text-gray-300 text-justify">
-                {post.subtitle}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-
-{services.length > 0 && (
-  <section class="bg-white dark:bg-gray-900" id="services">
-    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
-      <div class="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
-        <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-700 dark:text-gray-900">
-          {JSON.parse(general.options).services_title}
-        </h2>
-        <p class="mb-5 font-light sm:text-xl text-gray-500 dark:text-gray-900">
-          {JSON.parse(general.options).services_desc}
-        </p>
-      </div>
-      <div class="grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
-        {services.map((service) => (
-          <div
-            class="flex flex-col space-between max-w-lg mx-1/2 text-gray-900 bg-white border border-gray-200 rounded-lg shadow dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-            key={service.id}
-          >
-            <img
-              src={"/" + service.image}
-              class="w-full h-[240px] object-cover rounded-t-lg"
-              alt={service.title}
-            />
-            <div class="p-4">
-              <h5 class="block mb-2 text-lg font-semibold text-emerald-600 dark:text-emerald-400">
-                {service.title}
-              </h5>
-              <div
-                class="text-sm text-gray-700 dark:text-gray-300 text-justify"
-                dangerouslySetInnerHTML={{
-                  __html: service.content,
-                }}
-              ></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-
-
-                {portfolios.length > 0 && (
-                <div
-                    id="portfolios"
-                    class="py-8 !bg-gray-50 dark:!bg-gray-900"
-                >
-                    <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-                        <div class="md:w-2/3 lg:w-1/2">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                class="w-6 h-6 text-secondary"
-                            >
-                                <path
-                                    fill="white"
-                                    fill-rule="evenodd"
-                                    d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
-
-                            <h2 class="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
-                                {JSON.parse(general.options).portfolio_title}
-                            </h2>
-                            <p class="text-gray-600 dark:text-gray-300">
-                                {JSON.parse(general.options).portfolio_desc}
-                            </p>
-                        </div>
-                        <div
-                            class={
-                                "mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-" +
-                                (portfolios.length == 1 ? 1 : 2) +
-                                " lg:grid-cols-" +
-                                portfolios.length +
-                                " lg:divide-y-0 xl:grid-cols-" +
-                                portfolios.length +
-                                ""
-                            }
-                        >
+            {/**Portfolios */}
+            {portfolios.length > 0 && (
+                <div className="w-full bg-white dark:bg-gray-800 py-12">
+                    <div className="max-w-screen-xl px-4 mx-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 text-md text-gray-700 dark:text-white">
                             {portfolios.map((portfolio) => (
-                                <div class="group relative bg-gray-50 dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
-                                    <div class="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-900">
-                                        <img
-                                            src={"/" + portfolio.image}
-                                            class="w-12"
-                                            width="512"
-                                            height="512"
-                                            alt="burger illustration"
-                                        />
-
-                                        <div class="space-y-2">
-                                            <h5 class="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
+                                <div
+                                    className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10 flex flex-col rounded-lg"
+                                    key={portfolio.id}
+                                >
+                                    <div className="relative bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg flex-grow p-8">
+                                        <div className="space-y-2">
+                                            <h5 className="text-xl font-semibold text-center">
                                                 {portfolio.title}
                                             </h5>
                                             <div
-                                                class="text-gray-600 dark:text-gray-300"
+                                                className="text-gray-900 dark:text-white text-justify"
                                                 dangerouslySetInnerHTML={{
                                                     __html: portfolio.content,
                                                 }}
@@ -312,88 +421,190 @@ const contentRef = useRef(null);
                     </div>
                 </div>
             )}
-        {faqs.length > 0 && (
-            <section class="bg-emerald-800 dark:bg-emerald-100 pt-20" id="faqs">
-            <div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6 pt-10">
-                <h2 class="mb-6 text-3xl font-extrabold tracking-tight text-center  text-gray-700 dark:text-gray-900 lg:mb-8 lg:text-3xl">
-                    {JSON.parse(general.options).faq_title}
-                </h2>
-                <div class="max-w-screen-md mx-auto">
-                    {/** Accordion container */}
-                    <div id="accordion-flush">
-                        {faqs.map((faq, index) => (
-                            <>
-                                <h3>
-                                    <button
-                                        type="button"
-                                        class={`flex items-center justify-between w-full py-5 font-medium text-left ${
-                                            activeIndex === index
-                                                ? "text-gray-900 dark:text-white"
-                                                : "text-gray-500 dark:text-gray-400"
-                                        } border-b border-gray-200 dark:border-gray-700`}
-                                        onClick={() =>
-                                            toggleAccordion(index)
-                                        }
-                                    >
-                                        <span>{faq.title}</span>
-                                        <svg
-                                            class={`w-6 h-6 transform ${
-                                                activeIndex === index
-                                                    ? "rotate-180"
-                                                    : ""
-                                            }`}
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clipRule="evenodd"
-                                            ></path>
-                                        </svg>
-                                    </button>
-                                </h3>
-                                <div
-                                    class={`${
-                                        activeIndex === index
-                                            ? "block"
-                                            : "hidden"
-                                    } py-5 border-b border-gray-200 dark:border-gray-700 !text-black dark:!text-gray-300`}
-                                    dangerouslySetInnerHTML={{
-                                        __html: faq.content,
-                                    }}
-                                ></div>
-                            </>
-                        ))}
+
+            {/** About us */}
+            <section className="bg-white dark:bg-gray-800 py-16" id="about">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-screen-xl px-4 mx-auto ">
+                    <div className="flex justify-center">
+                        <div className="w-full max-w-2xl h-96   rounded-xl flex items-center justify-center">
+                            <img
+                                src={"/" + general.banner}
+                                alt="hero image"
+                                className="rounded-lg"
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center items-start space-y-6">
+                        <div
+                            ref={contentRef}
+                            style={{ fontSize: "4 rem" }}
+                            className="text-8xl text-justify font-bold text-gray-900 dark:text-white leading-snug"
+                        ></div>
+                        <p
+                            dangerouslySetInnerHTML={{
+                                __html: general.overview,
+                            }}
+                            className="text-lg text-justify text-black dark:text-white px-5 md:px-0 lg:px-0 pr-10 md:pr-5 lg:pr-5"
+                        ></p>
                     </div>
                 </div>
-            </div>
-        </section>
-        )}
-        
+            </section>
 
-        <footer class="bg-white dark:bg-gray-800" id="contact">
-                <div class="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
-                    <div class="text-center">
+            {/*Banner*/}
+            <section>
+                <div className="bg-white dark:bg-gray-900 w-full px-5 md:px-0 lg:px-0 pr-5 md:pr-0 lg:pr-0 py-4 pb-4 mx-auto">
+                    <div className="flex justify-center">
+                        <div className="w-full h-80 rounded-lg shadow-lg flex items-center justify-center overflow-hidden">
+                            <img
+                                src={"/" + userTemp.banner}
+                                alt="template banner"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {/**Templates*/}
+            {templates.length > 0 && (
+                <section
+                    className="bg-white dark:bg-gray-800 w-full mx-auto place-items-center py-20"
+                    id="template"
+                >
+                    <h2 className="text-2xl text-mono font-semibold  text-gray-800 dark:text-white">
+                        Загварууд
+                    </h2>
+                    <div className="w-full  bg-white dark:bg-gray-800 py-4 max-w-screen-xl px-4">
+                        <OwlCarousel
+                            className="owl-theme relative"
+                            loop
+                            margin={20}
+                            nav={true}
+                            dots={true}
+                            navText={[
+                                `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
+                                `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
+                            ]}
+                        >
+                            {templates.map((template) => (
+                                <div className="items" key={template.id}>
+                                    <div className="group relative shadow-lg">
+                                        <div className="relative p-8">
+                                            <div className="relative">
+                                                <img
+                                                    src={"/" + template.image}
+                                                    alt="template"
+                                                    className="w-full aspect-[2/3] object-cover rounded-xl"
+                                                />
+                                                <h2 className="absolute inset-0 flex items-center justify-center text-2xl font-semibold text-gray-900 dark:text-gray-900 text-center font-2xl [text-stroke:2px_red]">
+                                                    {template.name}
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </OwlCarousel>
+                    </div>
+                </section>
+            )}
+            {/**Price */}
+            {packages.length > 0 && (
+                <section
+                    className="bg-white dark:bg-gray-900 w-full place-items-center mx-auto py-8"
+                    id="price"
+                >
+                    <h2 className="text-2xl text-mono font-semibold justify-center text-gray-800 dark:text-white">
+                        Үнийн санал
+                    </h2>
+                    <div className=" max-w-screen-xl px-4 mx-auto items-center  rounded-lg py-2 flex flex-col justify-center">
+                        <h3 className="text-md font-semibold text-gray-900 dark:text-gray-50 place-items-center">
+                            200,000 / жилийн
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-md font-mono text-gray-700 dark:text-white py-4">
+                            {packages.map((pack) => (
+                                <div
+                                    className="relative p-8 space-y-8 transition duration-300 "
+                                    key={pack.id}
+                                >
+                                    <div className="space-y-4">
+                                        <h2 className="text-lg font-semibold text-gray-800 dark:text-white border-b border-2px border-gray-400 dark:border-gray-600">
+                                            {pack.title}
+                                        </h2>
+                                        <ul className=" pt-3 text-gray-600 dark:text-gray-300 group-hover:text-gray-800 space-y-2 dark:group-hover:text-gray-100  ">
+                                            <li className="flex items-center 0 border-b border-2px border-gray-400 dark:border-gray-600">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 448 512"
+                                                    className="w-3 h-3 mr-2 text-black dark:text-white fill-current"
+                                                >
+                                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                                </svg>
+                                                Үнэ : {pack.price}
+                                            </li>
+                                            <li className="flex items-center border-b border-2px border-gray-400 dark:border-gray-600">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 448 512"
+                                                    className="w-3 h-3 mr-2 text-black dark:text-white fill-current"
+                                                >
+                                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                                </svg>
+                                                Сар : {pack.month}
+                                            </li>
+                                            <li className="flex items-center border-b border-2px border-gray-400 dark:border-gray-600">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 448 512"
+                                                    className="w-3 h-3 mr-2 text-black dark:text-white fill-current"
+                                                >
+                                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                                </svg>
+                                                Өдөр : {pack.day}
+                                            </li>
+                                            <li className="flex items-center">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 448 512"
+                                                    className="w-3 h-3 mr-2 text-black dark:text-white fill-current"
+                                                >
+                                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                                </svg>
+                                                <span
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: pack.body,
+                                                    }}
+                                                ></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            <footer className="bg-gray-100 dark:bg-gray-800 py-4" id="contact">
+                <div className="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
+                    <div className="text-center">
                         <a
                             href="#"
-                            class="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white"
+                            className="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white"
                         >
                             <img
                                 src="https://demo.themesberg.com/landwind/images/logo.svg"
-                                class="h-6 mr-3 sm:h-9"
+                                className="h-6 mr-3 sm:h-9"
                                 alt="Landwind Logo"
                             />
                             Landwind
                         </a>
-                        <span class="block text-sm text-center text-gray-500 dark:text-gray-400">
+                        <span className="block text-sm text-center text-gray-500 dark:text-gray-400">
                             © 2021-2022 Landwind™. All Rights Reserved. Built
                             with{" "}
                             <a
                                 href="#"
                                 target="_blank"
-                                class="text-purple-600 hover:underline dark:text-purple-500"
+                                className="text-purple-600 hover:underline dark:text-purple-500"
                             >
                                 Flowbite
                             </a>{" "}
@@ -401,20 +612,20 @@ const contentRef = useRef(null);
                             <a
                                 href="#"
                                 target="_blank"
-                                class="text-purple-600 hover:underline dark:text-purple-500"
+                                className="text-purple-600 hover:underline dark:text-purple-500"
                             >
                                 Tailwind CSS
                             </a>
                             .
                         </span>
-                        <ul class="flex justify-center mt-5 space-x-5">
+                        <ul className="flex justify-center mt-5 space-x-5">
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -430,10 +641,10 @@ const contentRef = useRef(null);
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -449,10 +660,10 @@ const contentRef = useRef(null);
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -464,10 +675,10 @@ const contentRef = useRef(null);
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -483,10 +694,10 @@ const contentRef = useRef(null);
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -503,65 +714,6 @@ const contentRef = useRef(null);
                     </div>
                 </div>
             </footer>
-{/* Modal */}
-{isOpen && selectedPost && (
-  <div
-    id="modal-overlay"
-    class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
-    onClick={handleClickOutside}
-  >
-    <div
-      class="bg-white rounded-lg shadow-lg max-w-md w-full dark:bg-gray-700"
-      onClick={(e) => e.stopPropagation()} // Prevent click on modal content from closing it
-    >
-      {/* Header */}
-      <div class="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
-        <h2 class="text-lg font-medium text-gray-900 dark:text-white">
-          {selectedPost.title}
-        </h2>
-        <button
-          onClick={closeModal}
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-        >
-          &times;
-        </button>
-      </div>
-      {/* Content */}
-      <div class="p-3 space-y-3 text-gray-500 dark:text-gray-400">
-        <img
-          src={"/" + selectedPost.image}
-          alt=""
-          class="w-full max-h-[200px] object-cover rounded-md"
-        />
-        <div
-          dangerouslySetInnerHTML={{
-            __html: selectedPost.content,
-          }}
-        ></div>
-      </div>
-      {/* Footer */}
-      <div class="flex items-center justify-end p-3 border-t border-gray-200 rounded-b dark:border-gray-600">
-        <button
-          onClick={closeModal}
-          type="button"
-          class="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-        >
-          Хаах
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
-    <button data-toggle="back-to-top"
-        class="fixed text-sm rounded-full z-10 bottom-5 end-5 h-9 w-9 text-center bg-primary/20 text-primary flex justify-center items-center">
-        <i class="i-fa6-solid-arrow-up text-base"></i>
-    </button>
-    <script src='/front/js/aos.js'></script>
-    <script src='/front/js/head.js'></script>
-    <script src='/front/js/index.js'></script>
-    <script src='/front/js/swiper-bundle.min.js'></script>
-    <script src='/front/js/theme.js'></script>
         </>
     );
 }

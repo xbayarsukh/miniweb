@@ -105,7 +105,7 @@ Route::group(['prefix'=>'admin'],function () {
     Route::middleware([RoleMiddleware::class])->group(function () {
         Route::group(['prefix'=>'users'],function () {
             Route::get('/', [UsersController::class, 'index'])->name('admin.users');
-            // Route::get('/create', [UsersController::class, 'create'])->middleware(['auth', 'verified'])->name('admin.users.create');
+            Route::post('/createUser', [UsersController::class, 'createUser'])->middleware(['auth', 'verified'])->name('admin.users.createUser');
             // Route::post('/create', [UsersController::class, 'store'])->middleware(['auth', 'verified'])->name('admin.users.store');
             Route::get('/edit/{id}', [UsersController::class, 'edit'])->middleware(['auth', 'verified'])->name('admin.users.edit');
             Route::post('/edit/{id}', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('admin.users.update');
