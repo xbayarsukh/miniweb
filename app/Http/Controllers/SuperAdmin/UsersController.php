@@ -19,7 +19,6 @@ class UsersController extends Controller
     }
     public function createUser(Request $request) {
         $slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '', strtolower($this->transliterateMongolianToEnglish($request->subdomain))));
-        // return $request;
         $user = new User;
       
         $user->name = $request->name;
@@ -30,9 +29,13 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password);
         
         if($user->save()){
-
+            $generalSetting = new GeneralSetting;
+            $generalSetting->user_id = $user->id;
+            $generalSetting->save();
         }
-        return redirect()->to("http://$user->subdomain.localhost:8000/login")->with('success', 'portfolio created successfully!');      
+
+        $port = env('APP_PORT', '8005');
+        return redirect('http://' . $user->subdomain . '.' . env('APP_URL') . ':' . $port . '/login')->with('success', 'Portfolio created successfully!');
     }
     public function edit($id){
         $user = User::find($id);
@@ -48,9 +51,6 @@ class UsersController extends Controller
             $user->phone = $request->phone;
             $user->expire_date = $request->expire_date;
             $user->email = $request->email;
-            
-            
-            
             
             $user->save();
             return redirect()->route('admin.users')->with('success', 'portfolio created successfully!');

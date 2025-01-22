@@ -57,7 +57,6 @@ export default function Home({
 
     const submit = async (e) => {
         e.preventDefault();
-
         try {
             await post(route("admin.users.createUser"));
             setFormat({
