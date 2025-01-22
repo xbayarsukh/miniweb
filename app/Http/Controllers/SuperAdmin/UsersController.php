@@ -66,7 +66,7 @@ class UsersController extends Controller
             $user->subdomain = $slug;
             $user->template = 1;
             $user->phone = $request->phone;
-            $user->password = $request->password;
+            $user->password = Hash::make($request->password);
             
             $user->save();
             return redirect()->route('admin.user')->with('success', 'portfolio created successfully!');      
