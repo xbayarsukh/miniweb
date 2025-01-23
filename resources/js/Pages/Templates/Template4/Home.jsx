@@ -1,7 +1,9 @@
 import { Head, Link } from "@inertiajs/react";
 import { Helmet } from "react-helmet";
 import React, { useState, useRef, useEffect } from "react";
-import Portfolio from "@/Pages/Admin/Portfolio/Portfolio";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 
 export default function Home({
     headTitle,
@@ -283,62 +285,70 @@ export default function Home({
                 </h2>
 
                 <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-20">
-                    <div className="grid w-full gap-6">
-                        <div className="flex  felx-col-1 md:flex-col-2 lg:flex-col-3 md:flex-row gap-6">
-                            {posts.map((post, index) => (
-                                <div
-                                    key={index}
-                                    className="flex flex-col bg-gray-50 dark:!bg-gray-800 rounded-lg overflow-hidden shadow-md w-full"
-                                >
-                                    <div className="flex flex-row">
-                                        <img
-                                            src={"/" + post.image}
-                                            alt="Infrastructure & Cloud Services"
-                                            className="w-1/2 object-cover h-full rounded-t-lg m-3"
-                                        />
-                                        <div className="flex flex-col justify-between w-full">
-                                            <div className="p-6">
-                                                <p className="text-lg font-semibold text-gray-900 dark:!text-white">
-                                                    {post.title}
-                                                </p>
-                                                <p className="text-lg font-semibold text-gray-900 dark:!text-white">
-                                                    {post.subtitle}
-                                                </p>
-                                                <a
-                                                    href="#"
-                                                    className="mt-4 text-blue-600 dark:!text-blue-400 text-sm font-semibold block"
-                                                >
-                                                    Read Details →
-                                                </a>
+                    <OwlCarousel
+                        className="owl-theme relative"
+                        loop
+                        margin={20}
+                        nav={true}
+                        dots={true}
+                        navText={[
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
+                        ]}
+                    >
+                        {posts.map((post, index) => (
+                            <div
+                                key={index}
+                                className="flex flex-col bg-gray-50 dark:!bg-gray-800 rounded-lg overflow-hidden shadow-md w-full"
+                            >
+                                <div className="flex flex-row">
+                                    <img
+                                        src={"/" + post.image}
+                                        alt="Infrastructure & Cloud Services"
+                                        className="w-1/2 object-cover h-full rounded-t-lg m-3"
+                                    />
+                                    <div className="flex flex-col justify-between w-full">
+                                        <div className="p-6">
+                                            <p className="text-lg font-semibold text-gray-900 dark:!text-white">
+                                                {post.title}
+                                            </p>
+                                            <p className="text-lg font-semibold text-gray-900 dark:!text-white">
+                                                {post.subtitle}
+                                            </p>
+                                            <a
+                                                href="#"
+                                                className="mt-4 text-blue-600 dark:!text-blue-400 text-sm font-semibold block"
+                                            >
+                                                Read Details →
+                                            </a>
+                                        </div>
+                                        <div className="flex flex-row p-5 border-t border-gray-900 dark:!border-white">
+                                            <div className="flex items-center gap-2 text-gray-900 dark:!text-white">
+                                                {/* <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 512 512"
+                                                        className="w-4 h-4 fill-current"
+                                                    >
+                                                        <path d="... (SVG Path here) ..." />
+                                                    </svg> */}
+                                                <span>Web</span>
                                             </div>
-                                            <div className="flex flex-row p-5 border-t border-gray-900 dark:!border-white">
-                                                <div className="flex items-center gap-2 text-gray-900 dark:!text-white">
-                                                    {/* <svg
+                                            <div className="flex items-center gap-2 text-gray-900 dark:!text-white ml-4">
+                                                {/* <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 512 512"
                                                         className="w-4 h-4 fill-current"
                                                     >
                                                         <path d="... (SVG Path here) ..." />
                                                     </svg> */}
-                                                    <span>Web</span>
-                                                </div>
-                                                <div className="flex items-center gap-2 text-gray-900 dark:!text-white ml-4">
-                                                    {/* <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 512 512"
-                                                        className="w-4 h-4 fill-current"
-                                                    >
-                                                        <path d="... (SVG Path here) ..." />
-                                                    </svg> */}
-                                                    <span>Date</span>
-                                                </div>
+                                                <span>Date</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
+                            </div>
+                        ))}
+                    </OwlCarousel>
                 </div>
             </section>
 
