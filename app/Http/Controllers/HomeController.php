@@ -30,6 +30,7 @@ class HomeController extends Controller
         }
         
         $template = $user->template;
+    
         if ($user->expire_date > now()) {
             return Inertia::render("Templates/Template$template/Home", [
                 'headTitle' => $user->subdomain,
@@ -63,6 +64,7 @@ class HomeController extends Controller
         }
         
         $template = $user->template;
+        // return $general;
         return Inertia::render("Templates/Template$template/Home", [
             'headTitle' => null,
             'user' => $user,

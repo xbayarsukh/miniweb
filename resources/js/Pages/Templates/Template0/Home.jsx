@@ -66,13 +66,6 @@ export default function Home({
                 email: "",
                 password: "",
             });
-            // if (response.data.success) {
-            //     alert(e.data.message); // Display the success message
-
-            //     window.location.href = e.data.redirect_url; // Redirect to the given URL
-            // } else {
-            //     console.error("Unexpected response:", e);
-            // }
         } catch (error) {
             console.error("Error submitting the form:", error);
         }

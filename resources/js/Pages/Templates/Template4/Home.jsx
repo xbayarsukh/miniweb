@@ -1,8 +1,9 @@
 import { Head, Link } from "@inertiajs/react";
 import { Helmet } from "react-helmet";
 import React, { useState, useRef, useEffect } from "react";
+import Portfolio from "@/Pages/Admin/Portfolio/Portfolio";
 
-export default function Index(
+export default function Home({
     headTitle,
     general,
     faqs,
@@ -10,8 +11,8 @@ export default function Index(
     portfolios,
     partners,
     posts,
-    services
-) {
+    services,
+}) {
     const contentRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null); // Store the selected post
@@ -73,8 +74,8 @@ export default function Index(
                 <nav
                     className={` px-5 pr-5 ${
                         isScrolled
-                            ? "bg-gray-50 dark:bg-blue-900"
-                            : "bg-gray-50 dark:bg-gray-500 "
+                            ? "bg-gray-50 dark:!bg-blue-900"
+                            : "bg-gray-50 dark:!bg-gray-500 "
                     }`}
                 >
                     <div className="flex items-center justify-between place-items-center px-6 py-0 mx-auto ">
@@ -91,7 +92,7 @@ export default function Index(
 
                         {/* Desktop Menu */}
                         <div
-                            className={`hidden lg:flex space-x-4 py-[20px] pt-[20px] text-sm text-black dark:text-white  ${
+                            className={`hidden lg:flex space-x-4 py-[20px] pt-[20px] text-sm text-black dark:!text-white  ${
                                 isMenuOpen ? "hidden" : ""
                             } `}
                         >
@@ -105,25 +106,25 @@ export default function Index(
                                 href="#services"
                                 className="px-4 py-2 rounded-md transition duration-200"
                             >
-                                Үйлчилгээ
+                                {JSON.parse(general.options).service_title}
                             </a>
                             <a
                                 href="#portfolios"
                                 className="px-4 py-2 rounded-md transition duration-200"
                             >
-                                Portfolio
+                                {JSON.parse(general.options).portfolio_title}
                             </a>
                             <a
                                 href="#posts"
                                 className="px-4 py-2 rounded-md transition duration-200"
                             >
-                                Мэдээ
+                                {JSON.parse(general.options).news_title}
                             </a>
                             <a
                                 href="#faq"
                                 className="px-4 py-2 rounded-md transition duration-200"
                             >
-                                Түгээмэл асуулт хариулт
+                                {JSON.parse(general.options).faq_title}
                             </a>
                             <a
                                 href="#contact"
@@ -136,7 +137,7 @@ export default function Index(
                             <button
                                 type="button"
                                 onClick={toggleMenu}
-                                className="text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-600 pt-2"
+                                className="text-gray-900 dark:!text-white focus:outline-none focus:ring-2 focus:ring-gray-600 pt-2"
                                 aria-label="Toggle navigation"
                             >
                                 <svg
@@ -156,28 +157,28 @@ export default function Index(
                         <div className="hidden lg:flex  space-x-4   place-items-center">
                             <button
                                 type="button"
-                                className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5 transition duration-200"
+                                className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:!focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5 transition duration-200"
                             >
                                 View All Services
                             </button>
                         </div>
                     </div>
                     {isMenuOpen && (
-                        <div className="lg:hidden text-black dark:text-white  px-5 py-4 rounded-md">
+                        <div className="lg:hidden text-black dark:!text-white  px-5 py-4 rounded-md">
                             <a href="#about" className="block py-2">
                                 Нүүр
                             </a>
                             <a href="#services" className="block py-2">
-                                Үйлчилгээ
+                                {JSON.parse(general.options).service_title}
                             </a>
                             <a href="#portfolios" className="block py-2">
-                                Portfolio
+                                {JSON.parse(general.options).portfolio_title}
                             </a>
                             <a href="#posts" className="block py-2">
-                                Мэдээ
+                                {JSON.parse(general.options).news_title}
                             </a>
                             <a href="#faq" className="block py-2">
-                                Түгээмэл асуулт хариулт
+                                {JSON.parse(general.options).faq_title}
                             </a>
                             <a href="#contact" className="block py-2">
                                 Холбоо барих
@@ -188,7 +189,7 @@ export default function Index(
             </header>
             {/* Hero Section */}
             <section
-                className="bg-white dark:bg-gray-900 w-full pt-10 "
+                className="bg-white dark:!bg-gray-900 w-full pt-10 "
                 id="hero"
                 style={{
                     backgroundImage:
@@ -199,7 +200,7 @@ export default function Index(
             >
                 <div
                     ref={contentRef}
-                    className="flex flex-row items-center justify-between pt-20 text-gray-900 dark:text-white"
+                    className="flex flex-row items-center justify-between pt-20 text-gray-900 dark:!text-white"
                 >
                     <div className="w-full md:w-1/2">
                         <h2 className="font-bold text-white text-2xl md:text-4xl lg:text-4xl mx-[20%]">
@@ -209,7 +210,7 @@ export default function Index(
                         <div className="hidden md:flex flex-row space-x-10 mx-[18%] mt-10">
                             <button
                                 type="button"
-                                className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5 transition duration-200"
+                                className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:!focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5 transition duration-200"
                             >
                                 View All Services
                             </button>
@@ -232,325 +233,103 @@ export default function Index(
 
             {/*Service Section*/}
             <section
-                className="bg-white dark:bg-gray-800 w-full mx-auto pb-0 md:pb-10  "
+                className="bg-white dark:!bg-gray-800 w-full mx-auto pb-0 md:pb-10  "
                 id="service"
             >
-                <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:text-white text-center mb-10">
-                    Service
+                <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:!text-white text-center mb-10">
+                    {JSON.parse(general.options).service_title}
                 </h2>
 
                 <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
                     <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3">
-                        <div className="items mx-8 ">
-                            <div className="group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg  ">
-                                <img
-                                    src="https://blog.infraspeak.com/wp-content/uploads/2021/08/Maintenance-as-a-Service.jpeg"
-                                    alt="Infrastructure & Cloud Services"
-                                    className="w-full h-56 object-cover rounded-t-lg"
-                                />
-                                <div className="space-y-4 p-6 bg-white dark:bg-gray-900 rounded-b-lg">
-                                    <p className="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Infrastructure & Cloud Services
-                                    </p>
-                                    <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm text-justify">
-                                        Our experts ensure your IT
-                                        infrastructure is optimized and secure.
-                                        We offer cloud migration.
-                                    </p>
-                                    <a
-                                        href="#"
-                                        className=" mt-4 text-blue-600 dark:text-blue-400 text-sm text-center font-semibold"
-                                    >
-                                        Read Details →
-                                    </a>
+                        {services.map((service, index) => (
+                            <div className="items mx-8 " key={index}>
+                                <div className="group rounded-lg bg-gray-50 dark:!bg-gray-800 shadow-lg  ">
+                                    <img
+                                        src={"/" + service.image}
+                                        alt="serviceImg"
+                                        className="w-full h-56 object-cover rounded-t-lg"
+                                    />
+                                    <div className="space-y-4 p-6 bg-white dark:!bg-gray-900 rounded-b-lg">
+                                        <p className="text-xl font-semibold text-gray-900 dark:!text-white">
+                                            {service.title}
+                                        </p>
+                                        <p
+                                            className="text-gray-700 dark:!text-gray-300 mt-2 text-sm text-justify"
+                                            dangerouslySetInnerHTML={{
+                                                __html: service.content,
+                                            }}
+                                        ></p>
+                                        <a
+                                            href="#"
+                                            className=" mt-4 text-blue-600 dark:!text-blue-400 text-sm text-center font-semibold"
+                                        >
+                                            Read Details →
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="items mx-8 ">
-                            <div className="group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg  ">
-                                <img
-                                    src="https://blog.infraspeak.com/wp-content/uploads/2021/08/Maintenance-as-a-Service.jpeg"
-                                    alt="Infrastructure & Cloud Services"
-                                    className="w-full h-56 object-cover rounded-t-lg"
-                                />
-                                <div className="space-y-4 p-6 bg-white dark:bg-gray-900 rounded-b-lg">
-                                    <p className="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Infrastructure & Cloud Services
-                                    </p>
-                                    <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm text-justify">
-                                        Our experts ensure your IT
-                                        infrastructure is optimized and secure.
-                                        We offer cloud migration.
-                                    </p>
-                                    <a
-                                        href="#"
-                                        className=" mt-4 text-blue-600 dark:text-blue-400 text-sm text-center font-semibold"
-                                    >
-                                        Read Details →
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="items mx-8 ">
-                            <div className="group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg  ">
-                                <img
-                                    src="https://blog.infraspeak.com/wp-content/uploads/2021/08/Maintenance-as-a-Service.jpeg"
-                                    alt="Infrastructure & Cloud Services"
-                                    className="w-full h-56 object-cover rounded-t-lg"
-                                />
-                                <div className="space-y-4 p-6 bg-white dark:bg-gray-900 rounded-b-lg">
-                                    <p className="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Infrastructure & Cloud Services
-                                    </p>
-                                    <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm text-justify">
-                                        Our experts ensure your IT
-                                        infrastructure is optimized and secure.
-                                        We offer cloud migration.
-                                    </p>
-                                    <a
-                                        href="#"
-                                        className=" mt-4 text-blue-600 dark:text-blue-400 text-sm text-center font-semibold"
-                                    >
-                                        Read Details →
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
             {/* Post Section*/}
-            {/* <section
-                className="bg-white dark:bg-gray-800 w-full mx-auto pb-10  "
-                id="posts"
-            >
-                <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:text-white text-center mb-10">
-                    Posts
-                </h2>
-
-                <div className="max-w-7xl mx-auto px-20 md:px-12 xl:px-6">
-                    <div className="grid  w-full">
-                        <div className="flex flex-row gap-x-[20px]">
-                            
-                            <div className="flex flex-col mr-0 w-full mx-5">
-                                <div className="items">
-                                    <div className="group rounded-lg bg-gray-50 dark:bg-gray-900 ">
-                                        <div className="flex flex-row ">
-                                            <img
-                                                src="https://t3.ftcdn.net/jpg/05/14/95/12/360_F_514951224_2dxMLbIw5qNRdPGD003chpbVcxWtcp7K.jpg"
-                                                alt="Infrastructure & Cloud Services"
-                                                className="w-1/2 h-50 object-cover rounded-t-lg m-3 m"
-                                            />
-                                            <div className="flex flex-col">
-                                                <div className="space-y-4 p-6 pt-5 bg-white dark:bg-gray-900 rounded-b-lg">
-                                                    <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                                        Infrastructure & Cloud
-                                                        Services
-                                                    </p>
-
-                                                    <a
-                                                        href="#"
-                                                        className=" mt-4 text-blue-600 dark:text-blue-400 text-sm text-center font-semibold"
-                                                    >
-                                                        Read Details →
-                                                    </a>
-                                                </div>
-
-                                                <div className="flex flex-row m-5  mr-auto mt-10 height-5  text-gray-900 dark:text-white border-t border-gray-900 dark:border-white">
-                                                    <div className="flex flex-row px-5 pt-2">
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 512 512"
-                                                            className="w-4 h-4 mt-1 fill-current text-black dark:text-white"
-                                                        >
-                                                            <path d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
-                                                        </svg>
-                                                        <p className="px-2">
-                                                            Web{" "}
-                                                        </p>
-                                                    </div>
-
-                                                    <div className="flex flex-row pt-2 ">
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 512 512"
-                                                            className="w-4 h-4 mt-1 fill-current text-black dark:text-white"
-                                                        >
-                                                            <path d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
-                                                        </svg>
-                                                        <p className="px-2">
-                                                            Date{" "}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="items mt-5 rounded-lg">
-                                    <div className="group rounded-lg bg-gray-50 dark:bg-gray-900 ">
-                                        <div className="flex flex-row ">
-                                            <img
-                                                src="https://t3.ftcdn.net/jpg/05/14/95/12/360_F_514951224_2dxMLbIw5qNRdPGD003chpbVcxWtcp7K.jpg"
-                                                alt="Infrastructure & Cloud Services"
-                                                className="w-1/2 h-50 object-cover rounded-t-lg m-3"
-                                            />
-                                            <div className="flex flex-col">
-                                                <div className="space-y-4 p-6 pt-5 bg-white dark:bg-gray-900 rounded-b-lg">
-                                                    <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                                        Infrastructure & Cloud
-                                                        Services
-                                                    </p>
-
-                                                    <a
-                                                        href="#"
-                                                        className=" mt-4 text-blue-600 dark:text-blue-400 text-sm text-center font-semibold"
-                                                    >
-                                                        Read Details →
-                                                    </a>
-                                                </div>
-                                                <div className="flex flex-row m-5 mr-auto mt-10  height-5  text-gray-900 dark:text-white border-t border-gray-900 dark:border-white">
-                                                    <div className="flex flex-row px-5 pt-2">
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 512 512"
-                                                            className="w-4 h-4 mt-1 fill-current text-black dark:text-white"
-                                                        >
-                                                            <path d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
-                                                        </svg>
-                                                        <p className="px-2">
-                                                            Web
-                                                        </p>
-                                                    </div>
-
-                                                    <div className="flex flex-row  pt-2">
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 512 512"
-                                                            className="w-4 h-4 mt-1 fill-current text-black dark:text-white"
-                                                        >
-                                                            <path d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
-                                                        </svg>
-                                                        <p className="px-2">
-                                                            Date
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div className="items w-full px-0">
-                                <div className="group rounded-lg bg-gray-50 dark:bg-gray-900 ">
-                                    <div className="flex flex-col ">
-                                        <img
-                                            src="https://t3.ftcdn.net/jpg/05/14/95/12/360_F_514951224_2dxMLbIw5qNRdPGD003chpbVcxWtcp7K.jpg"
-                                            alt="Infrastructure & Cloud Services"
-                                            className="  h-56  rounded-t-lg m-3 "
-                                        />
-                                        <div className=" px-5 pr-5">
-                                            <div className="space-y-4 pt-6 pb-6 bg-white dark:bg-gray-900 rounded-b-lg">
-                                                <p className="text-xl font-semibold text-gray-900 dark:text-white">
-                                                    Infrastructure & Cloud
-                                                    Services
-                                                </p>
-
-                                                <a
-                                                    href="#"
-                                                    className=" mt-4 text-blue-600 dark:text-blue-400 text-sm text-center font-semibold"
-                                                >
-                                                    Read Details →
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-row m-5 mt-10 mr-auto g height-5  text-gray-900 dark:text-white border-t border-gray-900 dark:border-white">
-                                            <div className="flex flex-row px-5 pt-2">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 512 512"
-                                                    className="w-4 h-4 mt-1 fill-current text-black dark:text-white"
-                                                >
-                                                    <path d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
-                                                </svg>
-                                                <p className="px-2">Web </p>
-                                            </div>
-
-                                            <div className="flex flex-row pt-2 ">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 512 512"
-                                                    className="w-4 h-4 mt-1 fill-current text-black dark:text-white"
-                                                >
-                                                    <path d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4l54.1 0 109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109 0-54.1c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7L352 176c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
-                                                </svg>
-                                                <p className="px-2">Date </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
             <section
-                className="bg-white dark:bg-gray-800 w-full mx-auto pb-10"
+                className="bg-white dark:!bg-gray-900 w-full mx-auto pb-10"
                 id="posts"
             >
-                <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:text-white text-center mb-10">
-                    Posts
+                <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:!text-white text-center mb-10">
+                    {JSON.parse(general.options).news_title}
                 </h2>
 
                 <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-20">
                     <div className="grid w-full gap-6">
-                        <div className="flex flex-col md:flex-row gap-6">
-                            {/* Post Card */}
-                            {[1, 2].map((item, index) => (
+                        <div className="flex  felx-col-1 md:flex-col-2 lg:flex-col-3 md:flex-row gap-6">
+                            {posts.map((post, index) => (
                                 <div
                                     key={index}
-                                    className="flex flex-col bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden shadow-md w-full"
+                                    className="flex flex-col bg-gray-50 dark:!bg-gray-800 rounded-lg overflow-hidden shadow-md w-full"
                                 >
                                     <div className="flex flex-row">
                                         <img
-                                            src="https://t3.ftcdn.net/jpg/05/14/95/12/360_F_514951224_2dxMLbIw5qNRdPGD003chpbVcxWtcp7K.jpg"
+                                            src={"/" + post.image}
                                             alt="Infrastructure & Cloud Services"
-                                            className="w-1/2 object-cover rounded-t-lg m-3"
+                                            className="w-1/2 object-cover h-full rounded-t-lg m-3"
                                         />
                                         <div className="flex flex-col justify-between w-full">
                                             <div className="p-6">
-                                                <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                                    Infrastructure & Cloud
-                                                    Services
+                                                <p className="text-lg font-semibold text-gray-900 dark:!text-white">
+                                                    {post.title}
+                                                </p>
+                                                <p className="text-lg font-semibold text-gray-900 dark:!text-white">
+                                                    {post.subtitle}
                                                 </p>
                                                 <a
                                                     href="#"
-                                                    className="mt-4 text-blue-600 dark:text-blue-400 text-sm font-semibold block"
+                                                    className="mt-4 text-blue-600 dark:!text-blue-400 text-sm font-semibold block"
                                                 >
                                                     Read Details →
                                                 </a>
                                             </div>
-                                            <div className="flex flex-row p-5 border-t border-gray-900 dark:border-white">
-                                                <div className="flex items-center gap-2 text-gray-900 dark:text-white">
-                                                    <svg
+                                            <div className="flex flex-row p-5 border-t border-gray-900 dark:!border-white">
+                                                <div className="flex items-center gap-2 text-gray-900 dark:!text-white">
+                                                    {/* <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 512 512"
                                                         className="w-4 h-4 fill-current"
                                                     >
                                                         <path d="... (SVG Path here) ..." />
-                                                    </svg>
+                                                    </svg> */}
                                                     <span>Web</span>
                                                 </div>
-                                                <div className="flex items-center gap-2 text-gray-900 dark:text-white ml-4">
-                                                    <svg
+                                                <div className="flex items-center gap-2 text-gray-900 dark:!text-white ml-4">
+                                                    {/* <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 512 512"
                                                         className="w-4 h-4 fill-current"
                                                     >
                                                         <path d="... (SVG Path here) ..." />
-                                                    </svg>
+                                                    </svg> */}
                                                     <span>Date</span>
                                                 </div>
                                             </div>
@@ -563,277 +342,121 @@ export default function Index(
                 </div>
             </section>
 
-            {/* Portfolios 2 Section */}
-            <section
-                className="bg-white dark:bg-gray-900 w-full mx-auto pb-10  "
+            {/* Portfolios Section */}
+            {/* <section
+                className="bg-white dark:!bg-gray-900 w-full mx-auto pb-10  "
                 id="portfolios"
             >
-                <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:text-white text-center mb-10">
-                    Portfolios
+                <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:!text-white text-center mb-10">
+                    {JSON.parse(general.options).portfolio_title}
                 </h2>
 
                 <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 z-10">
                     <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3">
-                        <div className="items mx-8 ">
-                            <div
-                                className={
-                                    "group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg hm-auto relative"
-                                }
-                            >
-                                <img
-                                    src="https://wordpress.themeholy.com/webteck/wp-content/uploads/2024/06/project_10_1.jpg"
-                                    alt="Infrastructure & Cloud Services"
-                                    className="w-full object-cover rounded-lg"
-                                />
-                                <div className="z-20 absolute inset-0 flex flex-col rounded-r-full bg-gray-100 rounded-lg px-20 pr-10 text-gray-900 dark:text-gray-900 text-center font-2xl mt-[100%] bg-opacity-80  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-                                    <div className="w-[160%] ml-[-40%] rounded-r-full">
-                                        <div className="flex flex-row justify-between items-center w-full">
-                                            <div className="flex flex-col ">
-                                                <h2 className="text-black dark:white">
-                                                    Portfolios
-                                                </h2>
-                                                <p className="font-sm text-justify px-5">
-                                                    Portfolios subtitle
-                                                </p>
-                                            </div>
+                        {portfolios.map((portfolio, index) => (
+                            <div className="items mx-8  " key={index}>
+                                <div
+                                    className={
+                                        "group rounded-lg bg-gray-50 dark:!bg-gray-800 shadow-lg hm-auto relative"
+                                    }
+                                >
+                                    <img
+                                        src={"/" + portfolio.image}
+                                        alt="Infrastructure & Cloud Services"
+                                        className="w-full object-cover rounded-lg"
+                                    />
+                                    <div className="z-20 absolute inset-0 flex flex-col rounded-r-full bg-gray-100 rounded-lg px-20 pr-10 text-gray-900 dark:!text-gray-900 text-center font-2xl mt-[100%] bg-opacity-80  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
+                                        <div className="w-[160%] ml-[-40%] rounded-r-full">
+                                            <div className="flex flex-row justify-between items-center w-full">
+                                                <div className="flex flex-col ">
+                                                    <h2 className="text-black dark:!white">
+                                                        {Portfolio.title}
+                                                    </h2>
+                                                    <p className="font-sm text-justify px-5">
+                                                        Portfolios subtitle
+                                                    </p>
+                                                </div>
 
-                                            <div className="rounded-full inline-flex bg-blue-700 p-4">
-                                                <button>
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 448 512"
-                                                        className="fill-current text-black w-4 h-4"
-                                                    >
-                                                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
-                                                    </svg>
-                                                </button>
+                                                <div className="rounded-full inline-flex bg-blue-700 p-4">
+                                                    <button>
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            viewBox="0 0 448 512"
+                                                            className="fill-current text-black w-4 h-4"
+                                                        >
+                                                            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="items mx-8 ">
-                            <div className="group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg hm-auto relative">
-                                <img
-                                    src="https://wordpress.themeholy.com/webteck/wp-content/uploads/2024/06/project_10_1.jpg"
-                                    alt="Infrastructure & Cloud Services"
-                                    className="w-full object-cover rounded-lg"
-                                />
-                                <div className=" absolute inset-0 flex flex-col rounded-r-full bg-gray-100 rounded-lg px-20 pr-10 text-gray-900 dark:text-gray-900 text-center font-2xl mt-[100%] bg-opacity-80  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-                                    <div className="w-[160%] ml-[-40%] rounded-r-full">
-                                        <div className="flex flex-row justify-between items-center w-full">
-                                            <div className="flex flex-col ">
-                                                <h2 className="text-black dark:white">
-                                                    Portfolios
-                                                </h2>
-                                                <p className="font-sm text-justify px-5">
-                                                    Portfolios subtitle
-                                                </p>
-                                            </div>
-
-                                            <div className="rounded-full inline-flex bg-blue-700 p-4">
-                                                <button>
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 448 512"
-                                                        className="fill-current text-black w-4 h-4"
-                                                    >
-                                                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="items mx-8 ">
-                            <div className="group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg hm-auto relative">
-                                <img
-                                    src="https://wordpress.themeholy.com/webteck/wp-content/uploads/2024/06/project_10_1.jpg"
-                                    alt="Infrastructure & Cloud Services"
-                                    className="w-full  object-cover rounded-lg"
-                                />
-                                <div className=" absolute inset-0 flex flex-col rounded-r-full bg-gray-100 rounded-lg px-20 pr-10 text-gray-900 dark:text-gray-900 text-center font-2xl mt-[100%] bg-opacity-80  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-                                    <div className="w-[160%] ml-[-40%] rounded-r-full">
-                                        <div className="flex flex-row justify-between items-center w-full">
-                                            <div className="flex flex-col ">
-                                                <h2 className="text-black dark:white">
-                                                    Portfolios
-                                                </h2>
-                                                <p className="font-sm text-justify px-5">
-                                                    Portfolios subtitle
-                                                </p>
-                                            </div>
-
-                                            <div className="rounded-full inline-flex bg-blue-700 p-4">
-                                                <button>
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 448 512"
-                                                        className="fill-current text-black w-4 h-4"
-                                                    >
-                                                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* FAQ Section */}
-            <section className="bg-white dark:bg-gray-900 pb-10" id="faq">
+            <section className="bg-white dark:!bg-gray-900 pb-10" id="faq">
                 <div className="lg:pb-24 lg:px-6 pt-10 max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-                    <h2 className="mb-6 text-xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-xl dark:text-gray-50">
-                        Түгээмэл асуулт хариулт
+                    <h2 className="mb-6 text-xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-xl dark:!text-gray-50">
+                        {JSON.parse(general.options).faq_title}
                     </h2>
-
-                    {/* Accordion 1 */}
-                    <div className="mx-auto rounded-2xl bg-gray-200 dark:bg-gray-700">
-                        <div className="flex justify-between items-center pr-5">
-                            <span className="text-sm text-black dark:text-white py-5 pl-5">
-                                Name
-                            </span>
-                            <button
-                                onClick={() => toggleAccordion(1)}
-                                aria-expanded={
-                                    activeIndex === 1 ? "true" : "false"
-                                }
-                                className="focus:outline-none"
-                            >
-                                {activeIndex === 1 ? (
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512"
-                                        className="fill-current text-black dark:text-white w-5 h-5"
-                                    >
-                                        <path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
-                                    </svg>
-                                ) : (
-                                    <svg
-                                        className="fill-current text-black dark:text-white w-5 h-5"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            d="M12 5v14M5 12h14"
+                    {faqs.map((faq, index) => (
+                        <div
+                            className="mx-auto rounded-2xl bg-gray-200 dark:!bg-gray-700"
+                            key={index}
+                        >
+                            <div className="flex justify-between items-center pr-5">
+                                <span className="text-sm text-black dark:!text-white py-5 pl-5">
+                                    {faq.title}
+                                </span>
+                                <button
+                                    onClick={() => toggleAccordion(1)}
+                                    aria-expanded={
+                                        activeIndex === 1 ? "true" : "false"
+                                    }
+                                    className="focus:outline-none"
+                                >
+                                    {activeIndex === 1 ? (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 448 512"
+                                            className="fill-current text-black dark:!text-white w-5 h-5"
+                                        >
+                                            <path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
+                                        </svg>
+                                    ) : (
+                                        <svg
+                                            className="fill-current text-black dark:!text-white w-5 h-5"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
                                             stroke="currentColor"
-                                            strokeWidth="2"
-                                        />
-                                    </svg>
-                                )}
-                            </button>
-                        </div>
-                        {activeIndex === 1 && (
-                            <div className="py-5 text-black dark:text-gray-50">
-                                <p className="px-5 text-sm">
-                                    What is your name?
-                                </p>
+                                        >
+                                            <path
+                                                d="M12 5v14M5 12h14"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                            />
+                                        </svg>
+                                    )}
+                                </button>
                             </div>
-                        )}
-                    </div>
-
-                    {/* Accordion 2 */}
-                    <div className="mx-auto rounded-2xl bg-gray-200 dark:bg-gray-700 mt-10">
-                        <div className="flex justify-between items-center pr-5">
-                            <span className="text-sm text-black dark:text-white py-5 pl-5">
-                                Question 2
-                            </span>
-                            <button
-                                onClick={() => toggleAccordion(2)}
-                                aria-expanded={
-                                    activeIndex === 2 ? "true" : "false"
-                                }
-                                className="focus:outline-none"
-                            >
-                                {activeIndex === 2 ? (
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512"
-                                        className="fill-current text-black dark:text-white w-5 h-5"
-                                    >
-                                        <path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
-                                    </svg>
-                                ) : (
-                                    <svg
-                                        className="fill-current text-black dark:text-white w-5 h-5"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            d="M12 5v14M5 12h14"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                        />
-                                    </svg>
-                                )}
-                            </button>
+                            {activeIndex === 1 && (
+                                <div className="py-5 text-black dark:!text-gray-50">
+                                    <p
+                                        className="px-5 text-sm"
+                                        dangerouslySetInnerHTML={{
+                                            __html: faq.content ?? "",
+                                        }}
+                                    ></p>
+                                </div>
+                            )}
                         </div>
-                        {activeIndex === 2 && (
-                            <div className="py-5 text-black dark:text-gray-50">
-                                <p className="px-5 text-sm">
-                                    Answer to question 2.
-                                </p>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Accordion 3 */}
-                    <div className="mx-auto rounded-2xl bg-gray-200 dark:bg-gray-700 mt-10">
-                        <div className="flex justify-between items-center pr-5">
-                            <span className="text-sm text-black dark:text-white py-5 pl-5">
-                                Question 3
-                            </span>
-                            <button
-                                onClick={() => toggleAccordion(3)}
-                                aria-expanded={
-                                    activeIndex === 3 ? "true" : "false"
-                                }
-                                className="focus:outline-none"
-                            >
-                                {activeIndex === 3 ? (
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512"
-                                        className="fill-current text-black dark:text-white w-5 h-5"
-                                    >
-                                        <path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
-                                    </svg>
-                                ) : (
-                                    <svg
-                                        className="fill-current text-black dark:text-white w-5 h-5"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            d="M12 5v14M5 12h14"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                        />
-                                    </svg>
-                                )}
-                            </button>
-                        </div>
-                        {activeIndex === 3 && (
-                            <div className="py-5 text-black dark:text-gray-50">
-                                <p className="px-5 text-sm">
-                                    Answer to question 3.
-                                </p>
-                            </div>
-                        )}
-                    </div>
+                    ))}
                 </div>
             </section>
 
