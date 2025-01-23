@@ -13,6 +13,7 @@ export default function Home({
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null); // Store the selected post
     const [activeIndex, setActiveIndex] = useState(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleAccordion = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -33,7 +34,9 @@ export default function Home({
             closeModal(); // Close modal when clicked outside
         }
     };
-
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
     return (
         <div>
             <Helmet>
@@ -62,6 +65,7 @@ export default function Home({
                             <button
                                 data-collapse-toggle="mobile-menu-2"
                                 type="button"
+                                onClick={toggleMenu}
                                 className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                 aria-controls="mobile-menu-2"
                                 aria-expanded="false"
@@ -94,7 +98,9 @@ export default function Home({
                             </button>
                         </div>
                         <div
-                            className="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
+                            className={`hidden lg:flex items-center space-x-3 text-md text-black dark:text-white ${
+                                isMenuOpen ? "hidden" : ""
+                            }`}
                             id="mobile-menu-2"
                         >
                             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -162,6 +168,73 @@ export default function Home({
                             </ul>
                         </div>
                     </div>
+                    {isMenuOpen && (
+                        <div className="lg:hidden px-6 py-4 space-y-4 text-gray-900 dark:text-white">
+                            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="block px-4 py-2 rounded-md transition duration-200"
+                                        aria-current="page"
+                                    >
+                                        Нүүр
+                                    </a>
+                                </li>
+                                {services.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#services"
+                                            className="block px-4 py-2 rounded-md transition duration-200 "
+                                        >
+                                            {JSON.parse(general.options)
+                                                .service_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {portfolios.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#portfolios"
+                                            className="block px-4 py-2 rounded-md transition duration-200"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .portfolio_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {posts.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#posts"
+                                            className="block px-4 py-2 rounded-md transition duration-200"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .news_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {faqs.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#faqs"
+                                            className="block px-4 py-2 rounded-md transition duration-200"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .faq_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                <li>
+                                    <a
+                                        href="#contact"
+                                        className="block px-4 py-2 rounded-md transition duration-200"
+                                    >
+                                        Холбоо барих
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </nav>
             </header>
 
@@ -169,7 +242,7 @@ export default function Home({
                 <div className=" flex  justify-between space-x-20 max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
                     <div
                         ref={contentRef}
-                        className="mr-auto place-self-center lg:col-span-7 text-black dark:text-white"
+                        className="mr-auto place-self-center lg:col-span-7 text-black dark:text-white px-5"
                         dangerouslySetInnerHTML={{
                             __html: general.overview ?? "",
                         }}
@@ -209,37 +282,42 @@ export default function Home({
                     <div className="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
                         {services.map((service, index) => (
                             <div
-                                className="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16"
-                                key={service.id}
+                                key={index}
+                                className="flex flex-col bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden shadow-md w-full"
                             >
-                                {index % 2 === 0 && (
-                                    <img
-                                        className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                                        src={"/" + service.image}
-                                        alt="dashboard feature image"
-                                    />
-                                )}
-                                <div className="text-gray-500 sm:text-lg dark:text-gray-400">
-                                    <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                                        {service.title ?? ""}
-                                    </h2>
-                                    <p className="mb-8 font-light lg:text-xl">
-                                        {service.subtitle ?? ""}
-                                    </p>
+                                <div className="flex flex-row">
+                                    {index % 2 === 0 && (
+                                        <img
+                                            src={"/" + service.image}
+                                            alt="serviceImg"
+                                            className="w-1/2  rounded-lg m-3"
+                                        />
+                                    )}
+                                    <div className="flex flex-col justify-between w-full">
+                                        <div className="text-gray-500 sm:text-lg dark:text-gray-400 m-5 lg:m-auto">
+                                            <h2 className="mb-4 text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                                                {service.title ?? ""}
+                                            </h2>
+                                            <p className=" font-light lg:text-xl">
+                                                {service.subtitle ?? ""}
+                                            </p>
 
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: service.content ?? "",
-                                        }}
-                                    ></div>
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        service.content ?? "",
+                                                }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                    {index % 2 === 1 && (
+                                        <img
+                                            src={"/" + service.image}
+                                            alt="serviceImg"
+                                            className="w-1/2 object-cover rounded-lg m-3"
+                                        />
+                                    )}
                                 </div>
-                                {index % 2 === 1 && (
-                                    <img
-                                        className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                                        src={"/" + service.image}
-                                        alt="dashboard feature image"
-                                    />
-                                )}
                             </div>
                         ))}
                     </div>
@@ -251,33 +329,33 @@ export default function Home({
                     id="portfolios"
                     className="py-8 !bg-gray-50 dark:!bg-gray-900"
                 >
-                    <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-                        <div class="md:w-2/3 lg:w-1/2">
+                    <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+                        <div className="md:w-2/3 lg:w-1/2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
-                                class="w-6 h-6 text-secondary"
+                                className="w-6 h-6 text-secondary"
                             >
                                 <path
                                     fill="white"
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 ></path>
                             </svg>
 
-                            <h2 class="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
+                            <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
                                 {JSON.parse(general.options).portfolio_title ??
                                     ""}
                             </h2>
-                            <p class="text-gray-600 dark:text-gray-300">
+                            <p className="text-gray-600 dark:text-gray-300">
                                 {JSON.parse(general.options).portfolio_desc ??
                                     ""}
                             </p>
                         </div>
                         <div
-                            class={
+                            className={
                                 "mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-" +
                                 (portfolios.length ?? "" == 1 ? 1 : 2) +
                                 " lg:grid-cols-" +
@@ -288,22 +366,25 @@ export default function Home({
                             }
                         >
                             {portfolios.map((portfolio) => (
-                                <div class="group relative bg-gray-50 dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
-                                    <div class="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-900">
+                                <div
+                                    className="group relative bg-gray-50 dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10"
+                                    key={portfolio.id}
+                                >
+                                    <div className="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-900">
                                         <img
                                             src={"/" + portfolio.image}
-                                            class="w-12"
+                                            className="w-12"
                                             width="512"
                                             height="512"
                                             alt="burger illustration"
                                         />
 
-                                        <div class="space-y-2">
-                                            <h5 class="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
+                                        <div className="space-y-2">
+                                            <h5 className="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
                                                 {portfolio.title ?? ""}
                                             </h5>
                                             <div
-                                                class="text-gray-600 dark:text-gray-300"
+                                                className="text-gray-600 dark:text-gray-300"
                                                 dangerouslySetInnerHTML={{
                                                     __html:
                                                         portfolio.content ?? "",
@@ -325,26 +406,26 @@ export default function Home({
                             <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
                                 {JSON.parse(general.options).news_title ?? ""}
                             </h2>
-                            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+                            <p className="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
                                 {JSON.parse(general.options).news_desc ?? ""}
                             </p>
                         </div>
                         <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
                             {posts.map((post) => (
                                 <div
-                                    className="flex flex-col max-w-lg mx-auto text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                                    className="flex flex-col max-w-lg m-5 lg:mx-auto text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                                     key={post.id}
                                     onClick={() => openModal(post)}
                                 >
                                     <img
                                         src={"/" + post.image}
-                                        className="w-full h-[240px] object-cover"
+                                        className="w-full  rounded-lg"
                                         alt="postImage"
                                     />
-                                    <a className="text-white focus:ring-4 mx-3 mt-2 mb-1 focus:ring-purple-200 font-medium rounded-lg text-sm text-center dark:text-white  dark:focus:ring-purple-900">
+                                    <a className="text-white text-2xl focus:ring-4 mx-3 mt-2 mb-1 focus:ring-purple-200 font-medium rounded-lg text-center dark:text-white  dark:focus:ring-purple-900">
                                         {post.title ?? ""}
                                     </a>
-                                    <p className="text-justify mx-2 mb-2">
+                                    <p className="text-justify mx-2 mb-2 text-lg">
                                         {post.subtitle ?? ""}
                                     </p>
                                 </div>
@@ -357,14 +438,14 @@ export default function Home({
             {faqs.length > 0 && (
                 <section className="bg-white dark:bg-gray-900" id="faqs">
                     <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6 pt-10">
-                        <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-3xl dark:text-white">
+                        <h2 className=" text-2xl lg:text-3xl font-extrabold tracking-tight text-center text-gray-900 m-5  lg:mb-8  dark:text-white">
                             {JSON.parse(general.options).faq_title ?? ""}
                         </h2>
                         <div className="max-w-screen-md mx-auto">
                             {/** Accordion container */}
                             <div id="accordion-flush">
                                 {faqs.map((faq, index) => (
-                                    <>
+                                    <div className="m-5 lg:m-auto" key={faq.id}>
                                         <h3>
                                             <button
                                                 type="button"
@@ -406,7 +487,7 @@ export default function Home({
                                                 __html: faq.content ?? "",
                                             }}
                                         ></div>
-                                    </>
+                                    </div>
                                 ))}
                             </div>
                         </div>
