@@ -19,6 +19,7 @@ export default function Index(
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null); // Store the selected post
     const [activeIndex, setActiveIndex] = useState(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleAccordion = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -35,7 +36,9 @@ export default function Index(
         setSelectedPost(null); // Reset selected post when modal is closed
         setIsOpen(false);
     };
-
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
     const handleClickOutside = (e) => {
         if (e.target.id === "modal-overlay") {
             closeModal(); // Close modal when clicked outside
@@ -75,7 +78,9 @@ export default function Index(
             >
                 <nav
                     className={`bg-gray-50 dark:bg-gray-700 px-5 pr-5 ${
-                        isScrolled ? "rounded-none" : "rounded-full  "
+                        isScrolled
+                            ? "rounded-none"
+                            : "rounded-none lg:rounded-full  "
                     }`}
                 >
                     <div className="flex items-center justify-between place-items-center px-6 py-0 mx-auto ">
@@ -92,7 +97,9 @@ export default function Index(
 
                         {/* Desktop Menu */}
                         <div
-                            className={`hidden lg:flex space-x-4 py-[20px] pt-[20px] text-sm text-black dark:text-white ${"rounded-3xl"} place-items-center`}
+                            className={`hidden lg:flex items-center space-x-3 text-md text-black dark:text-white ${
+                                isMenuOpen ? "hidden" : ""
+                            }`}
                         >
                             <a
                                 href="#about"
@@ -131,7 +138,7 @@ export default function Index(
                                 Холбоо барих
                             </a>
                         </div>
-                        <div className="className={`hidden lg:flex space-x-4   place-items-center">
+                        <div className="hidden md:flex space-x-4   place-items-center">
                             <button
                                 type="button"
                                 className="ml-6 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-sm rounded-2xl px-5 py-2.5 transition duration-200"
@@ -139,7 +146,50 @@ export default function Index(
                                 Холбоо барих
                             </button>
                         </div>
+                        <div className="lg:hidden">
+                            <button
+                                type="button"
+                                onClick={toggleMenu}
+                                className="text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-600"
+                                aria-label="Toggle navigation"
+                            >
+                                <svg
+                                    className="w-6 h-6"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
+                    {isMenuOpen && (
+                        <div className="lg:hidden bg-gray-50 dark:bg-gray-700 text-black dark:text-white px-5 py-4 rounded-md">
+                            <a href="#about" className="block py-2">
+                                Нүүр
+                            </a>
+                            <a href="#services" className="block py-2">
+                                Үйлчилгээ
+                            </a>
+                            <a href="#portfolios" className="block py-2">
+                                Portfolio
+                            </a>
+                            <a href="#posts" className="block py-2">
+                                Мэдээ
+                            </a>
+                            <a href="#faq" className="block py-2">
+                                Түгээмэл асуулт хариулт
+                            </a>
+                            <a href="#contact" className="block py-2">
+                                Холбоо барих
+                            </a>
+                        </div>
+                    )}
                 </nav>
             </header>
             {/* Hero Section */}

@@ -1,4 +1,4 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { Helmet } from "react-helmet";
 import React, { useState, useRef } from "react";
 
@@ -14,6 +14,7 @@ export default function Home({
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null); // Store the selected post
     const [activeIndex, setActiveIndex] = useState(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleAccordion = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -35,176 +36,260 @@ export default function Home({
         }
     };
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
-        <>
+        <div>
             <Helmet>
-                <link href="/front/css/aos.css" rel="stylesheet" />
-                <link href="/front/css/style.min.css" rel="stylesheet" />
-                <link
-                    href="/front/css/swiper-bundle.min.css"
-                    rel="stylesheet"
-                />
                 <link
                     rel="icon"
                     type="image/png"
-                    href={"/" + general.favicon}
+                    href={"/" + general.favicon ?? ""}
                 />
             </Helmet>
-            <Head title={general.title} />
-            <header
-                id="navbar"
-                class="light fixed top-0 inset-x-0 flex items-center z-40 w-full bg-white transition-all dark:bg-gray-900"
-            >
-                <nav class="w-full border-gray-200 px-6 bg-white pt-10 space-between text-font-sanserif text-emerald-800 text-lg dark:bg-gray-900">
-                    <div class="flex items-center space-between ">
-                        <a href="#" class="flex items-center">
+            <Head title={general.title ?? ""} />
+
+            <header className="fixed w-full z-10">
+                <nav className="bg-white border-gray-200 py-2.5 dark:!bg-gray-900">
+                    <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
+                        <a href="#" className="flex items-center">
                             <img
-                                src={"/" + general.logo}
-                                class="h-6 mr-3 sm:h-9"
-                                alt="Logo"
+                                src={"/" + general.logo ?? ""}
+                                className="h-6 mr-3 sm:h-9"
+                                alt="Landwind Logo"
                             />
-                            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                                {general.title}
+                            <span className="self-center text-xl font-semibold whitespace-nowrap dark:!text-white">
+                                {general.title ?? ""}
                             </span>
                         </a>
-
-                        <div class="hidden lg:flex space-x-20 items-center px-40 ">
-                            <a class="nav-link" href="#">
-                                Нүүр
-                            </a>
-
-                            {posts.length > 0 && (
-                                <a href="#posts" class="nav-link">
-                                    {JSON.parse(general.options).news_title}
-                                </a>
-                            )}
-                            {services.length > 0 && (
-                                <a href="#services" class="nav-link">
-                                    {JSON.parse(general.options).service_title}
-                                </a>
-                            )}
-                            {portfolios.length > 0 && (
-                                <a href="#portfolio" class="nav-link">
-                                    {
-                                        JSON.parse(general.options)
-                                            .portfolio_title
-                                    }
-                                </a>
-                            )}
-                            {faqs.length > 0 && (
-                                <a href="#faqs" class="nav-link">
-                                    {JSON.parse(general.options).faq_title}
-                                </a>
-                            )}
-                            <a class="nav-link" href="#contact">
-                                Холбоо барих
-                            </a>
-                        </div>
-                        <button
-                            type="button"
-                            class="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
-                            data-collapse-toggle="mobile-menu"
-                        >
-                            <span class="sr-only">Open main menu</span>
-                            <svg
-                                class="w-6 h-6"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
+                        <div className="flex items-center lg:order-2">
+                            <button
+                                data-collapse-toggle="mobile-menu-2"
+                                type="button"
+                                onClick={toggleMenu}
+                                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:!text-gray-400 dark:!hover:bg-gray-700 dark:!focus:ring-gray-600"
+                                aria-controls="mobile-menu-2"
+                                aria-expanded="false"
                             >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
-                        </button>
+                                <span className="sr-only">Open main menu</span>
+                                <svg
+                                    className="w-6 h-6"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                                <svg
+                                    className="hidden w-6 h-6"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div
+                            className={`hidden lg:flex items-center space-x-3 text-md text-black dark:text-white ${
+                                isMenuOpen ? "hidden" : ""
+                            }`}
+                        >
+                            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white"
+                                        aria-current="page"
+                                    >
+                                        Нүүр
+                                    </a>
+                                </li>
+                                {services.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#services"
+                                            className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:!text-gray-400 lg:dark:!hover:text-white "
+                                        >
+                                            {JSON.parse(general.options)
+                                                .service_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {portfolios.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#portfolios"
+                                            className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:!text-gray-400 lg:dark:!hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .portfolio_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {posts.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#posts"
+                                            className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:!text-gray-400 lg:dark:!hover:text-white dark:!hover:bg-gray-700 dark:!hover:text-white lg:dark:!hover:bg-transparent dark:!border-gray-700"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .news_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {faqs.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#faqs"
+                                            className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:!text-gray-400 lg:dark:!hover:text-white dark:!hover:bg-gray-700 dark:!hover:text-white lg:dark:!hover:bg-transparent dark:!border-gray-700"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .faq_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                <li>
+                                    <a
+                                        href="#contact"
+                                        className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:!text-gray-400 lg:dark:!hover:text-white dark:!hover:bg-gray-700 dark:!hover:text-white lg:dark:!hover:bg-transparent dark:!border-gray-700"
+                                    >
+                                        Холбоо барих
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div
-                        id="mobile-menu"
-                        class="hidden flex-col lg:hidden mt-4 space-y-2 px-4 bg-white dark:bg-gray-900"
-                    >
-                        <a class="nav-link" href="#">
-                            Нүүр
-                        </a>
-
-                        {posts.length > 0 && (
-                            <a href="#posts" class="nav-link">
-                                {JSON.parse(general.options).news_title}
-                            </a>
-                        )}
-                        {services.length > 0 && (
-                            <a href="#services" class="nav-link">
-                                {JSON.parse(general.options).service_title}
-                            </a>
-                        )}
-                        {portfolios.length > 0 && (
-                            <a href="#portfolio" class="nav-link">
-                                {JSON.parse(general.options).portfolio_title}
-                            </a>
-                        )}
-                        {faqs.length > 0 && (
-                            <a href="#faqs" class="nav-link">
-                                {JSON.parse(general.options).faq_title}
-                            </a>
-                        )}
-                        <a class="nav-link" href="contact.html">
-                            Холбоо барих
-                        </a>
-                    </div>
+                    {isMenuOpen && (
+                        <div className="lg:hidden px-6 py-4 space-y-4 text-gray-900 dark:text-white">
+                            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="block px-4 py-2 rounded-md transition duration-200"
+                                        aria-current="page"
+                                    >
+                                        Нүүр
+                                    </a>
+                                </li>
+                                {services.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#services"
+                                            className="block px-4 py-2 rounded-md transition duration-200 "
+                                        >
+                                            {JSON.parse(general.options)
+                                                .service_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {portfolios.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#portfolios"
+                                            className="block px-4 py-2 rounded-md transition duration-200"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .portfolio_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {posts.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#posts"
+                                            className="block px-4 py-2 rounded-md transition duration-200"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .news_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                {faqs.length > 0 && (
+                                    <li>
+                                        <a
+                                            href="#faqs"
+                                            className="block px-4 py-2 rounded-md transition duration-200"
+                                        >
+                                            {JSON.parse(general.options)
+                                                .faq_title ?? ""}
+                                        </a>
+                                    </li>
+                                )}
+                                <li>
+                                    <a
+                                        href="#contact"
+                                        className="block px-4 py-2 rounded-md transition duration-200"
+                                    >
+                                        Холбоо барих
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </nav>
             </header>
 
-            <section class="bg-white dark:bg-gray-900 py-20">
-                <div class="grid max-w-screen-xl px-4 justify-center pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28 space-x-8 text-justify">
+            <section className="bg-white dark:!bg-gray-900 py-20">
+                <div className="grid max-w-screen-xl px-4 justify-center pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28 space-x-8 text-justify">
                     <div
                         ref={contentRef}
-                        class="mr-auto place-self-center lg:col-span-7 text-emerald-700 text-justify"
+                        className="mr-auto text-xl text-center justify-center lg:col-span-7 text-black dark:!text-white "
                         dangerouslySetInnerHTML={{
                             __html: general.overview,
                         }}
                     ></div>
-                    <div class="hidden lg:mt-0 lg:col-span-5 lg:flex my-8 rounded-lg">
+                    <div className="hidden lg:mt-0 lg:col-span-5 lg:flex my-8 rounded-lg">
                         <img
                             src={"/" + general.banner}
                             alt="hero image"
-                            class="rounded-lg"
+                            className="rounded-lg"
                         />
                     </div>
                 </div>
             </section>
 
             {posts.length > 0 && (
-                <section class="bg-emerald-800 dark:bg-emerald-100" id="posts">
-                    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
-                        <div class="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
-                            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-[bold] text-gray-700 dark:text-gray-900">
+                <section className="bg-white dark:!bg-gray-800" id="posts">
+                    <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
+                        <div className="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
+                            <h2 className="mb-4 text-2xl text-black dark:!text-white">
                                 {JSON.parse(general.options).news_title}
                             </h2>
-                            <p class="mb-5 font-light  sm:text-xl text-text-gray-500 dark:text-gray-900">
+                            <p className="mb-5 font-light  sm:text-xl text-text-gray-500 text-black dark:!text-white">
                                 {JSON.parse(general.options).news_desc}
                             </p>
                         </div>
-                        <div class="grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
+                        <div className="grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
                             {posts.map((post) => (
                                 <div
-                                    class="flex flex-col max-w-lg mx-2/3 text-gray-900 bg-white border border-gray-200 rounded-lg shadow dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                                    className="flex flex-col max-w-lg mx-2/3 text-gray-900 bg-white border border-gray-200 rounded-lg shadow dark:!border-gray-600 dark:!bg-gray-800 dark:!text-white"
                                     key={post.id}
                                     onClick={() => openModal(post)}
                                 >
                                     <img
                                         src={"/" + post.image}
-                                        class="w-full h-[240px] object-cover rounded-t-lg"
+                                        className="w-full h-[240px] object-cover rounded-t-lg"
                                         alt={post.title}
                                     />
-                                    <div class="p-4">
+                                    <div className="p-4">
                                         <a
                                             href="#"
-                                            class="block mb-2 text-lg font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+                                            className="block mb-2 text-lg font-semibold text-black dark:!text-white hover:underline"
                                         >
                                             {post.title}
                                         </a>
-                                        <p class="text-sm text-gray-700 dark:text-gray-300 text-justify">
+                                        <p className="text-sm text-gray-700 dark:!text-gray-300 text-justify">
                                             {post.subtitle}
                                         </p>
                                     </div>
@@ -216,33 +301,33 @@ export default function Home({
             )}
 
             {services.length > 0 && (
-                <section class="bg-white dark:bg-gray-900" id="services">
-                    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
-                        <div class="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
-                            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-700 dark:text-gray-900">
+                <section className="bg-white dark:!bg-gray-900" id="services">
+                    <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
+                        <div className="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
+                            <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-black dark:!text-white">
                                 {JSON.parse(general.options).services_title}
                             </h2>
-                            <p class="mb-5 font-light sm:text-xl text-gray-500 dark:text-gray-900">
+                            <p className="mb-5 font-light sm:text-xl text-black dark:!text-white">
                                 {JSON.parse(general.options).services_desc}
                             </p>
                         </div>
-                        <div class="grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
+                        <div className="grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
                             {services.map((service) => (
                                 <div
-                                    class="flex flex-col space-between max-w-lg mx-1/2 text-gray-900 bg-white border border-gray-200 rounded-lg shadow dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                                    className="flex flex-col max-w-lg mx-1/2 text-gray-900 dark:!text-white bg-gray-100 dark:!bg-gray-800 border border-gray-200 dark:!border-gray-600 rounded-lg shadow"
                                     key={service.id}
                                 >
                                     <img
                                         src={"/" + service.image}
-                                        class="w-full h-[240px] object-cover rounded-t-lg"
+                                        className="w-full h-[240px] object-cover rounded-t-lg"
                                         alt={service.title}
                                     />
-                                    <div class="p-4">
-                                        <h5 class="block mb-2 text-lg font-semibold text-emerald-600 dark:text-emerald-400">
+                                    <div className="p-4">
+                                        <h5 className="block mb-2 text-lg font-semibold text-black dark:!text-white">
                                             {service.title}
                                         </h5>
                                         <div
-                                            class="text-sm text-gray-700 dark:text-gray-300 text-justify"
+                                            className="text-sm text-gray-700 dark:!text-gray-300 text-justify"
                                             dangerouslySetInnerHTML={{
                                                 __html: service.content,
                                             }}
@@ -256,33 +341,36 @@ export default function Home({
             )}
 
             {portfolios.length > 0 && (
-                <div id="portfolios" class="py-8 !bg-gray-50 dark:!bg-gray-900">
-                    <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-                        <div class="md:w-2/3 lg:w-1/2">
+                <div
+                    id="portfolios"
+                    className="py-8 bg-white dark:!bg-gray-800"
+                >
+                    <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+                        <div className="md:w-2/3 lg:w-1/2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
-                                class="w-6 h-6 text-secondary"
+                                className="w-6 h-6 text-secondary"
                             >
                                 <path
                                     fill="white"
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 ></path>
                             </svg>
 
-                            <h2 class="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
+                            <h2 className="mb-4 text-2xl   text-black dark:!text-white">
                                 {JSON.parse(general.options).portfolio_title}
                             </h2>
-                            <p class="text-gray-600 dark:text-gray-300">
+                            <p className="mb-5 font-light  sm:text-xl text-text-gray-500 text-black dark:!text-white">
                                 {JSON.parse(general.options).portfolio_desc}
                             </p>
                         </div>
                         <div
-                            class={
-                                "mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-" +
+                            className={
+                                "mt-16 grid divide-x divide-y divide-gray-100 dark:!divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:!border-gray-700 sm:grid-cols-" +
                                 (portfolios.length == 1 ? 1 : 2) +
                                 " lg:grid-cols-" +
                                 portfolios.length +
@@ -292,22 +380,25 @@ export default function Home({
                             }
                         >
                             {portfolios.map((portfolio) => (
-                                <div class="group relative bg-gray-50 dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
-                                    <div class="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-900">
+                                <div
+                                    className="group relative h-full bg-gray-50 dark:!bg-gray-900 "
+                                    key={portfolio.id}
+                                >
+                                    <div className="relative space-y-8 py-12 p-8  ">
                                         <img
                                             src={"/" + portfolio.image}
-                                            class="w-12"
+                                            className="w-12"
                                             width="512"
                                             height="512"
-                                            alt="burger illustration"
+                                            alt="portfoliosImg"
                                         />
 
-                                        <div class="space-y-2">
-                                            <h5 class="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
+                                        <div className="space-y-2">
+                                            <h5 className="text-xl font-semibold text-black dark:!text-white">
                                                 {portfolio.title}
                                             </h5>
                                             <div
-                                                class="text-gray-600 dark:text-gray-300"
+                                                className="text-black dark:!text-white"
                                                 dangerouslySetInnerHTML={{
                                                     __html: portfolio.content,
                                                 }}
@@ -321,34 +412,31 @@ export default function Home({
                 </div>
             )}
             {faqs.length > 0 && (
-                <section
-                    class="bg-emerald-800 dark:bg-emerald-100 pt-20"
-                    id="faqs"
-                >
-                    <div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6 pt-10">
-                        <h2 class="mb-6 text-3xl font-extrabold tracking-tight text-center  text-gray-700 dark:text-gray-900 lg:mb-8 lg:text-3xl">
+                <section className="bg-white dark:!bg-gray-900 pt-20" id="faqs">
+                    <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6 pt-10">
+                        <h2 className="mb-6 text-2xl font-extrabold tracking-tight text-center  text-black dark:!text-white lg:mb-8 lg:text-3xl">
                             {JSON.parse(general.options).faq_title}
                         </h2>
-                        <div class="max-w-screen-md mx-auto">
+                        <div className="max-w-screen-md mx-auto">
                             {/** Accordion container */}
                             <div id="accordion-flush">
                                 {faqs.map((faq, index) => (
-                                    <>
+                                    <div key={faq.id}>
                                         <h3>
                                             <button
                                                 type="button"
-                                                class={`flex items-center justify-between w-full py-5 font-medium text-left ${
+                                                className={`flex items-center justify-between w-full py-5 font-medium text-left ${
                                                     activeIndex === index
-                                                        ? "text-gray-900 dark:text-white"
-                                                        : "text-gray-500 dark:text-gray-400"
-                                                } border-b border-gray-200 dark:border-gray-700`}
+                                                        ? "text-gray-900 dark:!text-white"
+                                                        : "text-gray-500 dark:!text-white"
+                                                } border-b border-gray-200 dark:!border-gray-700`}
                                                 onClick={() =>
                                                     toggleAccordion(index)
                                                 }
                                             >
                                                 <span>{faq.title}</span>
                                                 <svg
-                                                    class={`w-6 h-6 transform ${
+                                                    className={`w-6 h-6 transform ${
                                                         activeIndex === index
                                                             ? "rotate-180"
                                                             : ""
@@ -366,16 +454,16 @@ export default function Home({
                                             </button>
                                         </h3>
                                         <div
-                                            class={`${
+                                            className={`${
                                                 activeIndex === index
                                                     ? "block"
                                                     : "hidden"
-                                            } py-5 border-b border-gray-200 dark:border-gray-700 !text-black dark:!text-gray-300`}
+                                            } py-5 border-b border-gray-200 dark:!border-gray-700 !text-black dark:!text-white`}
                                             dangerouslySetInnerHTML={{
                                                 __html: faq.content,
                                             }}
                                         ></div>
-                                    </>
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -383,27 +471,27 @@ export default function Home({
                 </section>
             )}
 
-            <footer class="bg-white dark:bg-gray-800" id="contact">
-                <div class="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
-                    <div class="text-center">
+            <footer className="bg-white dark:!bg-gray-800" id="contact">
+                <div className="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
+                    <div className="text-center">
                         <a
                             href="#"
-                            class="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white"
+                            className="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:!text-white"
                         >
                             <img
                                 src="https://demo.themesberg.com/landwind/images/logo.svg"
-                                class="h-6 mr-3 sm:h-9"
+                                className="h-6 mr-3 sm:h-9"
                                 alt="Landwind Logo"
                             />
                             Landwind
                         </a>
-                        <span class="block text-sm text-center text-gray-500 dark:text-gray-400">
+                        <span className="block text-sm text-center text-gray-500 dark:!text-gray-400">
                             © 2021-2022 Landwind™. All Rights Reserved. Built
                             with{" "}
                             <a
                                 href="#"
                                 target="_blank"
-                                class="text-purple-600 hover:underline dark:text-purple-500"
+                                className="text-purple-600 hover:underline dark:!text-purple-500"
                             >
                                 Flowbite
                             </a>{" "}
@@ -411,20 +499,20 @@ export default function Home({
                             <a
                                 href="#"
                                 target="_blank"
-                                class="text-purple-600 hover:underline dark:text-purple-500"
+                                className="text-purple-600 hover:underline dark:!text-purple-500"
                             >
                                 Tailwind CSS
                             </a>
                             .
                         </span>
-                        <ul class="flex justify-center mt-5 space-x-5">
+                        <ul className="flex justify-center mt-5 space-x-5">
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:!hover:text-white dark:!text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -440,10 +528,10 @@ export default function Home({
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:!hover:text-white dark:!text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -459,10 +547,10 @@ export default function Home({
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:!hover:text-white dark:!text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -474,10 +562,10 @@ export default function Home({
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:!hover:text-white dark:!text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -493,10 +581,10 @@ export default function Home({
                             <li>
                                 <a
                                     href="#"
-                                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                                    className="text-gray-500 hover:text-gray-900 dark:!hover:text-white dark:!text-gray-400"
                                 >
                                     <svg
-                                        class="w-5 h-5"
+                                        className="w-5 h-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
@@ -517,31 +605,31 @@ export default function Home({
             {isOpen && selectedPost && (
                 <div
                     id="modal-overlay"
-                    class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
+                    className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
                     onClick={handleClickOutside}
                 >
                     <div
-                        class="bg-white rounded-lg shadow-lg max-w-md w-full dark:bg-gray-700"
+                        className="bg-white rounded-lg shadow-lg max-w-md w-full dark:!bg-gray-700"
                         onClick={(e) => e.stopPropagation()} // Prevent click on modal content from closing it
                     >
                         {/* Header */}
-                        <div class="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
-                            <h2 class="text-lg font-medium text-gray-900 dark:text-white">
+                        <div className="flex items-center justify-between p-3 border-b rounded-t dark:!border-gray-600">
+                            <h2 className="text-lg font-medium text-gray-900 dark:!text-white">
                                 {selectedPost.title}
                             </h2>
                             <button
                                 onClick={closeModal}
-                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:!hover:bg-gray-600 dark:!hover:text-white"
                             >
                                 &times;
                             </button>
                         </div>
                         {/* Content */}
-                        <div class="p-3 space-y-3 text-gray-500 dark:text-gray-400">
+                        <div className="p-3 space-y-3 text-gray-500 dark:!text-gray-400">
                             <img
                                 src={"/" + selectedPost.image}
                                 alt=""
-                                class="w-full max-h-[200px] object-cover rounded-md"
+                                className="w-full max-h-[200px] object-cover rounded-md"
                             />
                             <div
                                 dangerouslySetInnerHTML={{
@@ -550,11 +638,11 @@ export default function Home({
                             ></div>
                         </div>
                         {/* Footer */}
-                        <div class="flex items-center justify-end p-3 border-t border-gray-200 rounded-b dark:border-gray-600">
+                        <div className="flex items-center justify-end p-3 border-t border-gray-200 rounded-b dark:!border-gray-600">
                             <button
                                 onClick={closeModal}
                                 type="button"
-                                class="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:!focus:ring-gray-700 dark:!bg-gray-800 dark:!text-gray-400 dark:!border-gray-600 dark:!hover:text-white dark:!hover:bg-gray-700"
                             >
                                 Хаах
                             </button>
@@ -565,15 +653,15 @@ export default function Home({
 
             <button
                 data-toggle="back-to-top"
-                class="fixed text-sm rounded-full z-10 bottom-5 end-5 h-9 w-9 text-center bg-primary/20 text-primary flex justify-center items-center"
+                className="fixed text-sm rounded-full z-10 bottom-5 end-5 h-9 w-9 text-center bg-primary/20 text-primary flex justify-center items-center"
             >
-                <i class="i-fa6-solid-arrow-up text-base"></i>
+                <i className="i-fa6-solid-arrow-up text-base"></i>
             </button>
             <script src="/front/js/aos.js"></script>
             <script src="/front/js/head.js"></script>
             <script src="/front/js/index.js"></script>
             <script src="/front/js/swiper-bundle.min.js"></script>
             <script src="/front/js/theme.js"></script>
-        </>
+        </div>
     );
 }

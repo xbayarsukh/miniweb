@@ -166,10 +166,10 @@ export default function Home({
             </header>
 
             <section className="bg-white dark:bg-gray-900">
-                <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+                <div className=" flex  justify-between space-x-20 max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
                     <div
                         ref={contentRef}
-                        className="mr-auto place-self-center lg:col-span-7"
+                        className="mr-auto place-self-center lg:col-span-7 text-black dark:text-white"
                         dangerouslySetInnerHTML={{
                             __html: general.overview ?? "",
                         }}
@@ -193,7 +193,7 @@ export default function Home({
                                     className="flex items-center lg:justify-center p-2 rounded-3xl bg-gray-800"
                                 >
                                     <img
-                                        src={"/" + partner.image ?? ""}
+                                        src={"/" + partner.image}
                                         alt="Partner Logo"
                                         className="h-9 filter grayscale hover:grayscale-0 dark:grayscale-0"
                                     />
@@ -215,7 +215,7 @@ export default function Home({
                                 {index % 2 === 0 && (
                                     <img
                                         className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                                        src={"/" + service.image ?? ""}
+                                        src={"/" + service.image}
                                         alt="dashboard feature image"
                                     />
                                 )}
@@ -236,7 +236,7 @@ export default function Home({
                                 {index % 2 === 1 && (
                                     <img
                                         className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                                        src={"/" + service.image ?? ""}
+                                        src={"/" + service.image}
                                         alt="dashboard feature image"
                                     />
                                 )}
@@ -291,7 +291,7 @@ export default function Home({
                                 <div class="group relative bg-gray-50 dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
                                     <div class="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-900">
                                         <img
-                                            src={"/" + portfolio.image ?? ""}
+                                            src={"/" + portfolio.image}
                                             class="w-12"
                                             width="512"
                                             height="512"
@@ -337,9 +337,9 @@ export default function Home({
                                     onClick={() => openModal(post)}
                                 >
                                     <img
-                                        src={"/" + post.image ?? ""}
+                                        src={"/" + post.image}
                                         className="w-full h-[240px] object-cover"
-                                        alt=""
+                                        alt="postImage"
                                     />
                                     <a className="text-white focus:ring-4 mx-3 mt-2 mb-1 focus:ring-purple-200 font-medium rounded-lg text-sm text-center dark:text-white  dark:focus:ring-purple-900">
                                         {post.title ?? ""}
