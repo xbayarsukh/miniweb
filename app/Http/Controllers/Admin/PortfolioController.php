@@ -20,7 +20,7 @@ class PortfolioController extends Controller
     }
 
     public function create() {
-        return Inertia::render('Admin/Portfolio/CreateAndEdit', ['singleportfolio' => null]);
+        return Inertia::render('Admin/Portfolio/CreateAndEdit', ['portfolios' => null]);
     }
 
     public function store(Request $request) {
@@ -47,10 +47,11 @@ class PortfolioController extends Controller
         }
         $portfolio = Portfolio::where('id', $id)->where('user_id', $user->id)->first();
         if ($portfolio) {
-            return Inertia::render('Admin/Portfolio/CreateAndEdit', ['singleportfolio' => $portfolio]);
+            return Inertia::render('Admin/Portfolio/CreateAndEdit', ['portfolios' => $portfolio]);
         }else{
             return redirect()->route('admin.portfolios')->with('success', 'Not found this portfolio maybe deleted');
         }
+        // return $portfolio;
     }
 
     public function update(Request $request, $id, $id2 = null) {

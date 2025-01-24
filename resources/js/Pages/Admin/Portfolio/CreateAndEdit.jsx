@@ -3,14 +3,16 @@ import { Head, useForm } from "@inertiajs/react";
 import React, { useEffect, useRef, useState } from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
 
-export default function CreateAndEdit({ singlePortfolio }) {
-    const isEditMode = !!singlePortfolio;
-    const [image, setImage] = useState(singlePortfolio == null ? null: ("/" + singlePortfolio.image));
+export default function CreateAndEdit({ portfolios }) {
+    const isEditMode = !!portfolios;
+    const [image, setImage] = useState(
+        portfolios == null ? null : "/" + portfolios.image
+    );
     const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm({
-            title: singlePortfolio?.title || '',
+            title: portfolios?.title || "",
             image: null,
-            content: singlePortfolio?.content || '',
+            content: portfolios?.content || "",
         });
     const editorRef = useRef(null);
 
@@ -55,15 +57,17 @@ export default function CreateAndEdit({ singlePortfolio }) {
 
     const submit = async (e) => {
         e.preventDefault();
-        
+
         try {
             let response;
             if (isEditMode) {
-                response = await post(route("admin.portfolios.update", singlePortfolio.id));
+                response = await post(
+                    route("admin.portfolios.update", portfolios.id)
+                );
             } else {
                 response = await post(route("admin.portfolios.store"));
             }
-    
+
             console.log(response); // Check the response
             // Handle the response if needed
         } catch (error) {
@@ -82,7 +86,9 @@ export default function CreateAndEdit({ singlePortfolio }) {
             <div className="w-10/12 max-w-10/12 px-3 mx-auto mt-10">
                 <div className="relative flex flex-col h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
                     <div className="p-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                        <h6 className="mb-0">{isEditMode ? 'Мэдээ засах' : 'Мэдээ нэмэх'}</h6>
+                        <h6 className="mb-0">
+                            {isEditMode ? "Portfolio засах" : "Portfolio нэмэх"}
+                        </h6>
                     </div>
                     <form
                         onSubmit={submit}
@@ -127,7 +133,9 @@ export default function CreateAndEdit({ singlePortfolio }) {
                                                 )
                                             }
                                             className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg"
-                                            {...(isEditMode ? {} : { required: true })}
+                                            {...(isEditMode
+                                                ? {}
+                                                : { required: true })}
                                         />
                                     </div>
                                     <div className="image-preview-logo">
@@ -138,29 +146,26 @@ export default function CreateAndEdit({ singlePortfolio }) {
                                         />
                                     </div>
                                 </li>
-                                
                             </ul>
-                            
+
                             <ul className="flex flex-row pl-0 mb-0 rounded-lg">
                                 <li className="w-6/12 mr-1">
-                                <h6 className="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">
-                                Description
-                            </h6>
+                                    <h6 className="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">
+                                        Description
+                                    </h6>
                                     <textarea
                                         ref={editorRef}
                                         defaultValue={data.content}
                                     ></textarea>
                                 </li>
                                 <li className="w-6/12 ml-1">
-                                <h6 className="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">
-                                Харагдах байдал
-                            </h6>
+                                    <h6 className="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">
+                                        Харагдах байдал
+                                    </h6>
                                     <div
                                         className="h-[300px] dark:bg-gray-500 p-3 rounded-lg"
                                         style={{
-                                            backgroundColor:
-                                                
-                                                "white",
+                                            backgroundColor: "white",
                                         }}
                                         dangerouslySetInnerHTML={{
                                             __html: data.content,
@@ -172,7 +177,6 @@ export default function CreateAndEdit({ singlePortfolio }) {
                                 <PrimaryButton disabled={processing}>
                                     Save
                                 </PrimaryButton>
-                                
                             </div>
                         </div>
                     </form>
