@@ -201,6 +201,7 @@ export default function Home({
                 className="bg-white dark:!bg-gray-900 w-full pt-10 "
                 id="hero"
                 style={{
+                    // backgroundImage: `url(${general.banner})`,
                     backgroundImage:
                         "url('https://wordpress.themeholy.com/webteck/wp-content/uploads/2024/06/hero_bg_19_1.jpg')",
                     backgroundSize: "cover",
