@@ -90,12 +90,12 @@ export default function Home({
                         <a href="#" className="flex items-center">
                             <img
                                 src={"/" + general.logo ?? ""}
-                                className="h-6 mr-3 sm:h-9 w-full h-12"
+                                className="h-6 mr-3 sm:h-9 w-full "
                                 alt="Landwind Logo"
                             />
-                            <span className="self-center text-xl font-semibold whitespace-nowrap dark:!text-white">
+                            {/* <span className="self-center text-xl font-semibold whitespace-nowrap dark:!text-white">
                                 {general.title ?? ""}
-                            </span>
+                            </span> */}
                         </a>
 
                         {/* Desktop Menu */}

@@ -94,9 +94,9 @@ export default function Home({
                                 className="h-6 mr-3 sm:h-9"
                                 alt="Landwind Logo"
                             />
-                            <span className="self-center text-xl font-semibold whitespace-nowrap dark:!text-white">
+                            {/* <span className="self-center text-xl font-semibold whitespace-nowrap dark:!text-white">
                                 {general.title ?? ""}
-                            </span>
+                            </span> */}
                         </a>
 
                         {/* Desktop Menu */}
@@ -471,156 +471,88 @@ export default function Home({
             </section>
 
             {/**Footer */}
-            <footer className="bg-blue-950 text-white py-10">
+            <footer className="bg-blue-200 dark:bg-blue-950 text-white py-10">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-10">
-                        <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                            Subscribe for daily update
-                        </h2>
-                        <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                            <input
-                                type="email"
-                                placeholder="Email Address"
-                                className="px-4 py-2 w-full sm:w-64 rounded-full text-black focus:outline-none focus:ring focus:ring-blue-300"
-                            />
-                            <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition duration-300">
-                                Join Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
-                        <div>
-                            <h3 className="font-semibold text-lg mb-4">
-                                About Company
-                            </h3>
-                            <p className="text-sm mb-6">
-                                Centric applications productize before front-end
-                                vortals visualize front-end is results and value
-                                added
-                            </p>
-                            <div className="flex space-x-4">
-                                <a
-                                    href="#"
-                                    className="text-xl hover:text-blue-500"
-                                >
-                                    <i className="fab fa-facebook"></i>
-                                </a>
-                                <a
-                                    href="#"
-                                    className="text-xl hover:text-blue-500"
-                                >
-                                    <i className="fab fa-twitter"></i>
-                                </a>
-                                <a
-                                    href="#"
-                                    className="text-xl hover:text-blue-500"
-                                >
-                                    <i className="fab fa-instagram"></i>
-                                </a>
-                                <a
-                                    href="#"
-                                    className="text-xl hover:text-blue-500"
-                                >
-                                    <i className="fab fa-linkedin"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-20 mb-10 mx-[13%] w-full text-black dark:text-white ">
+                        <div className="border-t border-gray-700 ">
                             <h3 className="font-semibold text-lg mb-4">
                                 Address
                             </h3>
-                            <p className="text-sm mb-2">+91 590088 55</p>
-                            <p className="text-sm mb-2">webteck@gmail.com</p>
-                            <p className="text-sm">Diamond Str, Floor No 05</p>
+                            <div className="flex flex-row space-x-5">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 384 512"
+                                    className="w-8 h-8 text-black dark:text-white"
+                                >
+                                    <path
+                                        // fill="#ffffff"
+                                        d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+                                    />
+                                </svg>
+                                <div className="flex flex-col">
+                                    {" "}
+                                    <p className="text-sm mb-2">
+                                        12 Division Park, SKY
+                                    </p>
+                                    <p className="text-sm">12546. Berlin</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
+                        <div className="border-t border-gray-700 ">
                             <h3 className="font-semibold text-lg mb-4">
-                                Company
+                                Email
                             </h3>
-                            <ul className="space-y-2">
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="text-sm hover:text-blue-500"
-                                    >
-                                        About Us
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="text-sm hover:text-blue-500"
-                                    >
-                                        Team
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="text-sm hover:text-blue-500"
-                                    >
-                                        FAQ
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="text-sm hover:text-blue-500"
-                                    >
-                                        Projects
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="text-sm hover:text-blue-500"
-                                    >
-                                        Contact Us
-                                    </a>
-                                </li>
-                            </ul>
+                            <div className="flex flex-row space-x-5">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512"
+                                    className="w-8 h-8 text-black dark:text-white"
+                                >
+                                    <path
+                                        // fill="#ffffff"
+                                        d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                                    />
+                                </svg>
+                                <div className="flex flex-col">
+                                    {" "}
+                                    <p className="text-sm mb-2">
+                                        help@webteck-mail.com
+                                    </p>
+                                    <p className="text-sm">
+                                        24/7@webteck-online.com
+                                    </p>
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
+                        <div className="border-t border-gray-700 ">
                             <h3 className="font-semibold text-lg mb-4">
-                                Get the app
+                                Phone
                             </h3>
-                            <p className="text-sm mb-4">
-                                We suggest connecting apps
-                            </p>
-                            <div className="space-y-4">
-                                <a href="#">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512"
-                                        className="w-8 h-8"
-                                    >
-                                        <path
-                                            fill="#ffffff"
-                                            d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"
-                                        />
-                                    </svg>
-                                </a>
-                                <a href="#">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512"
-                                        className="w-8 h-8 mt-5"
-                                    >
-                                        <path
-                                            fill="#ffffff"
-                                            d="M255.9 120.9l9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5 9.8 5.6 13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8H113.8c-11.3 0-20.4-9.1-20.4-20.4 0-11.3 9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218l-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5-9.8-5.6-13.1-18.1-7.5-27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4 0 11.3-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zM256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z"
-                                        />
-                                    </svg>
-                                </a>
+                            <div className="flex flex-row space-x-5">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512"
+                                    className="w-8 h-8 text-black dark:text-white"
+                                >
+                                    <path
+                                        // fill="#ffffff"
+                                        d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"
+                                    />
+                                </svg>
+                                <div className="flex flex-col">
+                                    {" "}
+                                    <p className="text-sm mb-2">
+                                        +(215) 2536-32156
+                                    </p>
+                                    <p className="text-sm">+(452) 3694-21587</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between text-sm">
+                    <div className=" border-t border-gray-700 pt-6 flex flex-row justify-between text-sm items-center mx-[35%] text-black dark:text-white">
                         <p>
                             Copyright © 2024{" "}
                             <a href="#" className="text-blue-500">
@@ -628,23 +560,6 @@ export default function Home({
                             </a>
                             . All Rights Reserved.
                         </p>
-                        <ul className="flex space-x-4 mt-4 md:mt-0">
-                            <li>
-                                <a href="#" className="hover:text-blue-500">
-                                    Terms & Condition
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-blue-500">
-                                    Careers
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-blue-500">
-                                    Privacy Policy
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </footer>
