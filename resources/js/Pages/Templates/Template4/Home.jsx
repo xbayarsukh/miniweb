@@ -42,6 +42,12 @@ export default function Home({
         }
     };
 
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleToggle = () => {
+        setIsExpanded(!isExpanded);
+    };
+
     // hero sectionees doosh rounded-none bolgoh
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -76,7 +82,7 @@ export default function Home({
                 <nav
                     className={` px-5 pr-5 ${
                         isScrolled
-                            ? "bg-gray-50 dark:!bg-blue-900"
+                            ? "bg-gray-50 dark:!bg-blue-950"
                             : "bg-gray-50 dark:!bg-gray-500 "
                     }`}
                 >
@@ -84,12 +90,13 @@ export default function Home({
                         {/* Logo Section */}
                         <a href="#" className="flex items-center">
                             <img
-                                src={
-                                    "https://wordpress.themeholy.com/webteck/wp-content/uploads/2024/02/logo.svg"
-                                }
-                                className="h-5  sm:h-8 mx-5"
+                                src={"/" + general.logo ?? ""}
+                                className="h-6 mr-3 sm:h-9"
                                 alt="Landwind Logo"
                             />
+                            <span className="self-center text-xl font-semibold whitespace-nowrap dark:!text-white">
+                                {general.title ?? ""}
+                            </span>
                         </a>
 
                         {/* Desktop Menu */}
@@ -235,7 +242,7 @@ export default function Home({
 
             {/*Service Section*/}
             <section
-                className="bg-white dark:!bg-gray-800 w-full mx-auto pb-0 md:pb-10  "
+                className="bg-white dark:!bg-gray-800 w-full mx-auto pb-10 "
                 id="service"
             >
                 <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:!text-white text-center mb-10">
@@ -245,29 +252,40 @@ export default function Home({
                 <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
                     <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3">
                         {services.map((service, index) => (
-                            <div className="items mx-8 " key={index}>
-                                <div className="group rounded-lg bg-gray-50 dark:!bg-gray-800 shadow-lg  ">
+                            <div
+                                className="flex flex-col items mx-8 h-full"
+                                key={index}
+                            >
+                                <div className="group flex flex-col h-full rounded-lg bg-gray-50 dark:!bg-gray-800 shadow-lg">
                                     <img
                                         src={"/" + service.image}
                                         alt="serviceImg"
                                         className="w-full h-56 object-cover rounded-t-lg"
                                     />
-                                    <div className="space-y-4 p-6 bg-white dark:!bg-gray-900 rounded-b-lg">
+                                    <div className="flex flex-col flex-grow  space-y-4 p-6 bg-white dark:!bg-gray-900 rounded-b-lg">
                                         <p className="text-xl font-semibold text-gray-900 dark:!text-white">
                                             {service.title}
                                         </p>
                                         <p
-                                            className="text-gray-700 dark:!text-gray-300 mt-2 text-sm text-justify"
+                                            className={`text-gray-700 dark:!text-gray-300 mt-2 text-sm text-justify ${
+                                                isExpanded ? "" : "line-clamp-2"
+                                            }`}
                                             dangerouslySetInnerHTML={{
                                                 __html: service.content,
                                             }}
                                         ></p>
-                                        <a
-                                            href="#"
-                                            className=" mt-4 text-blue-600 dark:!text-blue-400 text-sm text-center font-semibold"
-                                        >
-                                            Read Details →
-                                        </a>
+                                        {service.content.length > 10 && ( // Show the button only if the content is longer than 10 characters
+                                            <button
+                                                onClick={() =>
+                                                    setIsExpanded(!isExpanded)
+                                                }
+                                                className="mt-4 text-blue-500 focus:outline-none"
+                                            >
+                                                {isExpanded
+                                                    ? "Hide"
+                                                    : "Read More"}
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -289,11 +307,11 @@ export default function Home({
                         className="owl-theme relative"
                         loop
                         margin={20}
-                        nav={true}
-                        dots={true}
+                        nav
+                        dots
                         navText={[
-                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
-                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20 text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20 text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
                         ]}
                     >
                         {posts.map((post, index) => (
@@ -304,45 +322,30 @@ export default function Home({
                                 <div className="flex flex-row">
                                     <img
                                         src={"/" + post.image}
-                                        alt="Infrastructure & Cloud Services"
-                                        className="w-1/2 object-cover h-full rounded-t-lg m-3"
+                                        alt={`Image for ${post.title}`}
+                                        className="w-1/6  h-56 object-cover rounded-lg m-3"
                                     />
-                                    <div className="flex flex-col justify-between w-full">
-                                        <div className="p-6">
+                                    <div className="flex flex-col justify-between w-full px-0">
+                                        <div className="pt-5">
                                             <p className="text-lg font-semibold text-gray-900 dark:!text-white">
                                                 {post.title}
                                             </p>
-                                            <p className="text-lg font-semibold text-gray-900 dark:!text-white">
+                                            <p className="text-sm text-gray-700 dark:!text-gray-300 mt-2 mr-2">
                                                 {post.subtitle}
                                             </p>
                                             <a
                                                 href="#"
-                                                className="mt-4 text-blue-600 dark:!text-blue-400 text-sm font-semibold block"
+                                                className="mt-20 text-blue-600 dark:!text-blue-400 text-sm font-semibold block"
                                             >
                                                 Read Details →
                                             </a>
                                         </div>
-                                        <div className="flex flex-row p-5 border-t border-gray-900 dark:!border-white">
-                                            <div className="flex items-center gap-2 text-gray-900 dark:!text-white">
-                                                {/* <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 512 512"
-                                                        className="w-4 h-4 fill-current"
-                                                    >
-                                                        <path d="... (SVG Path here) ..." />
-                                                    </svg> */}
-                                                <span>Web</span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-gray-900 dark:!text-white ml-4">
-                                                {/* <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 512 512"
-                                                        className="w-4 h-4 fill-current"
-                                                    >
-                                                        <path d="... (SVG Path here) ..." />
-                                                    </svg> */}
-                                                <span>Date</span>
-                                            </div>
+                                        <div className="flex flex-row border-t border-gray-300 dark:!border-gray-700 text-sm text-black dark:text-white">
+                                            <span className="text-sm">
+                                                {new Date(
+                                                    post.created_at
+                                                ).toLocaleDateString()}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -353,60 +356,57 @@ export default function Home({
             </section>
 
             {/* Portfolios Section */}
-            {/* <section
-                className="bg-white dark:!bg-gray-900 w-full mx-auto pb-10  "
+            <section
+                className="bg-white dark:!bg-gray-900 w-full mx-auto pb-10"
                 id="portfolios"
             >
                 <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:!text-white text-center mb-10">
                     {JSON.parse(general.options).portfolio_title}
                 </h2>
 
-                <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 z-10">
-                    <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3">
+                <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 xl:px-6 z-10">
+                    <OwlCarousel
+                        className="owl-theme relative"
+                        loop
+                        margin={20}
+                        nav
+                        dots
+                        navText={[
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20 text-3xl md:text-4xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20 text-3xl md:text-4xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
+                        ]}
+                    >
                         {portfolios.map((portfolio, index) => (
-                            <div className="items mx-8  " key={index}>
-                                <div
-                                    className={
-                                        "group rounded-lg bg-gray-50 dark:!bg-gray-800 shadow-lg hm-auto relative"
-                                    }
-                                >
+                            <div className="items mx-8" key={index}>
+                                <div className="group rounded-lg bg-gray-50 dark:!bg-gray-800 shadow-lg relative">
                                     <img
                                         src={"/" + portfolio.image}
-                                        alt="Infrastructure & Cloud Services"
+                                        alt="portfolios"
                                         className="w-full object-cover rounded-lg"
                                     />
-                                    <div className="z-20 absolute inset-0 flex flex-col rounded-r-full bg-gray-100 rounded-lg px-20 pr-10 text-gray-900 dark:!text-gray-900 text-center font-2xl mt-[100%] bg-opacity-80  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-                                        <div className="w-[160%] ml-[-40%] rounded-r-full">
-                                            <div className="flex flex-row justify-between items-center w-full">
-                                                <div className="flex flex-col ">
-                                                    <h2 className="text-black dark:!white">
-                                                        {Portfolio.title}
-                                                    </h2>
-                                                    <p className="font-sm text-justify px-5">
-                                                        Portfolios subtitle
-                                                    </p>
-                                                </div>
 
-                                                <div className="rounded-full inline-flex bg-blue-700 p-4">
-                                                    <button>
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 448 512"
-                                                            className="fill-current text-black w-4 h-4"
-                                                        >
-                                                            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                    <div className="z-20 absolute bottom-0 left-0 right-0 flex items-center bg-gray-100 dark:!bg-gray-800 text-gray-900 dark:text-white text-center font-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <div className="w-full flex justify-between items-center">
+                                            <h2 className="text-black dark:text-white px-5 text-sm md:text-base lg:text-xl">
+                                                {portfolio.title}
+                                            </h2>
+                                            <button className="rounded-full inline-flex bg-blue-700 p-2 sm:p-4 text-sm md:text-base">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 448 512"
+                                                    className="fill-current text-black dark:text-white w-4 h-4"
+                                                >
+                                                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                                                </svg>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </OwlCarousel>
                 </div>
-            </section> */}
+            </section>
 
             {/* FAQ Section */}
             <section className="bg-white dark:!bg-gray-900 pb-10" id="faq">
@@ -416,7 +416,7 @@ export default function Home({
                     </h2>
                     {faqs.map((faq, index) => (
                         <div
-                            className="mx-auto rounded-2xl bg-gray-200 dark:!bg-gray-700"
+                            className=" rounded-2xl mx-5 bg-gray-200 dark:!bg-gray-700"
                             key={index}
                         >
                             <div className="flex justify-between items-center pr-5">

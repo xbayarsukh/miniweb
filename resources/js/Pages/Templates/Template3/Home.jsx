@@ -89,12 +89,13 @@ export default function Home({
                         {/* Logo Section */}
                         <a href="#" className="flex items-center">
                             <img
-                                src={
-                                    "https://wordpress.themeholy.com/webteck/wp-content/uploads/2024/02/logo.svg"
-                                }
-                                className="h-5  sm:h-8 mx-5"
+                                src={"/" + general.logo ?? ""}
+                                className="h-6 mr-3 sm:h-9 w-full h-12"
                                 alt="Landwind Logo"
                             />
+                            <span className="self-center text-xl font-semibold whitespace-nowrap dark:!text-white">
+                                {general.title ?? ""}
+                            </span>
                         </a>
 
                         {/* Desktop Menu */}
@@ -227,7 +228,7 @@ export default function Home({
             </section>
 
             {/* Service Section*/}
-            <section className="bg-white dark:bg-gray-900 pb-5 md:pb-10 px-10 ">
+            <section className="bg-white dark:bg-gray-900  px-10 ">
                 <div className="max-w-screen-xl px-4 py-8 mx-auto pr-0 space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
                     <div
                         className="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16"
@@ -285,55 +286,61 @@ export default function Home({
 
             {/* Post Section*/}
             <section
-                className="bg-white dark:bg-gray-800 w-full mx-auto pb-10  "
+                className="bg-white dark:bg-gray-800 w-full mx-auto pb-10"
                 id="posts"
             >
                 <h2 className="text-2xl font-semibold pt-10 text-gray-800 dark:text-white text-center mb-10">
                     {JSON.parse(general.options).news_title}
                 </h2>
 
-                <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-                    <OwlCarousel
+                <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-20">
+                    {/* <OwlCarousel
                         className="owl-theme relative"
                         loop
                         margin={20}
                         nav={true}
                         dots={true}
                         navText={[
-                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
-                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20 text-3xl md:text-4xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20 text-3xl md:text-4xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
                         ]}
-                    >
+                    > */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 text-md text-gray-700 dark:text-white">
                         {posts.map((post, index) => (
-                            <div className="items mx-8 " key={index}>
-                                <div className="group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg  ">
-                                    <img
-                                        src={"/" + post.image}
-                                        alt="postImg"
-                                        className="w-full h-56 object-cover rounded-t-lg"
-                                    />
-                                    <div className="space-y-4 p-6 bg-white dark:bg-gray-900 rounded-b-lg">
-                                        <p className="text-xl font-semibold text-gray-900 dark:text-white">
-                                            {post.title ?? ""}
-                                        </p>
-                                        <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm text-justify">
-                                            {post.subtitle ?? ""}
-                                        </p>
-                                        <a
-                                            href="#"
-                                            className=" mt-4 text-blue-600 dark:text-blue-400 text-sm text-center font-semibold"
-                                        >
-                                            Read Details →
-                                        </a>
+                            <div className="items mx-8" key={index}>
+                                <div className="flex flex-col rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg">
+                                    <div className="flex flex-col ">
+                                        <img
+                                            src={"/" + post.image}
+                                            alt="postImg"
+                                            className="w-full h-56 object-cover rounded-lg rounded-b-none"
+                                        />
+                                        <div className="space-y-4 p-6 bg-white dark:bg-gray-900 rounded-b-lg sm:rounded-r-lg sm:rounded-b-none sm:pl-8">
+                                            <p className="text-xl font-semibold text-gray-900 dark:text-white sm:text-lg">
+                                                {post.title ?? ""}
+                                            </p>
+                                            <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm text-justify">
+                                                {post.subtitle ?? ""}
+                                            </p>
+                                            <div className="flex flex-row border-t border-gray-300 dark:!border-gray-700 text-sm text-black dark:text-white">
+                                                <a
+                                                    href="#"
+                                                    className="mt-4 text-blue-600 dark:text-blue-400 text-sm  text-center font-semibold mb-0"
+                                                >
+                                                    Read Details
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
-                    </OwlCarousel>
+                    </div>
+                    {/* </OwlCarousel> */}
                 </div>
             </section>
 
-            {/* Portfolios 2 Section */}
+            {/* Portfolios Section */}
             <section
                 className="bg-white dark:bg-gray-900 w-full mx-auto pb-10  "
                 id="portfolios"
@@ -342,26 +349,26 @@ export default function Home({
                     {JSON.parse(general.options).portfolio_title}
                 </h2>
 
-                <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-                    <OwlCarousel
+                <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 xl:px-6">
+                    {/* <OwlCarousel
                         className="owl-theme relative"
                         loop
-                        // margin={20}
                         nav={true}
                         dots={true}
                         navText={[
-                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
-                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20  text-4xl md:text-5xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] left-[-15px] md:left-[-30px] lg:left-[-50px] transform -translate-y-1/2 z-20 text-3xl md:text-4xl lg:text-5xl text-black dark:text-white cursor-pointer">&lt;</div>`,
+                            `<div class="absolute top-[40%] md:top-[50%] lg:top-[50%] right-[-15px] md:right-[-30px] lg:right-[-50px] transform -translate-y-1/2 z-20 text-3xl md:text-4xl lg:text-5xl text-black dark:text-white cursor-pointer">&gt;</div>`,
                         ]}
-                    >
+                    > */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 text-md text-gray-700 dark:text-white">
                         {portfolios.map((portfolio, index) => (
-                            <div className="items mx-8 " key={index}>
-                                <div className="group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg  ">
-                                    <div className="space-y-4 p-6  rounded-b-lg">
-                                        <div className=" rounded-full inline-flex bg-white dark:bg-gray-700  p-4 mx-[40%]">
+                            <div className="items mx-8" key={index}>
+                                <div className="group rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg">
+                                    <div className="space-y-4 p-6 rounded-b-lg">
+                                        <div className="rounded-full inline-flex bg-white dark:bg-gray-700 p-4 mx-auto sm:mx-[25%] md:mx-[40%]">
                                             <img
                                                 src={"/" + portfolio.image}
-                                                className="w-8 h-8 rounded-full "
+                                                className="w-8 h-8 rounded-full"
                                                 alt="portfolio"
                                             />
                                         </div>
@@ -370,7 +377,7 @@ export default function Home({
                                             {portfolio.title ?? ""}
                                         </p>
                                         <div
-                                            className="text-gray-700 dark:text-gray-300 mt-2 text-sm text-justify pr-5 px-5"
+                                            className="text-gray-700 dark:text-gray-300 mt-2 text-sm text-justify pr-5 px-5 sm:text-base"
                                             dangerouslySetInnerHTML={{
                                                 __html: portfolio.content ?? "",
                                             }}
@@ -379,7 +386,9 @@ export default function Home({
                                 </div>
                             </div>
                         ))}
-                    </OwlCarousel>
+                        {/* </OwlCarousel>
+                         */}
+                    </div>
                 </div>
             </section>
 
@@ -443,7 +452,7 @@ export default function Home({
                 </section>
             )}
             {/**Footer */}
-            <footer className="bg-blue-100 dark:bg-blue-900 text-black  dark:text-white py-10">
+            <footer className="bg-blue-100 dark:bg-blue-950 text-black  dark:text-white py-10">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-10">
                         <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -499,7 +508,7 @@ export default function Home({
                             </div>
                         </div>
 
-                        <div>
+                        <div className="border-t border-gray-700 pt-6">
                             <h3 className="font-semibold text-lg mb-4">
                                 Address
                             </h3>
@@ -508,7 +517,7 @@ export default function Home({
                             <p className="text-sm">Diamond Str, Floor No 05</p>
                         </div>
 
-                        <div>
+                        <div className="border-t border-gray-700 pt-6">
                             <h3 className="font-semibold text-lg mb-4">
                                 Company
                             </h3>
@@ -556,7 +565,7 @@ export default function Home({
                             </ul>
                         </div>
 
-                        <div>
+                        <div className="border-t border-gray-700 pt-6">
                             <h3 className="font-semibold text-lg mb-4">
                                 Get the app
                             </h3>
@@ -564,24 +573,36 @@ export default function Home({
                                 We suggest connecting apps
                             </p>
                             <div className="space-y-4">
-                                <a href="#">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512"
-                                        className="w-8 h-8 text-black dark:text-white"
+                                <div className="flex flex-row">
+                                    <a
+                                        href="#"
+                                        className="transition-colors duration-300"
                                     >
-                                        <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
-                                    </svg>
-                                </a>
-                                <a href="#">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512"
-                                        className="w-8 h-8 mt-5 text-black dark:text-white"
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512"
+                                            className="w-8 h-8 text-black dark:text-white"
+                                        >
+                                            <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
+                                        </svg>
+                                    </a>
+                                    <p className="px-5">Play Store</p>
+                                </div>
+                                <div className="flex flex-row">
+                                    <a
+                                        href="#"
+                                        className="transition-colors duration-300"
                                     >
-                                        <path d="M255.9 120.9l9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5 9.8 5.6 13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8H113.8c-11.3 0-20.4-9.1-20.4-20.4 0-11.3 9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218l-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5-9.8-5.6-13.1-18.1-7.5-27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4 0 11.3-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zM256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z" />
-                                    </svg>
-                                </a>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512"
+                                            className="w-8 h-8 text-black dark:text-white"
+                                        >
+                                            <path d="M255.9 120.9l9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5 9.8 5.6 13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8H113.8c-11.3 0-20.4-9.1-20.4-20.4 0-11.3 9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218l-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5-9.8-5.6-13.1-18.1-7.5-27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4 0 11.3-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zM256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z" />
+                                        </svg>
+                                    </a>
+                                    <p className="px-5 pt-5">App Store</p>
+                                </div>
                             </div>
                         </div>
                     </div>
