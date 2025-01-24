@@ -482,7 +482,7 @@ export default function Home({
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 384 512"
-                                    className="w-8 h-8 text-black dark:text-white"
+                                    className="w-8 h-8 fill-black dark:fill-white"
                                 >
                                     <path
                                         // fill="#ffffff"
@@ -507,7 +507,7 @@ export default function Home({
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 512 512"
-                                    className="w-8 h-8 text-black dark:text-white"
+                                    className="w-8 h-8 fill-black dark:fill-white"
                                 >
                                     <path
                                         // fill="#ffffff"
@@ -534,7 +534,7 @@ export default function Home({
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 512 512"
-                                    className="w-8 h-8 text-black dark:text-white"
+                                    className="w-8 h-8 fill-black dark:fill-white"
                                 >
                                     <path
                                         // fill="#ffffff"
